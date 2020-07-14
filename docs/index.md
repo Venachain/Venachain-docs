@@ -13,20 +13,12 @@ PlatONE是**基于隐私计算**的新一代联盟区块链平台，以支持企
 **GitHub**:
 
 * [源代码Source Code](https://github.com/PlatONEnterprise/PlatONE-Go)
-* [问题反馈Github Issue]()
-* code contribution (待完成)
-
-**开源社区**：
-
-* [深度解析系列]()
-* [社区论坛]()
+* [问题反馈Github Issue](https://github.com/PlatONEnterprise/PlatONE-Go/issues)
 
 [应用案例集](主页面/应用案例集.md)
 
 **其他**：
 
-* 微信群？
-* 公众号？
-* B站
+* 公众号(万向区块链)
+* [B站Live](https://space.bilibili.com/28820663/)
 
-## 其他导航
