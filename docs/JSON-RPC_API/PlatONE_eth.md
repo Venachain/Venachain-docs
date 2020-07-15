@@ -3,17 +3,14 @@
 ## web3_clientVersion
 
 Returns the current client version.
-返回当前
 
 ### Parameters
 
 none
-无
 
 ### Returns
 
 `String` - The current client version.
-`String` - 当前......
 
 ### Example
 
@@ -34,8 +31,6 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],
 ## web3_sha3
 
 Returns Keccak-256 (*not* the standardized SHA3-256) of the given data.
-返回Keccak-256算法哈希后的数据。
-注：该接口并未使用sha-3标准
 
 ### Parameters
 
@@ -64,39 +59,6 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"web3_sha3","params":["0x74657374
   "id":64,
   "jsonrpc": "2.0",
   "result": "0x9c22ff5f21f0b81b113e63f7db6da94fedef11b2119b4088b89664fb9a3cb658"
-}
-```
-
-***
-
-## ~~net_version~~
-
-Returns the current network id.
-
-### Parameters
-none
-
-### Returns
-
-`String` - The current network id.
-- `"1"`: Ethereum Mainnet
-- `"2"`: Morden Testnet  (deprecated)
-- `"3"`: Ropsten Testnet
-- `"4"`: Rinkeby Testnet
-- `"5"`: Goerli Testnet
-- `"42"`: Kovan Testnet
-
-### Example
-
-```js
-// Request
-curl -X POST --data '{"jsonrpc":"2.0","method":"net_version","params":[],"id":67}'
-
-// Result
-{
-  "id":67,
-  "jsonrpc": "2.0",
-  "result": "3"
 }
 ```
 
@@ -159,7 +121,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"net_peerCount","params":[],"id":
 
 ***
 
-## eth_protocolVersion???
+## eth_protocolVersion**
 
 Returns the current ethereum protocol version.
 
@@ -193,7 +155,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"eth_protocolVersion","params":[]
 
 ***
 
-## eth_syncing???
+## eth_syncing**
 
 Returns an object with data about the sync status or `false`.
 
@@ -260,7 +222,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"eth_coinbase","params":[],"id":6
 
 ***
 
-## eth_etherbase*???
+## eth_etherbase**
 
 Returns the client etherbase address.
 
@@ -288,43 +250,16 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"eth_etherbase","params":[],"id":
 
 ***
 
-## ~~eth_mining~~
+## eth_gasPrice**
 
-Returns `true` if client is actively mining new blocks.
-
-### Parameters
-none
-
-### Returns
-
-`Boolean` - returns `true` of the client is mining, otherwise `false`.
-
-### Example
-```js
-// Request
-curl -X POST --data '{"jsonrpc":"2.0","method":"eth_mining","params":[],"id":71}'
-
-// Result
-{
-  "id":71,
-  "jsonrpc": "2.0",
-  "result": true
-}
-
-```
-
-***
-
-## eth_gasPrice???
-
-Returns the current price per gas in (**TODO**).
+Returns the current price per gas.
 
 ### Parameters
 none
 
 ### Returns
 
-`QUANTITY` - integer of the current gas price in wei.
+`QUANTITY` - integer of the current gas price.
 
 ### Example
 
@@ -418,7 +353,7 @@ params: [
 
 ### Returns
 
-`QUANTITY` - integer of the current balance in wei.
+`QUANTITY` - integer of the current balance.
 
 
 ### Example
@@ -459,7 +394,7 @@ params: [
 
 ### Returns
 
-`QUANTITY` - integer of the current balance in wei.
+`QUANTITY` - integer of the current balance.
 
 
 ### Example
@@ -481,7 +416,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getBalance","params":["0x518
 }
 ```
 
-## eth_getStorageAt (**TODO**)
+## eth_getStorageAt
 
 Returns the value from a storage position at a given address. 
 
@@ -732,7 +667,7 @@ An example how to use solidity ecrecover to verify the signature calculated with
 
 ***
 
-## eth_signTransaction*(**TODO**)
+## eth_signTransaction*
 
 The sign method calculates an Ethereum specific signature with: `sign(keccak256("\x19Ethereum Signed Message:\n" + len(message) + message)))`.
 
@@ -781,7 +716,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"eth_signTransaction","params":[<
 
 ***
 
-## eth_sendTransaction (TODO)
+## eth_sendTransaction
 
 Creates new message call transaction or a contract creation, if the data field contains code.
 
@@ -863,11 +798,11 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"eth_sendRawTransaction","params"
 
 ***
 
-## eth_resend*(**TODO**)
+## eth_resend*
 
 ***
 
-## eth_call (TODO)
+## eth_call
 
 Executes a new message call immediately without creating a transaction on the block chain.
 
@@ -1074,13 +1009,13 @@ params: [
   - `blockNumber`: `QUANTITY` - block number where this transaction was in. `null` when its pending.
   - `from`: `DATA`, 20 Bytes - address of the sender.
   - `gas`: `QUANTITY` - gas provided by the sender.
-  - `gasPrice`: `QUANTITY` - gas price provided by the sender in Wei.
+  - `gasPrice`: `QUANTITY` - gas price provided by the sender.
   - `hash`: `DATA`, 32 Bytes - hash of the transaction.
   - `input`: `DATA` - the data send along with the transaction.
   - `nonce`: `QUANTITY` - the number of transactions made by the sender prior to this one.
   - `to`: `DATA`, 20 Bytes - address of the receiver. `null` when its a contract creation transaction.
   - `transactionIndex`: `QUANTITY` - integer of the transaction's index position in the block. `null` when its pending.
-  - `value`: `QUANTITY` - value transferred in Wei.
+  - `value`: `QUANTITY` - value transferred.
   - `v`: `QUANTITY` - ECDSA recovery id
   - `r`: `QUANTITY` - ECDSA signature r
   - `s`: `QUANTITY` - ECDSA signature s
@@ -1304,7 +1239,7 @@ Result see [eth_getRawTransactionByHash](#eth_getrawtransactionbyhash)
 
 ***
 
-## eth_getTransactionReceipt (TODO)
+## eth_getTransactionReceipt
 
 Returns the receipt of a transaction by transaction hash.
 
@@ -1427,7 +1362,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"eth_pendingTransactionsLength","
 
 ***
 
-## eth_newFilter (TODO)
+## eth_newFilter
 
 Creates a filter object, based on filter options, to notify when the state changes (logs).
 To check if the state has changed, call [eth_getFilterChanges](#eth_getfilterchanges).
@@ -1477,7 +1412,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"eth_newFilter","params":[{"topic
 
 ***
 
-## eth_newBlockFilter (TODO)
+## eth_newBlockFilter
 
 Creates a filter in the node, to notify when a new block arrives.
 To check if the state has changed, call [eth_getFilterChanges](#eth_getfilterchanges).
@@ -1508,7 +1443,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"eth_newBlockFilter","params":[],
 
 ***
 
-## eth_newPendingTransactionFilter (TODO)
+## eth_newPendingTransactionFilter
 
 Creates a filter in the node, to notify when new pending transactions arrive.
 To check if the state has changed, call [eth_getFilterChanges](#eth_getfilterchanges).
@@ -1535,7 +1470,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"eth_newPendingTransactionFilter"
 
 ***
 
-## eth_uninstallFilter (TODO)
+## eth_uninstallFilter
 
 Uninstalls a filter with given id. Should always be called when watch is no longer needed.
 Additonally Filters timeout when they aren't requested with [eth_getFilterChanges](#eth_getfilterchanges) for a period of time.
@@ -1570,7 +1505,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"eth_uninstallFilter","params":["
 
 ***
 
-## eth_getFilterChanges (TODO)
+## eth_getFilterChanges
 
 Polling method for a filter, which returns an array of logs which occurred since last poll.
 
@@ -1629,7 +1564,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getFilterChanges","params":[
 
 ***
 
-## eth_getFilterLogs (TODO)
+## eth_getFilterLogs
 
 Returns an array of all logs matching filter with given id.
 
@@ -1658,7 +1593,7 @@ Result see [eth_getFilterChanges](#eth_getfilterchanges)
 
 ***
 
-## eth_getLogs (TODO)
+## eth_getLogs
 
 Returns an array of all logs matching a given filter object.
 
