@@ -42,7 +42,7 @@ pages:
         - SDK/JAVA-SDK.md
 - 浏览器: 浏览器/区块链浏览器配置.md
 - JSON-RPC API:
-    - JSON RPC: JSON-RPC_API/PlatONE RPC APIs.md
+    - JSON RPC: JSON-RPC_API/PlatONE_RPC_APIs.md
     - eth Namespace: JSON-RPC_API/PlatONE_eth.md
     - istanbul Namespace: JSON-RPC_API/PlatONE_Istanbul.md
     - admin Namespace: JSON-RPC_API/PlatONE_admin.md
