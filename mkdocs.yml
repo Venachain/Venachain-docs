@@ -15,7 +15,7 @@ pages:
         - '编译及部署': '操作手册/合约开发/合约开发-编译及部署.md'
         - 'cdt开发工具': '操作手册/合约开发/合约开发-cdt开发工具.md'
         - 'cpp合约开发': '操作手册/合约开发/合约开发-cpp合约开发.md'
-        - 'solidity合约开发': '操作手册/合约开发/合约开发-solidity开发.md'
+#        - 'solidity合约开发': '操作手册/合约开发/合约开发-solidity开发.md'
     - 链工具:
         - 脚本platonectl.sh: 操作手册/链工具/脚本scripts/Platonectl.sh操作手册.md
         - ctool: 操作手册/链工具/命令行cmd/ctool/ctool操作手册.md
@@ -28,8 +28,8 @@ pages:
     - 智能合约:
         - PlatONE系统设计/重要功能/智能合约/智能合约概要.md
         - PlatONE系统设计/重要功能/智能合约/合约数据迁移.md
-        - PlatONE系统设计/重要功能/智能合约/自定义Gas扣费功能.md
-        - PlatONE系统设计/重要功能/智能合约/隐私密码货币.md
+#        - PlatONE系统设计/重要功能/智能合约/自定义Gas扣费功能.md
+#        - PlatONE系统设计/重要功能/智能合约/隐私密码货币.md
         - 虚拟机:
             - Wasm虚拟机: PlatONE系统设计/重要功能/智能合约/WASM虚拟机.md
             - EVM虚拟机: PlatONE系统设计/重要功能/智能合约/EVM虚拟机.md
@@ -48,11 +48,15 @@ pages:
     - admin Namespace: JSON-RPC_API/PlatONE_admin.md
     - personal Namespace: JSON-RPC_API/PlatONE_personal.md
     - txpool Namespace: JSON-RPC_API/PlatONE_txpool.md
-    - debug Namespace: JSON-RPC_API/PlatONE_debug.md
+#    - debug Namespace: JSON-RPC_API/PlatONE_debug.md
 - 应用案例: 主页面/应用案例集.md
 - 常见问题: 常见问题解答/常见问题解答.md
 
-theme: windmill
+theme:
+    name: windmill
+    custom_dir: sources
+
+docs_dir: docs
 
 # solve numbering equation display
 markdown_extensions:
