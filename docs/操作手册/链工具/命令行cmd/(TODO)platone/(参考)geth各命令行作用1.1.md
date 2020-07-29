@@ -372,3 +372,6 @@ geth [选项] 命令 [命令选项] [参数…]
 13. `export-preimages`   从RLP编码的流导入hash预镜像
     1.  geth --datadir ./data1 import-preimages exportPreImage
 
+------
+<font Size=1>Edit by PlatONE Team 2020-07-29</font>
+

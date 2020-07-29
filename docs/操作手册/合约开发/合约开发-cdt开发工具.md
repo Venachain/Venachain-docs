@@ -111,3 +111,6 @@ gcc&g++版本太低导致，请升级版本
 ## License
 
 GNU General Public License v3.0, see [LICENSE](https://github.com/platonenetwork/platone-CDT/blob/master/LICENSE).
+------
+<font Size=1>Edit by PlatONE Team 2020-07-29</font>
+
