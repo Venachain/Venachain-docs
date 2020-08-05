@@ -11,3 +11,6 @@ PlatONE暴露了一系列RPC接口供外部调用，上层业务程序可以SDK�
 - 组员管理
 - 权限设置
 
+------
+<font Size=1>Edit by PlatONE Team 2020-07-29</font>
+

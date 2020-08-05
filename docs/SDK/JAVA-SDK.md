@@ -306,56 +306,74 @@ Web3j web3j = Web3j.build(ws);
 
 ### 3.3 订阅事件
 
-1. 订阅区块:
+#### 3.3.1 订阅区块:
 
-   在新区块产生时，client可以得到节点的区块数据推送。
+在新区块产生时，client可以得到节点的区块数据推送。
 
-   ```java
+```java
+    Subscription sub = web3j.blockObservable(false).subscribe( block -> {
+        System.out.println(block.getBlock().getNumber());
+    });
+```
 
-        Subscription sub = web3j.blockObservable(false).subscribe( block -> {
-            System.out.println(block.getBlock().getNumber());
-        });
-   ```
+#### 3.3.2 订阅event:
 
-2. 订阅event:
+在合约中可以自定义事件，client通过订阅事件的方式来获悉合约调用中所触发的事件。
 
-   在合约中可以自定义事件，client通过订阅事件的方式来获悉合约调用中所触发的事件。
+合约中定义如下的event，每次setName被调用时，就会触发该event。
 
-   合约中定义如下的event，每次setName被调用时，就会触发该event。
+```cpp
+// event定义
+BCWASM_EVENT(setName，const char *)
 
-   ```c++
+void setName(const char *msg)
+{
+    // 定义状态变量
+    bcwasm::setState("NAME_KEY"，int, std::string(msg));
+    // 日志输出
+    // 事件返回
+    BCWASM_EMIT_EVENT(setName，2020, "std::string(msg)");
+}
+```
 
-    // event定义
-    BCWASM_EVENT(setName，const char *)
+在Java合约框架中会生成与`setName`事件相关数据结构与接口，在服务层可以通过JavaSDK，监听该事件，示例代码如下：
 
-    void setName(const char *msg)
-    {
-        // 定义状态变量
-        bcwasm::setState("NAME_KEY"，std::string(msg));
-        // 日志输出
-        // 事件返回
-        BCWASM_EMIT_EVENT(setName，"std::string(msg)");
-    }
-   ```
+```java
+String contractAddress = "0x1d7f2695b43be56f52f24baa199420f8c10ac1d3";
+String eventHash = Hash.sha3String("setName");
 
-   ```java
+EthFilter filter = new EthFilter(DefaultBlockParameterName.EARLIEST,DefaultBlockParameterName.LATEST,contractAddress).addSingleTopic(eventHash);
 
-    String contractAddress = "0x1d7f2695b43be56f52f24baa199420f8c10ac1d3";
-    String eventHash = Hash.sha3String("setName");
+Subscription subTx = demo.setNameEventObservable(filter).subscribe(
+        r -> {
+            System.out.println(r.param1);
+            System.out.println(r.param2);
+        }
+);
+```
 
-    EthFilter filter = new EthFilter(DefaultBlockParameterName.EARLIEST，DefaultBlockParameterName.LATEST，contractAddress).addSingleTopic(eventHash);
+说明：Filter实例化的输入，第三个是合约的地址，第四个是Topic的哈希值（SHA-3），返回结果中log的Data字段是事件值的rlp编码。
 
-    Subscription subTx = web3j.ethLogObservable(filter).subscribe(log -> {
-        System.out.println("output: " + log.getData());
-    }
-   ```
+### 3.4 根据Receipt，获取Event事件内容
 
-   说明：Filter实例化的输入，第三个是合约的地址，第四个是Topic的哈希值（SHA-3），返回结果中log的Data字段是事件值的rlp编码。
+```java
+    // 调用demo合约的setName方法，参数输入字符串"platone"
+    TransactionReceipt ret = demo.setName("platone").send();
+    System.out.println("Transaction Hash: "+ret.getTransactionHash());
 
-### 3.4 web3 api调用
+    // 根据receipt获取event数据
+    List<Demo.SetNameEventResponse> eventParams = demo.getSetNameEvents(ret);
+    System.out.println(eventParams.get(0).param1); // Event中第一个参数
+    System.out.println(eventParams.get(0).param2); // Event中第二个参数
+```
+
+### 3.5 web3 api调用
 
 ```java
 web3j.ethBlockNumber(); // 当前最新区块高度
 web3j.ethGetTransactionByHash("0x..."); // 根据交易哈希多去交易内容
 web3j.ethGetTransactionReceipt("0x..."); // 根据交易哈希获取交易的回执
 ```
+------
+<font Size=1>Edit by PlatONE Team 2020-07-29</font>
+
