@@ -411,6 +411,5 @@ while(0)
 4. wasm合约内置库中的u256类型转换字符串类型需要进行如下调用：
 ```
 u256value.convert_to<std::string>()
-```------
-<font Size=1>Edit by PlatONE Team 2020-07-29</font>
+```
 

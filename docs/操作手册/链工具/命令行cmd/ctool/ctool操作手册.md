@@ -86,6 +86,5 @@ e.g: ./ctool getTxReceipt -hash <transaction_hash> -config "../config.json"
 # 开启防火墙
 e.g: ./ctool fwInvoke --addr "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --func '__sys_FwOpen()' --config "../config.json"
 ```
-------
-<font Size=1>Edit by PlatONE Team 2020-07-29</font>
+
 

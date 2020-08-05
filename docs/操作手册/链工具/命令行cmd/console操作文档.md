@@ -276,6 +276,5 @@
     此命令搭建一个4节点网络，其中node0和node1会额外组建一个链组group1，网络搭建完成后，console配置默认指向node0。若要与其他节点交互，请重启console并指定对应的配置文件。
     ``` shell
     ./console.py --config ../conf/config_1.json
-    ```------
-<font Size=1>Edit by PlatONE Team 2020-07-29</font>
+    ```
 

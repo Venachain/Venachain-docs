@@ -112,6 +112,5 @@ Recovered address: 0x8B5d3Af7bF4d309D4C83Ed30936f78FBB1AcAA18
 ```
 
 注：上述命令的地址和签名需要改成你自己的对应的地址和签名，message内容可以改成你需要签名打内容，但是需要保持第五解和第六节打message内容一致。
-------
-<font Size=1>Edit by PlatONE Team 2020-07-29</font>
+
 

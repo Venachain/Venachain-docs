@@ -54,7 +54,6 @@ pages:
 
 theme:
     name: windmill
-    custom_dir: sources
 
 docs_dir: docs
 

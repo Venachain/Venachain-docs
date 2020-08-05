@@ -312,6 +312,5 @@ init OPTIONS
         --nodeid, -n                 为指定节点创建帐户
         --help, -h                   显示帮助
 ```
-------
-<font Size=1>Edit by PlatONE Team 2020-07-29</font>
+
 

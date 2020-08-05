@@ -374,6 +374,5 @@ web3j.ethBlockNumber(); // 当前最新区块高度
 web3j.ethGetTransactionByHash("0x..."); // 根据交易哈希多去交易内容
 web3j.ethGetTransactionReceipt("0x..."); // 根据交易哈希获取交易的回执
 ```
-------
-<font Size=1>Edit by PlatONE Team 2020-07-29</font>
+
 
