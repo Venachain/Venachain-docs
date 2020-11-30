@@ -24,7 +24,7 @@ sudo apt install build-essential cmake libz-dev libtinfo-dev
 - 获取源码
 
 ```shell
-git clone https://172.16.211.192/PlatONE/src/node/PlatONE-CDT.git
+暂未开源，如有需要，请联系我们
 ```
 
 - 执行编译
@@ -44,7 +44,7 @@ Files"或"Program Files(x86)目录"), 否则编译失败.
 - 获取源码
 
 ```shell
-git clone https://172.16.211.192/PlatONE/src/node/PlatONE-CDT.git
+暂未开源，如有需要，请联系我们
 ```
 
 - 执行编译
