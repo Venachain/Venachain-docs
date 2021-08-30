@@ -33,19 +33,26 @@ devtoolset-7，保存并退出即可。
 1.2. git相关
 ^^^^^^^^^^^^
 
-关闭SSL检查：
+1) 命令行输入以下命令, 或者设置为环境变量。
 
--  git clone 时提示Peer’s certificate issuer has been marked as not
-   trusted by the user; 
+   .. code:: bash
+
+      REPO_ADDR_HTTP="https://git-c.i.wxblockchain.com/PlatONE/src/node/PlatONE-Go.git"
+      REPO_ADDR_GIT="git@git-c.i.wxblockchain.com:PlatONE/src/node/PlatONE-Go.git"
+
+
+2) 关闭SSL检查：
+
+   -  git clone 时提示Peer’s certificate issuer has been marked as not trusted by the user; 
   
-- 解决方案：在/etc/profile文件的最后一行加入``export GIT_SSL_NO_VERIFY=1``，再``source``一下即可
+   - 解决方案：在/etc/profile文件的最后一行加入\ ``export GIT_SSL_NO_VERIFY=1``\ ，再\ ``source``\ 一下即可
 
-.. code:: bash
+   .. code:: bash
 
-   sudo vi /etc/profile
-   …
-   export GIT_SSL_NO_VERIFY=1
-   source /etc/profile
+      sudo vi /etc/profile
+      …
+      export GIT_SSL_NO_VERIFY=1
+      source /etc/profile
 
 1.3. 源码下载与编译
 ^^^^^^^^^^^^^^^^^^^
@@ -103,7 +110,7 @@ devtoolset-7，保存并退出即可。
    --p2p_port        node p2p_port (default: 16791)
    --interpreter, -i evm， wasm or all （default: wasm）
 
-上面的命令，首先会在\ :math:`{WORKSPACE}/data/node-0目录下，生成节点的公私钥、IP端口等信息。 然后在`\ {WORKSPACE}/conf目录下生成一个genesis.json文件。
+上面的命令，首先会在\ ``{WORKSPACE}/data/node-0``\ 目录下，生成节点的公私钥、IP端口等信息。 然后在\ ``{WORKSPACE}/conf``\ 目录下生成一个\ ``genesis.json``\ 文件。
 
 .. code:: bash
 
@@ -206,10 +213,9 @@ devtoolset-7，保存并退出即可。
 在\ ``PlatONE-Go/build/bin``\ 目录下创建genesis.json文件：
 
 -  validatorNodes,observeNodes中enode格式为‘enode://publicKey@ip:p2p_port’,
-   需把在3.1.1中的
-   ``4)``\ 小节中生成的节点publicKey替换此enode中publicKey。ip和p2p_port可以根据情况自定义。
--  coinbase账户地址在3.1.1章的第\ ``2)``\ 小节生成，需加上\ ``0x``\ 前缀。
--  alloc：为用户账户地址分配金额。用户账户地址在3.1.1章的第\ ``2)``\ 小节生成，需加上\ ``0x``\ 前缀。
+   需把``4)``\ 小节中生成的节点publicKey替换此enode中publicKey。ip和p2p_port可以根据情况自定义。
+-  coinbase账户地址在第\ ``2)``\ 小节生成，需加上\ ``0x``\ 前缀。
+-  alloc：为用户账户地址分配金额。用户账户地址在第\ ``2)``\ 小节生成，需加上\ ``0x``\ 前缀。
 -  0x0000000000000000000000000000000000000011为系统管理合约,
    此为固定地址。
 -  code：为上一步中所获取的cnsProxy合约的字节码。
@@ -426,7 +432,7 @@ devtoolset-7，保存并退出即可。
 
 2) platone 与log相关的启动参数
 
-启动platone时, 指定\ ``--moduleLogParams``
+启动platone时, 指定\ ``--moduleLogParams``\ 
 参数可以把platone的log分块写入文件。
 
 .. code:: bash
@@ -457,7 +463,7 @@ devtoolset-7，保存并退出即可。
 ----------------
 
 【方法一】执行脚本
-z>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>
 
 创建管理员账号并部署系统合约
 
@@ -468,8 +474,6 @@ z>>>>>>>>>>>>>>>>>
 本步骤会首先在节点侧创建一个账号，需要手动输入密码，该账号即为链的超级管理员。然后，使用该账号向链部署系统合约。
 
 如果创建账号时，跳过手动输入密码的过程，可以加上\ ``--auto true``\ ，这样就可以使用默认密码\ ``0``\ 创建账号。
-
-至此，一个单节点的PlatONE联盟链搭建完毕。
 
 【方法二】执行命令行
 >>>>>>>>>>>>>>>>>>>>
@@ -554,6 +558,9 @@ z>>>>>>>>>>>>>>>>>
    ctool deploy --config ctool.json --code nodeManager/nodeManager.wasm --abi nodeManager/nodeManager.cpp.abi.json
    # 部署nodeRegister系统合约
    ctool deploy --config ctool.json --code nodeRegister/nodeRegister.wasm --abi nodeRegister/nodeRegister.cpp.abi.json
+   
+至此，一个单节点的PlatONE联盟链搭建完毕。
+
 
 3. 多机部署（适用于生产环境/多机测试环境）
 ==========================================

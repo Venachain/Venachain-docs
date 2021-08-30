@@ -13,6 +13,8 @@ PlatONE同时支持EVM和WASM两种类型智能合约虚拟机，其中EVM虚拟
 
 .. image:: ../../images/design/sm_vmTopo.png
 
+.. _evm:
+
 2.EVM虚拟机
 ===========
 
@@ -251,6 +253,8 @@ available in assembly.
 6) https://blog.trustlook.com/understand-evm-bytecode-part-1/
 7) https://www.ratingtoken.net/news/41b22c70febd11e8a867795a7618abd3
 8) http://qyuan.top/2019/09/12/evm/
+
+.. _wasm:
 
 3. Wasm虚拟机
 =============

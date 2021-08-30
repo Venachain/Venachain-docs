@@ -2,6 +2,8 @@
 密码学方案
 ==========
 
+.. _sm2:
+
 1. 国密sm2算法
 ==============
 
@@ -245,14 +247,9 @@ PS：上述步骤省略了校验步骤。
       1) 计算\ :math:`H_{a_i} = H_v(Z|| ct)`
       2) ct ++
          //之所以要计数器++，是为了满足最终KDF的输出是均匀随机的，如果不加的话，则每次hash输出的都是同一个值。
-      3) 若 \ :math:`klen/v`\ 是整数，则 $H_a!\ *{:raw-latex:`\lceil `klen/v
-         :raw-latex:`\rceil`} =H*\ {a_{:raw-latex:`\lceil `klen/v
-         :raw-latex:`\rceil`}} $，否则
-         $H_a!\ *{:raw-latex:`\lceil `klen/v :raw-latex:`\rceil`}
-         :math:`为`\ H*\ {a_{:raw-latex:`\lceil `klen/v
-         :raw-latex:`\rceil`}} :math:`最左边的(`\ klen - (v
-         :raw-latex:`\times `:raw-latex:`\lfloor `klen/v
-         :raw-latex:`\rfloor`)$)比特
+      3) 若 \ :math:`klen/v`\ 是整数，
+         则 \ :math:`H_{a!_{\lceil klen/v \rceil}} = H_{a_{\lceil klen/v \rceil}}`\ ，
+         否则 \ :math:`H_{a!_{\lceil klen/v \rceil}}`\ 为 \ :math:`H_{a_{\lceil klen/v \rceil}}`\ 最左边的\ :math:`(klen - (v \times \lfloor klen/v \rfloor))`\ 比特
 
    3) :math:`K = H_{a_1} || H_{a_2}||...||H_{a_{\lceil klen/v \rceil-1}} || H_a!_{\lceil klen/v \rceil}`
 
@@ -301,6 +298,8 @@ B6：计算\ :math:`u = Hash(x_2 ∥ M′ ∥ y_2)`\ ，检验\ :math:`u = C_3`\
 
 B7：输出明文\ :math:`M'`
 
+.. _pre:
+
 2. 代理重加密PRE
 ================
 
@@ -319,6 +318,8 @@ B7：输出明文\ :math:`M'`
 -  Bob直接下载重加密后的文件，并使用自己的私钥对数据进行解密。
 
 .. figure:: ../../images/design/crypto_pre.png
+
+.. _zero-knowledge:
 
 3. 零知识证明
 =============

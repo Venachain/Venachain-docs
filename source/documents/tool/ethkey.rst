@@ -128,4 +128,4 @@ keyfile.json文件的内容如下所示：
    Recovered public key: 04f7acbc87ddf0da6edbd3ac86f81ebac69992cd4b40897855322c5c4ed029cacd5e1b9ef5b78d66576de68041689702fe5a893cae5f46def58e25738efa2ff801
    Recovered address: 0x8B5d3Af7bF4d309D4C83Ed30936f78FBB1AcAA18
 
-.. note:：上述命令的地址和签名需要改成你自己的对应的地址和签名，message内容可以改成你需要签名打内容，但是需要保持第五解和第六节打message内容一致。
+.. note:: 上述命令的地址和签名需要改成你自己的对应的地址和签名，message内容可以改成你需要签名打内容，但是需要保持第五节和第六节打message内容一致。

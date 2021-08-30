@@ -31,7 +31,8 @@ Ubuntu
 
 -  获取源码
 
-   暂未开源，如有需要，请联系我们
+   git clone https://git-c.i.wxblockchain.com/PlatONE/src/node/PlatONE-CDT.git
+
 
 -  执行编译
 
@@ -52,7 +53,9 @@ Files(x86)目录”), 否则编译失败.
 
 -  获取源码
 
-   暂未开源，如有需要，请联系我们
+.. code:: bash
+
+   git clone https://git-c.i.wxblockchain.com/PlatONE/src/node/PlatONE-CDT.git
 
 -  执行编译
 
@@ -111,8 +114,8 @@ Files(x86)目录”), 否则编译失败.
          cd cmake_example/build
          cmake .. -G "MinGW Makefiles" -Dplatone_CDT_ROOT=<cdt_install_dir>
 
-3. Trouble shotting
-===================
+3. 故障处理
+===========
 
 .. code:: console
 
