@@ -49,6 +49,8 @@
 
 - ``--gas-price <num>``: 设置执行链交互命令时单位gas所需消耗的XX数量。
 
+.. _account::
+
 1. 用户操作 account
 ========================
 
@@ -185,6 +187,8 @@
         "authorizer":"0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18",
         "name":"Alice"
       }
+
+.. _cns::
 
 2. 合约命名系统 cns
 =======================
@@ -417,10 +421,14 @@
       # 未注册
       result: the contract is not registered in CNS
 
+.. _contract::
+
 3. 合约操作 contract
 =========================
 
 针对合约的相关操作
+
+.. _contract_execute::
 
 3.1 合约调用 contract execute
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -494,36 +502,11 @@
       function: atransfer2(from string,to string,asset int32) string
       function: adcall(from string,to string,asset int32)
       function: adcallInt64(from string,to string,asset int32) int32
-      function: adcallString(from string,to string,asset int32 string    
+      function: adcallString(from string,to string,asset int32 string
 
-3.3 合约迁移 contract migrate(功能已删除)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. _contract_deploy::
 
-**描述**: 将旧合约的数据迁移到新合约中。
-
-**参数**:
-
-- 必选参数:
-
-.. code:: bash
-
-      <address>:  旧合约账户地址
-      <to>:       新合约账户地址
-
-**操作**:
-
-.. code:: bash
-
-      ./platonecli contract migrate ${destination_contract_addr} ${source_contract_addr} --keyfile ../conf/keyfile.json 
-
-**输出结果**\:
-
-.. code:: console
-
-      # 同步查询
-      result: Operation Success
-
-3.4 合约部署 contract deploy
+3.3 合约部署 contract deploy
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **描述**: 合约部署者将编写好的合约部署到链上。支持wasm虚拟机合约和evm虚拟机合约部署。
@@ -588,7 +571,7 @@
       - 查询超时
       - 交易执行失败，状态码为0x0
 
-3.5 回执查询 contract receipt
+3.4 回执查询 contract receipt
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **描述**: 根据交易的哈希值查询交易回执。
@@ -625,6 +608,9 @@
         "logs": [],
         "status": "0x1"
         }
+
+.. _firewall::
+
 
 4. 防火墙服务 fw
 =====================
@@ -993,6 +979,7 @@
 
       result: Operation Succeeded
 
+.. _node::
 
 5. 节点操作 node
 =====================
@@ -1235,6 +1222,8 @@
 
       ## 开启rest服务器
       ./platonecli rest
+
+.. _role::
 
 7. 角色权限操作 role
 ========================
@@ -1479,6 +1468,8 @@
 .. code:: console
 
       ["SUPER_ADMIN"]
+
+.. _sysconfig::
 
 8. 系统参数操作 sysconfig
 ==================================

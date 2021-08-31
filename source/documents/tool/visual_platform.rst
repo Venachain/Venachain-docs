@@ -17,9 +17,9 @@ PlatONE可视化运维管理平台是集区块浏览器、系统配置管理、�
 
 在部署可视化平台前，必须有至少一个节点正在运行，由于可视化平台要支持节点部署与启动、多链群组管理等功能，因此需用最新的搭链脚本\ ``console.py``\ 进行节点部署。
 
-注意：可视化平台只支持PlatONE 1.0及以后的版本。
+.. note:: 可视化平台只支持PlatONE 1.0及以后的版本。
 
--  `PlatONE新版群组console说明文档 <../命令行cmd/console操作文档.md>`__
+-  `console说明文档 <./console.rst>`__
 
 1.2.1. PlatONE REST Server部署
 ----------------------------------
@@ -60,7 +60,7 @@ PlatONE可视化运维管理平台是集区块浏览器、系统配置管理、�
 
 在\ ``PlatONE REST Server``\ 启动目录下新建\ ``keystore``\ 文件夹，将管理员密钥文件拷贝过去，现在管理员密钥就在本服务的控制下啦，请接着将相关信息写进\ ``config.json``\ 并启动服务。
 
--  `相关文档 <https://git-c.i.wxblockchain.com/PlatONE/doc/Dev/tree/develop/system-design/platonecli/system-design>`__
+- `相关文档 <https://git-c.i.wxblockchain.com/PlatONE/doc/Dev/tree/develop/system-design/platonecli/system-design>`__
 
 1.2.2. PlatONE Data Manager部署
 ------------------------------------
@@ -85,9 +85,9 @@ PlatONE可视化运维管理平台是集区块浏览器、系统配置管理、�
 
 服务启动后默认监听端口8000
 
--  `PlatONE Data
+- `PlatONE Data
    Manager部署文档 <https://git-c.i.wxblockchain.com/PlatONE/src/node/PlatONE-Go/blob/feature/precompiled-system-contract/cmd/data-manager/doc/%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3.md>`__
--  `PlatONE Data
+- `PlatONE Data
    Manager设计文档合集 <https://git-c.i.wxblockchain.com/PlatONE/src/node/PlatONE-Go/tree/feature/precompiled-system-contract/cmd/data-manager/doc>`__
 
 1.2.3. PlatONE API Server部署
@@ -114,9 +114,9 @@ PlatONE可视化运维管理平台是集区块浏览器、系统配置管理、�
    ## 在当前目录配置文件中填入必要信息，然后
    ./apiserver
 
--  `PlatONE API
+- `PlatONE API
    Server部署文档 <https://git-c.i.wxblockchain.com/PlatONE/src/node/platone-manager/platone-api-server/blob/master/README.md>`__
--  `PlatONE API
+- `PlatONE API
    Server接口文档 <https://git-c.i.wxblockchain.com/PlatONE/src/node/platone-manager/platone-api-server/blob/master/doc/api-server.md>`__
 
 服务启动后，默认监听端口9999；初次启动时，需要初始化一个系统管理员账号，用GET方式访问初始化端口:
@@ -151,7 +151,7 @@ Server部署时配置过），\ ``Passphrase``\ 为解锁私钥文件的密码�
 
 前端默认端口为8080
 
--  `演示入口 <http://10.250.122.10:8080/>`__
+- `演示入口 <http://10.250.122.10:8080/>`__
 
 1.2.5. PlatONE Monitor部署
 -----------------------------
@@ -179,7 +179,7 @@ Server部署时配置过），\ ``Passphrase``\ 为解锁私钥文件的密码�
    ## 在当前目录配置文件中填入必要信息，然后
    ./monitor
 
--  `接口文档 <https://git-c.i.wxblockchain.com/PlatONE/src/node/platone-manager/platone-monitor/blob/master/server/proto/monitor.proto>`__
+- `接口文档 <https://git-c.i.wxblockchain.com/PlatONE/src/node/platone-manager/platone-monitor/blob/master/server/proto/monitor.proto>`__
 
 2. 使用说明
 ==============
