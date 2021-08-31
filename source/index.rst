@@ -69,11 +69,11 @@ PlatONE是\ **基于隐私计算**\ 的新一代联盟区块链平台，以支�
    
    documents/tool/platonectl.rst
    documents/tool/cdt.rst
-   documents/tool/ctool.rst
+   documents/tool/platonecli.rst
    documents/tool/ethkey.rst
    documents/tool/console.rst
    documents/tool/browser.rst
-   
+   documents/tool/visual_platform.rst
    
 .. toctree::
    :maxdepth: 10

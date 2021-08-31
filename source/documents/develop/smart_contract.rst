@@ -1119,76 +1119,219 @@ PlatONE支持新旧合约之间的数据迁移，以保证合约升级时原有�
 6. 隐私代币合约使用指南
 =======================
 
-6.1. 概述
-^^^^^^^^^
+6.1. wasm代币合约部署与调用
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-该代币合约利用同态加密和零知识证明来隐藏用户在代币合约中的余额和交易过程中的金额。为了在保证代币合约中资产安全性的前提下，达到保护用户隐私的需求，用户在使用隐私代币合约时，需要使用线下工具生成同态加密算法的公私钥和交易过程中的零知识证明。目前，已有同态加密和零知识证明的算法库和工具，供合约调用和用户线下使用。
-
-6.2. 流程描述
-^^^^^^^^^^^^^
-
-流程包括代币生成（初始化），用户注册（向token合约注册自己的公钥），代币交易。上述过程需要线下和线上（合约调用）两个部分配合。
-
--  初始化
-
-   在token合约部署时需要代币发行方预先利用nizkpail（线下工具）生成自己的代币账户公钥，并预先给该账户分配待发行的所有代币（金额明文和密文）。
-
--  注册
-
-   用户需要预先在本地生成paillier算法的公私钥对，并将公钥上传到token合约进行注册，合约检查后（长度和编码格式），生成该公钥对应的初始账户状态（金额为0的密文）
-
--  转账
-
-   转账过程需要交易sender线下生成该笔交易的零知识证明，并将该证明作为转账交易的输入，供合约验证，合约在验证该证明后，才对交易双方的账户状态进行更新（金额密文，需要使用同态加减）。
-
-6.3. 操作演示
-^^^^^^^^^^^^^
-
-6.3.1. 合约部署者公私钥 Deployer key
-------------------------------------
+6.1.1. wasm合约部署
+--------------------
 
 .. code:: bash
 
-   pubkey:
-   XZo30iKb0xe5wsUU57y+h/Z5mGEwpED3By8XZwlvq0CWBvcPscTBkh/ImGTbjinWZEZA9IWfIvWqGDPCOt6GIdn/INW+1eu3w89cOok8VPBezOo9YunV/PtGtvnA8DNF/iBKyus4q0qVsoAX5c2odwTCkLBv+uGLcWstE68vgGUiOWl14iLSNPaLSTBb4xABfbmb76+v823kRjXzqzlP5oaFecCav48+MlCmWQGfI0bZbu/sg97z5cP7TmfWWB8uc7HpXx4KyjPaSFAx5S5+65EuIYn6frCirulEVXMsTOyESSUPiqSpbJMzmzb7K2T9X/grtXJoZiuf6+fwcvcEH1/q7yP9Inm1sO6A1zSV+I6T+EmP+5WtIhJ+ioNI88P9m09L0Ndeyw3GouD1VAjPsw6qIg+ysWYgjo5YZfEc5vo3o0GUgFrjICekm13qeyr4YmOzJfM0yG7TLcGdptVwZDU4nAS1AnpLObMiyzc97cvxEtz6L5dF1qqAi1h7eyfZXZo30iKb0xe5wsUU57y+h/Z5mGEwpED3By8XZwlvq0CWBvcPscTBkh/ImGTbjinWZEZA9IWfIvWqGDPCOt6GIdn/INW+1eu3w89cOok8VPBezOo9YunV/PtGtvnA8DNF/iBKyus4q0qVsoAX5c2odwTCkLBv+uGLcWstE68vgGY=
+   ./platonecli contract deploy ./SysContracts/build/appContract/BcToken/BcToken.wasm --abi ../SysContracts/build/appContract/BcToken/BcToken.cpp.abi.json --keyfile ../../release/linux/data/node-0/keystore/UTC--2020-08-28T06-01-22.648120896Z--55b3d5f67010b314ebcdd46ef9e420da499c1596 --default
 
-   seckey:
-   XZo30iKb0xe5wsUU57y+h/Z5mGEwpED3By8XZwlvq0CWBvcPscTBkh/ImGTbjinWZEZA9IWfIvWqGDPCOt6GIKPKiL1kPLS76xThY2EuLDDqV4G5RZARfPYhdR6OAhwp6xqsFA53rGNFs3h2Sh6GOv7yyQPzyULSCoZ587Or1iwLFWuhGQ2XPR4bjE5tcbjV7WMsfM6OM4bIFLFQ/XVyuMLtTrFnjqRS44QGBElW8rLcNe1ZI/QvCzaILpsman++rAXzhemc9a/5K9KDJDzwQCK5B7oa9lcf8QKU74rXgASnda7lIPk7xmKkA/GQAhlmx3rUHHpJ9eEqMYoX4G/Tpg==
+.. code:: console
 
-6.3.2. 部署隐私代币合约 Deploy contract
----------------------------------------
+   wasm合约地址：0xbc74aca12aa33c4b0f51a8dc92a00d0c3699db6f
 
-.. code:: bash
-
-   ctool deploy --code ~/PlatONE-Go/release/linux/conf/contracts/token.wasm --abi ~/PlatONE-Go/release/linux/conf/contracts/token.cpp.abi.json --config ../ctool.json
-
--  用户注册 register user
+6.1.2. wasm合约调用-查询余额
+-----------------------------
 
 .. code:: bash
 
-   # generate user keys offline
-   ./nizkpail
-   cmd> 1
+   ./platonecli contract execute "合约地址" getBalance --param "发送者地址" --abi "合约abi"
+   示例：
+   ./platonecli contract execute 0xbc74aca12aa33c4b0f51a8dc92a00d0c3699db6f getBalance --param 0x55b3d5f67010b314ebcdd46ef9e420da499c1596 --abi ../SysContracts/build/appContract/BcToken/BcToken.cpp.abi.json
 
-   #upload user pubkey
-   ctool invoke --addr 0x6566ed9c6c5accf27ebdcadae3f04f16220c6b2a --func userregister --param mi++ciEiqNGsHajPbYCCk01oaUkPICWfcPyg204sSOiRWDqd3iJppTSspSiQaRNRk+6qjrBxa7zwT+zvpEvnAXO+aaV4oIyrTrhGZd3cKNzBBziTQAMYNBDlsRv7GnrMhAZxJKGfF5bmB74NMOh741tQ9RBuHRz0gUKN9jXsTe1c3XoIy3N55znQbG4yTEyZLoj1lwYM3fOGXr4LDW+n1Dl1G/F5Aj3d3fv0dYjcrhs05k/eggWMktKMPQPDl0CSfDZyhlp6US1g4nE9W61R1NCYZCaAwjy+zLUr2h8NZE0OPvLn53wk52enCWmgUfDlwOeAzhuffM7U1UcDWTzA3miMnvUQZOIyS8+F+FuCkeCyibdug0S3OmPWxe6lWDUBkMEw0v3DAMA1EJ9nhjqtFu5y9mwDxrazkr88kdM7xa8oSj6bcrQXbU3viye7s36Il91nc1v8YV96cC2dmN96CdXQCkHVZt4EyLEqvdOHhkM0IUejczd8WwOMh9/msG1pmi++ciEiqNGsHajPbYCCk01oaUkPICWfcPyg204sSOiRWDqd3iJppTSspSiQaRNRk+6qjrBxa7zwT+zvpEvnAXO+aaV4oIyrTrhGZd3cKNzBBziTQAMYNBDlsRv7GnrMhAZxJKGfF5bmB74NMOh741tQ9RBuHRz0gUKN9jXsTe4= --abi ~/PlatONE-Go/release/linux/conf/contracts/token.cpp.abi.json --config ../config.json
+.. code:: console
 
--  转账 transfer
+   余额:100000
 
-.. code:: bash
+6.2. 隐私代币合约部署与验证
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   # generate zk proof
-   ./nizkpail
-   cmd> 6
-
-   #invoke transfer function
-   ctool invoke --addr 0x6566ed9c6c5accf27ebdcadae3f04f16220c6b2a --func transfer --param ${pai} --param ${fromAmountCipher} --param ${toAmountCipher} --param 0x5224a76e6ce5a1e2d6839c72fc5bdebe90bede68 --abi ~/PlatONE-Go/release/linux/conf/contracts/token.cpp.abi.json --config ../ctool.json
-
--  余额查询 get balance
+6.2.1. 隐私代币合约部署
+----------------------------
 
 .. code:: bash
 
-   ctool invoke --addr 0x6566ed9c6c5accf27ebdcadae3f04f16220c6b2a --func getBalance --param 0xf564dbddb09083ecf801b1a26e4d356213a3dcf7  --abi ~/PlatONE-Go/release/linux/conf/contracts/token.cpp.abi.json --config ../config.json
+   ./platonecli contract deploy "solidity合约二进制文件" --abi "合约abi" --vm evm --param "epoch值" --param "绑定的wasm合约地址"
+   示例：
+   ./platonecli contract deploy test_contracts/privacyToken_sol_PToken.bin --abi test_contracts/privacyToken_sol_PToken.abi --vm evm --param 3 --param 0xbc74aca12aa33c4b0f51a8dc92a00d0c3699db6f
 
-ps: addr 0x5224a76e6ce5a1e2d6839c72fc5bdebe90bede68
+.. code:: console
+
+   隐私合约地址：0xfff4ecb6973e1078e3cd411a69d7ea9569e8767f
+
+6.2.2. 隐私代币合约调用
+-----------------------
+
+.. code:: bash
+
+   ./platonecli contract execute "隐私合约地址" token --abi "隐私合约abi" --vm evm
+   示例：
+   ./platonecli contract execute 0xfff4ecb6973e1078e3cd411a69d7ea9569e8767f token --abi test_contracts/privacyToken_sol_PToken.abi --vm evm
+
+6.3. 隐私代币客户端
+^^^^^^^^^^^^^^^^^^^^^
+
+6.3.1. flag说明
+--------------------
+
+6.3.1.1. 配置类
+>>>>>>>>>>>>>>>>>
+
+**（1）–url** 说明：远程节点url, 格式：\ ``https://<ip>:<port>``
+
+**（2）–contract** 说明：部署的隐私代币合约地址
+
+**（3）–bc-owner** 说明：同时具备如下两个用途 1. 交易发送者 2.
+明文/wasm代币合约的注册用户
+
+**（4）–config** 说明：
+
+-  将某次命令提供的\ ``--url``, ``--contract``,
+   ``--bc-owner``\ 的对应值写入结构体对应字段，并序列化后存储到\ ``config.json``\ 文件中。
+-  ``config.json``\ 会在可执行文件的\ **运行路径**\ 下生成
+-  每次命令会默认读取\ ``config.json``\ 中对应字段的值。如果该字段也提供了对应的flag，则flag对应的值具有较高的优先级。
+
+6.3.1.2. 常用类
+>>>>>>>>>>>>>>>>>>
+
+**（1）–value** 说明：\ ``register``, ``depoist``,
+``transfer``\ 转移的代币数量
+
+**（2）–account** 说明：
+
+-  隐私代币合约的账户
+-  ``--account``\ 对应值：对应账户文件的路径（默认：\ ``./privacyAccount.json``\ ）
+
+**（3）–receiver** 说明：
+
+-  接收隐私代币的账户，该账户需是已注册的有效账户，否则会报错。
+-  示例：\ ``["0x1014b579b1f13fd07f4ffec5da3f7c2ca0a04dbc68579f49369874dcd2ec0e6c","0x241aac4b68d23a0303c3cb82a8ae64fda731cf3c552613088859619ce0ffa68d"]``
+
+6.3.1.3. 其他
+>>>>>>>>>>>>>>>>
+
+**（1）–decoy-num**
+说明：仅\ ``tranfser``\ 命令使用，指定匿名集的元素个数。默认为3，即匿名集有2^3=8个账户。
+
+**（2）–o** 说明：仅\ ``register``\ 命令使用，指定输出账户文件的文件名
+
+**（3）–l-invl && –r-invl** 说明：
+
+-  账户拥有的隐私代币密文的猜测区间，\ ``--l-invl``\ 为左区间，\ ``--r-invl``\ 为右区间。通过限定猜测区间，减少解密密文的时间。
+-  若区间提供错误，则会报错
+-  ``--l-invl``\ 默认为0，\ ``--r-invl``\ 默认为2^32-1
+
+6.3.2. 注册register
+----------------------
+
+**（1）查看register用法**
+
+.. code:: bash
+
+   ./client register -h
+
+**（2）register命令**
+
+示例：
+
+.. code:: bash
+
+   ## 完整命令
+   ./client register --bc-owner 0x55b3d5f67010b314ebcdd46ef9e420da499c1596 --contract 0xfff4ecb6973e1078e3cd411a69d7ea9569e8767f --url http://127.0.0.1:6791 --config
+
+   ## 省略配置类flag
+   ./client register
+
+   ## 指定输出账户文件名称
+   ./client register -o privacyAccount-x.json
+
+6.3.3. 充值deposit
+---------------------
+
+**（1）查看deposit用法**
+
+.. code:: bash
+
+   ./client deposit -h
+
+**（2）deposit命令**
+
+示例：
+
+.. code:: bash
+
+   ## 完整命令
+   ./client deposit --account privacyAccount-1.json --value 200 --r-invl 1000 --bc-owner 0x55b3d5f67010b314ebcdd46ef9e420da499c1596 --contract 0xfff4ecb6973e1078e3cd411a69d7ea9569e8767f --url http://127.0.0.1:6791 --config
+
+   ## 省略配置类flag
+   ./client deposit --account privacyAccount-3.json --value 400
+
+6.3.4. 赎回withdraw
+-----------------------
+
+**（1）查看withdraw用法**
+
+.. code:: bash
+
+   ./client withdraw -h
+
+**（2）withdraw命令**
+
+示例：
+
+.. code:: bash
+
+   ## 完整命令
+   ./client withdraw --account privacyAccount-4.json --value 400 --r-invl 1000 --bc-owner 0x55b3d5f67010b314ebcdd46ef9e420da499c1596 --contract 0xfff4ecb6973e1078e3cd411a69d7ea9569e8767f --url http://127.0.0.1:6791 --config
+
+   ## 省略配置类flag
+   ./client withdraw --account privacyAccount-4.json --value 400 --r-invl 1000
+
+6.3.5. 转账transfer
+-----------------------
+
+**（1）查看transfer用法**
+
+.. code:: bash
+
+   ./client transfer -h
+
+**（2）transfer命令**
+
+示例：
+
+.. code:: bash
+
+   ## 完整命令
+   ./client transfer --account privacyAccount-2.json --value 200 --r-invl 1000 --receiver "["0x1014b579b1f13fd07f4ffec5da3f7c2ca0a04dbc68579f49369874dcd2ec0e6c","0x241aac4b68d23a0303c3cb82a8ae64fda731cf3c552613088859619ce0ffa68d"]" --bc-owner 0x55b3d5f67010b314ebcdd46ef9e420da499c1596 --contract 0xfff4ecb6973e1078e3cd411a69d7ea9569e8767f --url http://127.0.0.1:6791 --config
+
+   ## 省略配置类flag
+   ./client transfer --account privacyAccount-2.json --value 200 --r-invl 1000 --receiver "["0x1014b579b1f13fd07f4ffec5da3f7c2ca0a04dbc68579f49369874dcd2ec0e6c","0x241aac4b68d23a0303c3cb82a8ae64fda731cf3c552613088859619ce0ffa68d"]"
+
+6.3.6. 查询query
+--------------------
+
+**（1）查看query用法**
+
+.. code:: bash
+
+   F ./client query -h
+
+**（2）query命令**
+
+示例：
+
+.. code:: bash
+
+   ## platonecli工具查询某账户对应的账户余额
+   ./platonecli contract execute 0xfff4ecb6973e1078e3cd411a69d7ea9569e8767f simulateAccounts --param "[[0x20775257b284e0d7234be2860f03b930c9b7eec1a5c9d41773a2fbe499d96e94,0x21907ecf49861a11cda03defca88c38370bd89dd7456c3665d9961ab395d25e3]]" --param 20 --abi test_contracts/privacyToken_sol_PToken.abi --vm evm
+
+   ## 客户端查询
+   ./client query --account ./privacyAccount-1.json --r-invl 1000 --bc-owner 0x55b3d5f67010b314ebcdd46ef9e420da499c1596 --contract 0xfff4ecb6973e1078e3cd411a69d7ea9569e8767f --url http://127.0.0.1:6791
+
+   ## 省略配置类flag
+   ./client query --account ./privacyAccount-1.json --r-invl 1000
 
