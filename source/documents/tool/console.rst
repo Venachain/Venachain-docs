@@ -1,6 +1,6 @@
-======================
-多链操作工具 (console)
-======================
+========================
+多链操作工具 (console.py)
+========================
 
 在PlatONE多链架构下，节点多个链组共享节点和账户公私钥，分别维护各自的账本，groupid为0的链组被称为主链，主链上会部署链组管理系统合约，所有其他链组创建后必须在主链链组管理合约中注册，
 某些链组级别的操作依赖主链，因此多链架构下必须保证主链账本正常运行。
@@ -192,7 +192,8 @@
 
 .. code:: bash
 
-   switch 1     group add --enode enode://1f8fa99baace67b994945279f173b285c98cccdd080376b8a08691439b78c9df9514bc3367ebd78b5b53b1b52b990585bdef36523f63c67343d33c3337205713@10.200.65.37:16791 --password 123456
+   switch 1
+   group add --enode enode://1f8fa99baace67b994945279f173b285c98cccdd080376b8a08691439b78c9df9514bc3367ebd78b5b53b1b52b990585bdef36523f63c67343d33c3337205713@10.200.65.37:16791 --password 123456
 
 2.1.5 加入链组 group join
 >>>>>>>>>>>>>>>>>>>>>>>>>
@@ -325,7 +326,9 @@
 
 -  **描述**: 通过调用ctool与链组进行其他交互
 
--  **参数**:  ``与直接调用ctool无异``
+-  **参数**:
+
+   与直接调用ctool无异
 
 -  **示例**
    
@@ -358,3 +361,42 @@
 .. code:: bash
 
    ./console.py --config ../conf/config_1.json
+
+3. 已部署的链 新建链组操作
+=========================
+
+.. note:: 建议操作前，首先备份链数据，防止意外操作导致异常
+
+1) 在节点0的scripts文件夹下，启动 ``console.py`` 命令行程序
+
+.. code:: bash
+
+    ./console.py --config ../conf/config.json --datadir ../data/node-0
+
+2) 新建链组1,需指定本机外网ip，链组1的几个端口号（与链组0不相同）
+
+.. code:: bash
+
+    > group create --groupid 1 --ip 10.200.65.37 --port 5678 --rpcport 15678 --wsport 25678 --dashport 35678
+
+3) 在节点1服务器上，启动 ``console.py`` 命令行程序
+
+.. code:: bash
+
+    ./console.py --config ../conf/config.json --datadir ../data/node-1
+
+4) 节点1加入链组1，需指定节点0的enode（由公钥、ip、链组1创建时指定的端口号组成），并指定本链组的几个新的端口号
+
+.. code:: bash
+
+    > group join --groupid 1 --creator_enode enode://1f8fa99baace67b994945279f173b285c98cccdd080376b8a08691439b78c9df9514bc3367ebd78b5b53b1b52b990585bdef36523f63c67343d33c3337205713@10.200.65.37:5678 --ip 10.25.126.53 --port 6678 --rpcport 16678 --wsport 26678 --dashport 36678
+
+5) 在节点0的服务器上，将节点1加入到链组1的节点准入列表中,并将其设为链组1的共识节点，需指定节点1的链组1相关enode信息
+
+.. code:: bash
+
+    ./console.py --config ../conf/config.json --datadir ../data/node-0
+    > switch 1
+    > group add --enode enode://1f8fa99baace67b994945279f173b285c98cccdd080376b8a08691439b78c9df9514bc3367ebd78b5b53b1b52b990585bdef36523f63c67343d33c3337205713@10.25.126.53:6678 --type 1 --rpcport 16678
+
+6) 重复步骤3~5，将其他节点加入链组
