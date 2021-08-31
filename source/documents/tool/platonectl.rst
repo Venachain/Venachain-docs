@@ -32,6 +32,7 @@
            setupgen                         创建genesis.json并编译系统契约
            status                           显示节点状态
            createacc                        创建帐户
+           remote                           远程部署
 
 1.1. init
 ^^^^^^^^^
@@ -41,8 +42,6 @@
 .. code:: bash
 
    ./platonectl.sh init -h
-
-console:
 
 .. code:: console
 
@@ -339,3 +338,6 @@ console:
        createacc OPTIONS
            --nodeid, -n                 为指定节点创建帐户
            --help, -h                   显示帮助
+
+1.17. remote
+^^^^^^^^^^^^^

@@ -26,9 +26,9 @@
    节点运行日志：  ${WORKSPACE}/data/node-0/logs/platone_log/
    节点公钥： ${WORKSPACE}/data/node-0/node.pubkey
 
-   IP： ${WORKSPACE}/data/node-0/node.ip
-   RPC端口： ${WORKSPACE}/data/node-0/node.ip (默认6791)
-   p2p端口： ${WORKSPACE}/data/node-0/node.ip （默认16791）
+   IP： ${WORKSPACE}/data/node-0/deploy_node-0.conf
+   RPC端口： ${WORKSPACE}/data/node-0/deploy_node-0.conf (默认6791)
+   p2p端口： ${WORKSPACE}/data/node-0/deploy_node-0.conf （默认16791）
 
 2. 开启四节点
 =============
