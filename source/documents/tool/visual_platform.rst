@@ -85,10 +85,8 @@ PlatONE可视化运维管理平台是集区块浏览器、系统配置管理、�
 
 服务启动后默认监听端口8000
 
-- `PlatONE Data
-   Manager部署文档 <https://git-c.i.wxblockchain.com/PlatONE/src/node/PlatONE-Go/blob/feature/precompiled-system-contract/cmd/data-manager/doc/%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3.md>`__
-- `PlatONE Data
-   Manager设计文档合集 <https://git-c.i.wxblockchain.com/PlatONE/src/node/PlatONE-Go/tree/feature/precompiled-system-contract/cmd/data-manager/doc>`__
+- `PlatONE Data Manager部署文档 <https://git-c.i.wxblockchain.com/PlatONE/src/node/PlatONE-Go/blob/feature/precompiled-system-contract/cmd/data-manager/doc/%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3.md>`__
+- `PlatONE Data Manager设计文档合集 <https://git-c.i.wxblockchain.com/PlatONE/src/node/PlatONE-Go/tree/feature/precompiled-system-contract/cmd/data-manager/doc>`__
 
 1.2.3. PlatONE API Server部署
 ---------------------------------
@@ -114,10 +112,8 @@ PlatONE可视化运维管理平台是集区块浏览器、系统配置管理、�
    ## 在当前目录配置文件中填入必要信息，然后
    ./apiserver
 
-- `PlatONE API
-   Server部署文档 <https://git-c.i.wxblockchain.com/PlatONE/src/node/platone-manager/platone-api-server/blob/master/README.md>`__
-- `PlatONE API
-   Server接口文档 <https://git-c.i.wxblockchain.com/PlatONE/src/node/platone-manager/platone-api-server/blob/master/doc/api-server.md>`__
+- `PlatONE API Server部署文档 <https://git-c.i.wxblockchain.com/PlatONE/src/node/platone-manager/platone-api-server/blob/master/README.md>`__
+- `PlatONE API Server接口文档 <https://git-c.i.wxblockchain.com/PlatONE/src/node/platone-manager/platone-api-server/blob/master/doc/api-server.md>`__
 
 服务启动后，默认监听端口9999；初次启动时，需要初始化一个系统管理员账号，用GET方式访问初始化端口:
 

@@ -49,7 +49,7 @@
 
 - ``--gas-price <num>``: 设置执行链交互命令时单位gas所需消耗的XX数量。
 
-.. _account::
+.. _cli-account:
 
 1. 用户操作 account
 ========================
@@ -188,7 +188,7 @@
         "name":"Alice"
       }
 
-.. _cns::
+.. _cli-cns:
 
 2. 合约命名系统 cns
 =======================
@@ -421,14 +421,14 @@
       # 未注册
       result: the contract is not registered in CNS
 
-.. _contract::
+.. _cli-contract:
 
 3. 合约操作 contract
 =========================
 
 针对合约的相关操作
 
-.. _contract_execute::
+.. _cli-contract-execute:
 
 3.1 合约调用 contract execute
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -504,7 +504,7 @@
       function: adcallInt64(from string,to string,asset int32) int32
       function: adcallString(from string,to string,asset int32 string
 
-.. _contract_deploy::
+.. _cli-contract-deploy:
 
 3.3 合约部署 contract deploy
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -609,7 +609,7 @@
         "status": "0x1"
         }
 
-.. _firewall::
+.. _cli-firewall:
 
 
 4. 防火墙服务 fw
@@ -979,7 +979,7 @@
 
       result: Operation Succeeded
 
-.. _node::
+.. _cli-node:
 
 5. 节点操作 node
 =====================
@@ -1223,7 +1223,7 @@
       ## 开启rest服务器
       ./platonecli rest
 
-.. _role::
+.. _cli-role:
 
 7. 角色权限操作 role
 ========================
@@ -1469,7 +1469,7 @@
 
       ["SUPER_ADMIN"]
 
-.. _sysconfig::
+.. _cli-sysconfig:
 
 8. 系统参数操作 sysconfig
 ==================================
@@ -1566,6 +1566,8 @@
 .. code:: bash
 
       ./platonecli sysconfig get --vrf-params  --keyfile ../conf/keyfile.json
+
+.. _cli-ca:
 
 9. CA操作 CA
 =================
