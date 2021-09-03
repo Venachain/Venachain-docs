@@ -12,6 +12,8 @@ PlatONE详细部署步骤可简要分为如下3步：
 
 本文将详细介绍如何在单机和多机上部署PlatONE。
 
+.. note:: 下文中有些步骤提供了两种执行方法，第一种是使用脚本一键完成，第二种则需要手动创建文件或使用命令行来完成。虽然第二种方法操作更为复杂，但也更为灵活，便于开发者按需构建理想的联盟链网络。
+
 1. 准备工作
 ===========
 
@@ -41,8 +43,8 @@ devtoolset-7，保存并退出即可。
 
 2) 关闭SSL检查：
 
-   -  git clone 时提示Peer’s certificate issuer has been marked as not trusted by the user; 
-  
+   -  git clone 时提示Peer’s certificate issuer has been marked as not trusted by the user;
+
    - 解决方案：在/etc/profile文件的最后一行加入\ ``export GIT_SSL_NO_VERIFY=1``\ ，再\ ``source``\ 一下即可
 
    .. code:: bash
@@ -69,7 +71,7 @@ devtoolset-7，保存并退出即可。
 
    cd PlatONE-Go
    make all
-   
+
 1.4 清理环境
 ^^^^^^^^^^^^
 
@@ -81,17 +83,6 @@ devtoolset-7，保存并退出即可。
 2. 单机部署
 ===========
 
-2.0 生成配置文件
-^^^^^^^^^^^^^^^^^^^^^
-
-请参考：
-
-- :ref:`配置文件格式 <remote-conf-structure>`
-
-- :ref:`生成配置文件教程 <remote-prepare>`
-
-生成后将配置文件放入 ``/release/linux/data/node-${node_name}/`` 下
-
 2.1 初始化节点和创世区块
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -100,12 +91,15 @@ devtoolset-7，保存并退出即可。
 
 当您启动区块链时，首先需要创建一个genesis.json文件，节点通过genesis.json文件来生成创世区块。
 
+【方法一】使用脚本一键生成genesis.json
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 执行下面指令一键生成genesis.json:
 
 .. code:: bash
 
    cd ${WORKSPACE}/scripts
-   ./platonectl.sh setupgen -n 0 --ip 172.25.1.13 --p2p_port 16791 --interpreter all --auto
+   ./platonectl.sh setupgen -n 0 --ip 172.25.1.13 --p2p_port 16791 --interpreter all --auto true
 
 各个参数的意义如下所示：
 
@@ -128,16 +122,163 @@ devtoolset-7，保存并退出即可。
    $ ls  ${WORKSPACE}/conf
    genesis.json contracts ...
 
+【方法二】 手动创建genesis.json
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+1) 配置环境变量, 进入PlatONE-Go/build/bin
+
+.. code:: bash
+
+      export PATH=${PATH}:${PWD}
+
+2) 生成新的\ **用户账户**\ ，需要用户设置密码用于解锁用户账户，在示例中密码设为“0”。
+
+.. code:: bash
+
+      ./platone --datadir ./data account new
+
+.. code:: console
+
+      INFO [01-09|17:25:14.269] Maximum peer count                       ETH=50 LES=0 total=50
+      Your new account is locked with a password. Please give a password. Do not forget this password.
+      Passphrase:
+      Repeat passphrase:
+      Address: {60208c048e7eb8e38b0fac40406b819ce95aa7af}
+
+3) 查看账户
+
+.. code:: bash
+
+      ll data/keystore/
+
+.. code:: console
+
+      -rw------- 1 wxuser wxuser 491 Jan  9 17:25 UTC--2019-01-09T09-25-28.487164507Z--60208c048e7eb8e38b0fac40406b819ce95aa7af
+
+4) 生成\ **节点**\ 密钥对，需要进入目录PlatONE-Go/build/bin
+
+.. code:: bash
+
+      ./ethkey genkeypair
+
+.. code:: console
+
+      Address   :  0xC71433b47f1b0053f935AEf64758153B24cE7445
+      PrivateKey:  b428720a89d003a1b393c642e6e32713dd6a6f82fe4098b9e3a90eb38e23b6bb
+      PublicKey :  68bb049008c7226de3188b6376127354507e1b1e553a2a8b988bb99b33c4d995e426596fc70ce12f7744100bc69c5f0bce748bc298bf8f0d0de1f5929850b5f4
+
+输出说明：
+
+-  Address: 节点地址。
+-  PrivateKey: 节点私钥。
+-  PublicKey: 节点公钥。
+
+5) 将节点私钥存储在
+   ./data/platone/nodekey中，私钥是上一步生成的PrivateKey。
+
+.. code:: bash
+
+      mkdir -p ./data/platone
+      echo "b428720a89d003a1b393c642e6e32713dd6a6f82fe4098b9e3a90eb38e23b6bb" > ./data/platone/nodekey
+      cat ./data/platone/nodekey
+      sudo updatedb
+      locate nodekey
+
+.. code:: console
+
+      /home/wxuser/work/golang/src/github.com/PlatONEnetwork/PlatONE-Go/build/bin/data/platone/nodekey
+
+
+6) 进入PlatONE-Go/cmd/SysContracts目录，执行脚本生成makefile文件。
+
+.. code:: bash
+
+   ./script/autoprojectForApp.sh .
+
+进入PlatONE-Go/cmd/SysContracts/build目录，编译合约生成wasm文件。
+执行该操作后，build目录下会生成systemContract，该文件存放编译后的文件。
+
+.. code:: bash
+
+   make
+
+7) 进入PlatONE-Go/cmd/SysContracts/build/systemContract/cnsProxy目录，执行ctool，获取系统管理合约cnsProxy的字节码。
+
+.. code:: bash
+
+   ctool codegen --abi cnsProxy.cpp.abi.json --code cnsProxy.wasm
+
+8) 该字节码将放入后续 genesis.json配置文件当中。
+
+在\ ``PlatONE-Go/build/bin``\ 目录下创建genesis.json文件：
+
+-  validatorNodes,observeNodes中enode格式为‘enode://publicKey@ip:p2p_port’,
+   需把``4)``\ 小节中生成的节点publicKey替换此enode中publicKey。ip和p2p_port可以根据情况自定义。
+-  coinbase账户地址在第\ ``2)``\ 小节生成，需加上\ ``0x``\ 前缀。
+-  alloc：为用户账户地址分配金额。用户账户地址在第\ ``2)``\ 小节生成，需加上\ ``0x``\ 前缀。
+-  0x0000000000000000000000000000000000000011为系统管理合约,
+   此为固定地址。
+-  code：为上一步中所获取的cnsProxy合约的字节码。
+
+.. code:: bash
+
+   $ vi genesis.json
+
+.. code:: json
+
+   {
+       "config": {
+       "chainId": 300,
+       "homesteadBlock": 1,
+       "eip150Block": 2,
+       "eip150Hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+       "eip155Block": 3,
+       "eip158Block": 3,
+       "byzantiumBlock": 4,
+       "istanbul": {
+               "timeout": 2000,
+           "period": 1,
+           "policy": 0,
+           "epoch": 1000000,
+           "initialNodes": [],
+           "validatorNodes": ["enode://68bb049008c7226de3188b6376127354507e1b1e553a2a8b988bb99b33c4d995e426596fc70ce12f7744100bc69c5f0bce748bc298bf8f0d0de1f5929850b5f4@127.0.0.1:16789"],
+           "observeNodes": ["enode://68bb049008c7226de3188b6376127354507e1b1e553a2a8b988bb99b33c4d995e426596fc70ce12f7744100bc69c5f0bce748bc298bf8f0d0de1f5929850b5f4@127.0.0.1:16789"]
+       }
+     },
+     "nonce": "0x0",
+     "timestamp": "0x5c074288",
+     "extraData": "0x00000000000000000000000000000000000000000000000000000000000000007a9ff113afc63a33d11de571a679f914983a085d1e08972dcb449a02319c1661b931b1962bce02dfc6583885512702952b57bba0e307d4ad66668c5fc48a45dfeed85a7e41f0bdee047063066eae02910000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+     "gasLimit": "0x47b77760",
+     "difficulty": "0x40000",
+     "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+     "coinbase": "0x60208c048e7eb8e38b0fac40406b819ce95aa7af",
+     "alloc": {
+       "0x60208c048e7eb8e38b0fac40406b819ce95aa7af": {
+         "balance": "99999999900000000000"
+       },
+       "0x0000000000000000000000000000000000000011": {
+         "balance": "99900000000000000000",
+         "code": "cnsProxy字节码"
+       }
+     },
+     "number": "0x0",
+     "gasUsed": "0x0",
+     "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+   }
+
 
 2.1.2 初始化节点和创世区块
 --------------------------
+
+【方法一】脚本
+>>>>>>>>>>>>>>
 
 执行如下命令，会根据genesis.json文件，在数据目录下产生创世区块，并配置节点的RPC和websocket端口信息。
 
 .. code:: bash
 
    cd ${WORKSPACE}/scripts/
-   ./platonectl.sh init -n 0 --ip 172.25.1.13 --rpc_port 6791 --p2p_port 16791 --ws_port 26791 --auto
+   ./platonectl.sh init -n 0 --ip 172.25.1.13 --rpc_port 6791 --p2p_port 16791 --ws_port 26791 --auto "true"
 
 各个参数的意义如下所示：
 
@@ -149,8 +290,74 @@ devtoolset-7，保存并退出即可。
    --rpc_port        node rpc_port (default: 6791)
    --ws_port         node websoket port (default: 26791)
 
+【方法二】命令行
+>>>>>>>>>>>>>>>>
+
+在\ ``PlatONE-Go/build/bin``\ 目录下执行下面指令初始化创世区块：
+
+.. code:: console
+
+   $ platone --datadir ./data init genesis.json
+
+结果如下：
+
+.. code:: console
+
+   INFO [01-09|17:31:58.832] Maximum peer count                       ETH=50 LES=0 total=50
+   INFO [01-09|17:31:58.833] Allocated cache and file handles         database=/home/wxuser/manual-Platon/build/bin/data/platon/chaindata cache=16 handles=16
+   INFO [01-09|17:31:58.839] Writing custom genesis block
+   INFO [01-09|17:31:58.840] Persisted trie from memory database      nodes=1 size=150.00B time=34.546µs gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+   INFO [01-09|17:31:58.840] Successfully wrote genesis state         database=chaindata                                                  hash=4fe06b…382a26
+   INFO [01-09|17:31:58.840] Allocated cache and file handles         database=/home/wxuser/manual-Platon/build/bin/data/platon/lightchaindata cache=16 handles=16
+   INFO [01-09|17:31:58.848] Writing custom genesis block
+   INFO [01-09|17:31:58.848] Persisted trie from memory database      nodes=1 size=150.00B time=238.177µs gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+   INFO [01-09|17:31:58.848] Successfully wrote genesis state         database=lightchaindata                                                  hash=4fe06b…382a26
+
+查看目录：
+
+.. code:: bash
+
+   ll -R data/
+
+结果如下：
+
+.. code:: console
+
+   data/:
+   total 0
+   drwx------ 2 wxuser wxuser 91 Jan  9 17:25 keystore
+   drwxr-xr-x 4 wxuser wxuser 45 Jan  9 17:31 platon
+
+   data/keystore:
+   total 4
+   -rw------- 1 wxuser wxuser 491 Jan  9 17:25 UTC--2019-01-09T09-25-28.487164507Z--60208c048e7eb8e38b0fac40406b819ce95aa7af
+
+   data/platon:
+   total 0
+   drwxr-xr-x 2 wxuser wxuser 85 Jan  9 17:31 chaindata
+   drwxr-xr-x 2 wxuser wxuser 85 Jan  9 17:31 lightchaindata
+
+   data/platon/chaindata:
+   total 16
+   -rw-r--r-- 1 wxuser wxuser 1802 Jan  9 17:31 000001.log
+   -rw-r--r-- 1 wxuser wxuser   16 Jan  9 17:31 CURRENT
+   -rw-r--r-- 1 wxuser wxuser    0 Jan  9 17:31 LOCK
+   -rw-r--r-- 1 wxuser wxuser  358 Jan  9 17:31 LOG
+   -rw-r--r-- 1 wxuser wxuser   54 Jan  9 17:31 MANIFEST-000000
+
+   data/platon/lightchaindata:
+   total 16
+   -rw-r--r-- 1 wxuser wxuser 1802 Jan  9 17:31 000001.log
+   -rw-r--r-- 1 wxuser wxuser   16 Jan  9 17:31 CURRENT
+   -rw-r--r-- 1 wxuser wxuser    0 Jan  9 17:31 LOCK
+   -rw-r--r-- 1 wxuser wxuser  358 Jan  9 17:31 LOG
+   -rw-r--r-- 1 wxuser wxuser   54 Jan  9 17:31 MANIFEST-000000
+
 2.1.3 启动节点
 --------------
+
+【方法一】脚本
+>>>>>>>>>>>>>>
 
 默认启动命令：
 
@@ -186,6 +393,71 @@ devtoolset-7，保存并退出即可。
 
 日志文件夹中包含wasm执行的日志与platone运行的日志. 随时间推移,
 日志文件会越积越多, 建议进行挂载, 或者进行定期删除等操作。
+
+【方法二】命令行
+>>>>>>>>>>>>>>>>
+
+1) 在\ ``PlatONE-Go/build/bin``\ 目录下执行下面指令：
+
+.. code:: bash
+
+   platone --identity "platone" --datadir ./data --port 16789 --rpcaddr 0.0.0.0 --rpcport 6789 --rpcapi "db,eth,net,web3,admin,personal" --rpc --nodiscover --nodekey "./data/platone/nodekey" --verbosity 4 --wasmlog ./wasm.log --bootnodes "enode://68bb049008c7226de3188b6376127354507e1b1e553a2a8b988bb99b33c4d995e426596fc70ce12f7744100bc69c5f0bce748bc298bf8f0d0de1f5929850b5f4@127.0.0.1:16789"
+
+.. note:: ``--verbosity`` 4 会将wasm log打出来， ``--wasmlog`` 指定将log输出到哪个文件, ``--bootnodes`` 需要指定genesis.json中observeNodes字段中的一个或者多个enode节点
+
+.. code:: console
+
+   INFO [01-09|17:42:01.165] Maximum peer count                       ETH=50 LES=0 total=50
+   INFO [01-09|17:42:01.166] Starting peer-to-peer node               instance=Geth/node1/v1.8.16-stable-7ee6fe39/linux-amd64/go1.11.4
+   INFO [01-09|17:42:01.166] Allocated cache and file handles         database=/home/wxuser/manual-Platon/build/bin/data/platon/chaindata cache=768 handles=512
+   INFO [01-09|17:42:01.183] Initialised chain configuration          config="{ChainID: 300 Homestead: 1 DAO: <nil> DAOSupport: false EIP150: 2 EIP155: 3 EIP158: 3 Byzantium: 4 Constantinople: <nil> Engine: &{0 0 0 0 0 [{127.0.0.1 16789 16789 68bb049008c7226de3188b6376127354507e1b1e553a2a8b988bb99b33c4d995e426596fc70ce12f7744100bc69c5f0bce748bc298bf8f0d0de1f5929850b5f4 [149 178 250 27 246 47 49 86 100 108 50 3 199 20 51 180 127 27 0 83 249 53 174 246 71 88 21 59 36 206 116 69] {0 0 <nil>}}] 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 <nil>}}"
+   INFO [01-09|17:42:01.183] Initialising Ethereum protocol           versions="[63 62]" network=300
+   INFO [01-09|17:42:01.184] Loaded most recent local header          number=0 hash=4fe06b…382a26 age=1mo5d6h
+   INFO [01-09|17:42:01.184] Loaded most recent local full block      number=0 hash=4fe06b…382a26 age=1mo5d6h
+   INFO [01-09|17:42:01.184] Loaded most recent local fast block      number=0 hash=4fe06b…382a26 age=1mo5d6h
+   INFO [01-09|17:42:01.184] Read the StateDB instance from the cache map sealHash=bbbae7…30dbfb
+   INFO [01-09|17:42:01.184] Loaded local transaction journal         transactions=0 dropped=0
+   INFO [01-09|17:42:01.185] Regenerated local transaction journal    transactions=0 accounts=0
+   INFO [01-09|17:42:01.185] Loaded local mpc transaction journal     mpc transactions=0 dropped=0
+   INFO [01-09|17:42:01.185] Init mpc processor success               osType=linux icepath= httpEndpoint=http://127.0.0.1:6789
+   INFO [01-09|17:42:01.185] commitDuration                           commitDuration=950.000
+   INFO [01-09|17:42:01.185] Set the block time at the end of the last round of consensus startTimeOfEpoch=1543979656
+   INFO [01-09|17:42:01.185] Starting P2P networking
+   INFO [01-09|17:42:03.298] UDP listener up                          self=enode://aa18a88c1463c1f1026c6cb0b781027d898d19ed9c11b10ad7a3a9ee2d0c09ab607d9b24bc4580bd816c0194215461cd88bf65955e0d87cf69e0157d464c582b@[::]:16789
+   INFO [01-09|17:42:03.299] Transaction pool price threshold updated price=1000000000
+   INFO [01-09|17:42:03.300] IPC endpoint opened                      url=/home/wxuser/manual-Platon/build/bin/data/platon.ipc
+   INFO [01-09|17:42:03.300] RLPx listener up                         self=enode://aa18a88c1463c1f1026c6cb0b781027d898d19ed9c11b10ad7a3a9ee2d0c09ab607d9b24bc4580bd816c0194215461cd88bf65955e0d87cf69e0157d464c582b@[::]:16789
+   INFO [01-09|17:42:03.300] HTTP endpoint opened                     url=http://0.0.0.0:6789                                  cors= vhosts=localhost
+   INFO [01-09|17:42:03.300] Transaction pool price threshold updated price=1000000000
+
+2) platone 与log相关的启动参数
+
+启动platone时, 指定\ ``--moduleLogParams``\
+参数可以把platone的log分块写入文件。
+
+.. code:: bash
+
+   --moduleLogParams '{"platone_log": ["/"], "__dir__": ["../../logs"], "__size__": ["67108864"]}'
+
+参数说明:
+
+-  ``platone_log``: 指定输出platone中哪个模块的日志。 如
+   ``"platone_log": ["/consensus", "/p2p"]``,
+   则只输出consensus模块和p2p模块中打印的日志。
+
+   -  ``"platone_log": ["/"]`` 则表示输出所有模块的日志。
+
+-  ``__dir__``: 指定的log输出的目录位置。
+-  ``__size__``: 指定log写入文件的分块大小。
+
+随时间推移, 日志文件会越积越多, 建议进行挂载, 或者进行定期删除等操作。
+
+更多的platone启动参数, 可以执行以下命令, 进行查看。
+
+.. code:: bash
+
+   platone -h
+
 
 2.2 部署系统合约
 ----------------

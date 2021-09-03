@@ -31,20 +31,13 @@ release = '1.0.0'
 # ones.
 
 master_doc = 'index'
-latex_engine = 'xelatex'
 
-from recommonmark.parser import CommonMarkParser
 import sphinx_rtd_theme
 
-source_parsers = {
-    '.md': CommonMarkParser,
-}
-source_suffix = ['.rst', '.md']
+source_suffix = ['.rst']
 
 extensions = [
-    'sphinx_rtd_theme',
-    'recommonmark',
-    'sphinx_markdown_tables',
+    'sphinx_rtd_theme'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
