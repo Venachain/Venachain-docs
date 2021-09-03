@@ -85,6 +85,7 @@ PlatONE是\ **基于隐私计算**\ 的新一代联盟区块链平台，以支�
    documents/design/smart_contract
    documents/design/cns
    documents/design/crypto
+   documents/design/visual_platform.rst
    
 .. toctree::
    :maxdepth: 10

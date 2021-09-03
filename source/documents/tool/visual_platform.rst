@@ -10,7 +10,7 @@
 
 PlatONE可视化运维管理平台是集区块浏览器、系统配置管理、节点部署运维等功能于一体的管理平台。系统部署涉及多个组件的协调配合，此文档详细说明部署流程。
 
--  `系统架构设计 <https://git-c.i.wxblockchain.com/PlatONE/src/node/PlatONE-Go/blob/feature/precompiled-system-contract/cmd/data-manager/doc/PlatONE%E8%BF%90%E7%BB%B4%E7%AE%A1%E7%90%86%E5%B9%B3%E5%8F%B0%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3.md>`__
+- :ref:`系统架构设计 <vp-structure>`
 
 1.2. 节点部署
 ^^^^^^^^^^^^^^
@@ -19,7 +19,7 @@ PlatONE可视化运维管理平台是集区块浏览器、系统配置管理、�
 
 .. note:: 可视化平台只支持PlatONE 1.0及以后的版本。
 
--  `console说明文档 <./console.rst>`__
+-  `console说明文档 <../tool/console.html>`__
 
 1.2.1. PlatONE REST Server部署
 ----------------------------------
@@ -60,10 +60,13 @@ PlatONE可视化运维管理平台是集区块浏览器、系统配置管理、�
 
 在\ ``PlatONE REST Server``\ 启动目录下新建\ ``keystore``\ 文件夹，将管理员密钥文件拷贝过去，现在管理员密钥就在本服务的控制下啦，请接着将相关信息写进\ ``config.json``\ 并启动服务。
 
-- `相关文档 <https://git-c.i.wxblockchain.com/PlatONE/doc/Dev/tree/develop/system-design/platonecli/system-design>`__
+- `platonecli说明文档 <../tool/platonecli.html>`__
 
 1.2.2. PlatONE Data Manager部署
 ------------------------------------
+
+1.2.2.1. 数据库启动
+>>>>>>>>>>>>>>>>>>>>>
 
 ``PlatONE Data Manager``\ 负责持续从链上获取信息，并格式化为我们想要的数据格式，然后将其存储到DB中（目前仅支持mongodb），并为前端提供数据接口。
 
@@ -85,8 +88,70 @@ PlatONE可视化运维管理平台是集区块浏览器、系统配置管理、�
 
 服务启动后默认监听端口8000
 
-- `PlatONE Data Manager部署文档 <https://git-c.i.wxblockchain.com/PlatONE/src/node/PlatONE-Go/blob/feature/precompiled-system-contract/cmd/data-manager/doc/%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3.md>`__
-- `PlatONE Data Manager设计文档合集 <https://git-c.i.wxblockchain.com/PlatONE/src/node/PlatONE-Go/tree/feature/precompiled-system-contract/cmd/data-manager/doc>`__
+1.2.2.2. 数据库配置
+>>>>>>>>>>>>>>>>>>>>>>
+
+**创建数据库用户**
+
+
+创建用户例子如下。登录mongo客户端。然后运行如下命令，用来创建用户。
+
+.. code:: bash
+
+   use admin
+   db.createUser(
+        {
+            user:"root",
+            pwd:"root",
+            roles:[{role:"root",db:"admin"}]
+       }
+   )
+
+**创建数据库**
+
+.. code:: bash
+
+   use data-mamager
+
+1.2.2.3. 配置文件
+>>>>>>>>>>>>>>>>>>>>>>>
+
+.. code:: console
+
+   [http]
+   ip = "127.0.0.1" #监听ip
+   port = 7000 #监听端口
+   debug = true #是否开启debug模式
+
+   [log]
+   # trace < debug < info < warn < error < fatal < panic
+   level = "debug"
+   # std | file
+   output = "std"
+   filepath = "./data-manager.log"
+
+   [db]
+   ip = "127.0.0.1"
+   port = "27017"
+   username = "root"
+   password = "root"
+   dbname = "data-manager"
+
+   [sync]
+   interval = 5 #同步区块链数据的周期间隔时间。单位：秒
+   # 访问哪些区块链节点的rpc接口。可以设置多个接口，同步程序回在每次同步时都随机选取一个。
+   urls = [
+       "http://10.250.122.10:6791"
+   ]
+
+   [sync-tx-count]
+   when="00:00:30" # 什么时候统计昨天的交易总量，并记录到数据库
+   try_times=1 # 如果统计失败，可以重试的次数
+
+   [chain]
+   id=300 # 同步的区块链的链ID
+   node_rest_server="http://10.250.122.10:8000" # 区块链rest-api接口地址
+   node_rpc_address="http://10.250.122.10:6791" # 统计指定区块链rest-api程序访问哪个区块链节点
 
 1.2.3. PlatONE API Server部署
 ---------------------------------
@@ -111,9 +176,6 @@ PlatONE可视化运维管理平台是集区块浏览器、系统配置管理、�
 
    ## 在当前目录配置文件中填入必要信息，然后
    ./apiserver
-
-- `PlatONE API Server部署文档 <https://git-c.i.wxblockchain.com/PlatONE/src/node/platone-manager/platone-api-server/blob/master/README.md>`__
-- `PlatONE API Server接口文档 <https://git-c.i.wxblockchain.com/PlatONE/src/node/platone-manager/platone-api-server/blob/master/doc/api-server.md>`__
 
 服务启动后，默认监听端口9999；初次启动时，需要初始化一个系统管理员账号，用GET方式访问初始化端口:
 
@@ -147,8 +209,6 @@ Server部署时配置过），\ ``Passphrase``\ 为解锁私钥文件的密码�
 
 前端默认端口为8080
 
-- `演示入口 <http://10.250.122.10:8080/>`__
-
 1.2.5. PlatONE Monitor部署
 -----------------------------
 
@@ -174,8 +234,6 @@ Server部署时配置过），\ ``Passphrase``\ 为解锁私钥文件的密码�
 
    ## 在当前目录配置文件中填入必要信息，然后
    ./monitor
-
-- `接口文档 <https://git-c.i.wxblockchain.com/PlatONE/src/node/platone-manager/platone-monitor/blob/master/server/proto/monitor.proto>`__
 
 2. 使用说明
 ==============
