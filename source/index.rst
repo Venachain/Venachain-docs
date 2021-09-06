@@ -34,7 +34,7 @@ PlatONE是\ **基于隐私计算**\ 的新一代联盟区块链平台，以支�
 -  `PLatONE官网 <https://platone.wxblockchain.com/>`__
 -  `万向区块链官网 <https://www.wxblockchain.com/#/home>`__
 -  `B站 <https://space.bilibili.com/28820663/>`__
--  `微信公众号 <../../source/images/homepage/wx-wechat.jpg>`__
+-  微信公众号：万向区块链
 
 文档结构
 ========
