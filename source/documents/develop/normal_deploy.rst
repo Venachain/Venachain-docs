@@ -83,11 +83,11 @@ devtoolset-7，保存并退出即可。
 2. 单机部署(脚本方式)
 ============================
 
-2.1 初始化节点和创世区块
-^^^^^^^^^^^^^^^^^^^^^^^^
+2.1. 初始化节点和创世区块
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.1.1 创建genesis.json文件
---------------------------
+2.1.1. 创建genesis.json文件
+----------------------------
 
 当您启动区块链时，首先需要创建一个genesis.json文件，节点通过genesis.json文件来生成创世区块。
 
@@ -107,7 +107,7 @@ devtoolset-7，保存并退出即可。
    --p2p_port        node p2p_port (default: 16791)
    --interpreter, -i evm， wasm or all （default: wasm）
 
-上面的命令，首先会在\ ``{WORKSPACE}/data/node-0``\ 目录下，生成节点的公私钥、IP端口等信息。 然后在\ ``{WORKSPACE}/conf``\ 目录下生成一个\ ``genesis.json``\ 文件。
+上面的命令，首先会在\ ``{WORKSPACE}/data/node-${node_id}``\ 目录下，生成节点的公私钥、IP端口等信息。 然后在\ ``{WORKSPACE}/conf``\ 目录下生成一个\ ``genesis.json``\ 文件。
 
 .. code:: bash
 
@@ -119,8 +119,8 @@ devtoolset-7，保存并退出即可。
    $ ls  ${WORKSPACE}/conf
    genesis.json contracts ...
 
-2.1.2 初始化节点和创世区块
---------------------------
+2.1.2. 初始化节点和创世区块
+-----------------------------
 
 执行如下命令，会根据genesis.json文件，在数据目录下产生创世区块，并配置节点的RPC和websocket端口信息。
 
@@ -139,8 +139,8 @@ devtoolset-7，保存并退出即可。
    --rpc_port        node rpc_port (default: 6791)
    --ws_port         node websoket port (default: 26791)
 
-2.1.3 启动节点
---------------
+2.1.3. 启动节点
+-----------------
 
 默认启动命令：
 
@@ -163,23 +163,24 @@ devtoolset-7，保存并退出即可。
 
    -  ``--logdir, -d log dir (default: ../data/node_${node_id}/logs/)``
 
--  **日志等级**：通过\ ``-e``
-   指定了\ **额外参数**\ ，通过\ ``-e '--verbosity 2'``\ 可以用来指定日志等级为2。
+-  **日志等级**：通过\ ``-e`` 指定了\ **额外参数**\ ，通过\ ``-e '--verbosity 2'``\ 可以用来指定日志等级为2。
+
 -  通过\ ``--bootnodes``\ 指定区块链入口节点，节点启动时会主动连接指定为bootnodes的节点，以接入区块链网络。
 
 如下命令指定了log日志目录、日志级别以及启动时要连接的节点：
 
 .. code:: bash
 
-   ./platonectl.sh start -n x -d "\/opt\/logs"  -e "--verbosity ${verbosity} --debug --bootnodes enode://${pubkey}@${ip}:${p2p_port}"
+   ./platonectl.sh start -n x -d "\/opt\/logs"  -e "--verbosity 2 --debug --bootnodes enode://${pubkey}@${ip}:${p2p_port}"
 
 日志文件夹中包含wasm执行的日志与platone运行的日志. 随时间推移,
 日志文件会越积越多, 建议进行挂载, 或者进行定期删除等操作。
 
-2.2 节点加入区块链
------------------------
+2.2. 节点加入区块链
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-1) 创建管理员账号并部署系统合约
+2.2.1. 创建管理员账号并部署系统合约
+--------------------------------------
 
 .. code:: bash
 
@@ -189,13 +190,15 @@ devtoolset-7，保存并退出即可。
 
 如果创建账号时，跳过手动输入密码的过程，可以加上\ ``--auto true``\ ，这样就可以使用默认密码\ ``0``\ 创建账号。
 
-2) 添加节点至区块链
+2.2.2. 添加节点至区块链
+---------------------------
 
 .. code:: bash
 
    ./platonectl.sh addnode -n ${node_id}
 
-3) 更新节点为共识节点
+2.2.3. 更新节点为共识节点
+-----------------------------
 
 .. code:: bash
 
@@ -206,11 +209,11 @@ devtoolset-7，保存并退出即可。
 3. 单机部署(命令行方式)
 ==============================
 
-3.1 初始化节点和创世区块
-^^^^^^^^^^^^^^^^^^^^^^^^
+3.1. 初始化节点和创世区块
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-3.1.1 创建genesis.json文件
---------------------------
+3.1.1. 创建genesis.json文件
+-----------------------------
 
 1) 配置环境变量, 进入PlatONE-Go/build/bin
 
@@ -339,8 +342,8 @@ devtoolset-7，保存并退出即可。
    }
 
 
-2.1.2 初始化节点和创世区块
---------------------------
+3.1.2. 初始化节点和创世区块
+----------------------------
 
 在\ ``PlatONE-Go/build/bin``\ 目录下执行下面指令初始化创世区块：
 
@@ -402,14 +405,14 @@ devtoolset-7，保存并退出即可。
    -rw-r--r-- 1 wxuser wxuser  358 Jan  9 17:31 LOG
    -rw-r--r-- 1 wxuser wxuser   54 Jan  9 17:31 MANIFEST-000000
 
-2.1.3 启动节点
---------------
+3.1.3. 启动节点
+------------------
 
 1) 在\ ``PlatONE-Go/build/bin``\ 目录下执行下面指令：
 
 .. code:: bash
 
-   ./platone --identity "platone" --datadir ./data --port 16789 --rpcaddr 0.0.0.0 --rpcport 6789 --rpcapi "db,eth,net,web3,admin,personal" --rpc --nodiscover --nodekey "./data/platone/nodekey" --verbosity 4 --wasmlog ./wasm.log --bootnodes "enode://68bb049008c7226de3188b6376127354507e1b1e553a2a8b988bb99b33c4d995e426596fc70ce12f7744100bc69c5f0bce748bc298bf8f0d0de1f5929850b5f4@127.0.0.1:16789"
+   ./platone --identity "platon" --datadir ./data --port 16789 --rpcaddr 0.0.0.0 --rpcport 6789 --rpcapi "db,eth,net,web3,admin,personal" --rpc --nodiscover --nodekey "./data/platone/nodekey" --verbosity 4 --wasmlog ./wasm.log --bootnodes "enode://68bb049008c7226de3188b6376127354507e1b1e553a2a8b988bb99b33c4d995e426596fc70ce12f7744100bc69c5f0bce748bc298bf8f0d0de1f5929850b5f4@127.0.0.1:16789"
 
 .. note:: ``--verbosity`` 4 会将wasm log打出来， ``--wasmlog`` 指定将log输出到哪个文件, ``--bootnodes`` 需要指定genesis.json中observeNodes字段中的一个或者多个enode节点
 
@@ -455,6 +458,7 @@ devtoolset-7，保存并退出即可。
    +  ``"platone_log": ["/"]`` 则表示输出所有模块的日志。
 
 -  ``__dir__``: 指定的log输出的目录位置。
+
 -  ``__size__``: 指定log写入文件的分块大小。
 
 随时间推移, 日志文件会越积越多, 建议进行挂载, 或者进行定期删除等操作。
@@ -466,7 +470,7 @@ devtoolset-7，保存并退出即可。
    platone -h
 
 
-3.2 节点加入区块链
+3.2. 节点加入区块链
 ^^^^^^^^^^^^^^^^^^^^^^
 
 3.2.1. 生成账户
@@ -560,7 +564,6 @@ devtoolset-7，保存并退出即可。
 
 - ``node_name`` 是节点名
 
-
 .. note::
 
    关于节点操作可参考 :ref:`节点操作 <cli-node>`
@@ -577,8 +580,6 @@ devtoolset-7，保存并退出即可。
 -  B: 172.25.1.14
 -  C: 172.25.1.15
 -  D: 172.25.1.16
-
-.. _准备工作-1:
 
 4.1. 准备工作
 ^^^^^^^^^^^^^
