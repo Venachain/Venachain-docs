@@ -1,8 +1,10 @@
+.. _deploy-env:
+
 ========
 环境依赖
 ========
 
-1. 系统要求
+系统要求
 ===========
 
 本文档提供PlatONE在Linux环境下安装方式,在编译安装PlatONE之前,
@@ -28,7 +30,7 @@ CPU  1核1.5GHZ 4核2.4GHZ
 -  Ubuntu16.04+
 -  macOS 10.14+
 
-2. 源码下载及编译
+源码下载及编译
 =================
 
 首先用户需要从github下载PlatONE源码并编译
@@ -36,13 +38,20 @@ CPU  1核1.5GHZ 4核2.4GHZ
 .. code:: bash
 
    # 获取PlatONE源码
-   git clone --recursive https://github.com/PlatONEnterprise/PlatONE-Go.git
-   export WORKSPACE=${PWD}/PlatONE-Go/release/linux
+   git clone --recursive https://git-c.i.wxblockchain.com/PlatONE/src/node/PlatONE-Go.git
+
    # 编译PlatONE
    cd PlatONE-Go
    make all
-   cd ..
 
 编译完成后，会在release目录下生成搭链所需的材料。
 
-如果编译失败，请确保您正确安装了所需的环境，然后重新尝试.
+如果编译失败，请确保您正确安装了所需的环境，然后重新尝试。
+
+清理环境
+===========
+
+.. code:: bash
+
+   cd ${WORKSPACE}/scripts/
+   ./platonectl.sh clear -a

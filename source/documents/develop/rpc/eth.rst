@@ -1,333 +1,29 @@
-===========
-PlatONE API
-===========
+=================
+eth namespace
+=================
 
-1. JSON RPC API
-===============
+.. _eth-protocolVersion:
 
-`JSON <http://json.org/>`__ is a lightweight data-interchange format. It
-can represent numbers, strings, ordered sequences of values, and
-collections of name/value pairs.
-
-`JSON-RPC <http://www.jsonrpc.org/specification>`__ is a stateless,
-light-weight remote procedure call (RPC) protocol. Primarily this
-specification defines several data structures and the rules around their
-processing. It is transport agnostic in that the concepts can be used
-within the same process, over sockets, over HTTP, or in many various
-message passing environments. It uses JSON (`RFC
-4627 <http://www.ietf.org/rfc/rfc4627.txt>`__) as data format.
-
-JavaScript API
---------------
-
-To talk to an PlatONE node from inside a JavaScript application use the
-`web3.js <https://github.com/ethereum/web3.js>`__ library, which gives a
-convenient interface for the RPC methods. See the `JavaScript
-API <https://github.com/ethereum/wiki/wiki/JavaScript-API>`__ for more.
-
-JSON-RPC Endpoint
------------------
-
-Default JSON-RPC endpoints:
-
-====== =====================
-Client URL
-====== =====================
-Go     http://localhost:6790
-====== =====================
-
-Go
-~~
-
-You can start the HTTP JSON-RPC with the ``--rpc`` flag
-
-.. code:: bash
-
-   platone --rpc
-
-change the default port (8545) and listing address (localhost) with:
-
-.. code:: bash
-
-   platone --rpc --rpcaddr <ip> --rpcport <portnumber>
-
-If accessing the RPC from a browser, CORS will need to be enabled with
-the appropriate domain set. Otherwise, JavaScript calls are limit by the
-same-origin policy and requests will fail:
-
-.. code:: bash
-
-   platone --rpc --rpccorsdomain "http://localhost:3000"
-
-The JSON RPC can also be started from the `platone
-console <https://github.com/ethereum/go-ethereum/wiki/JavaScript-Console>`__
-using the ``admin.startRPC(addr, port)`` command.
-
-JSON-RPC support
-----------------
-
-============== ==========
-\              PlatONE-Go
-============== ==========
-JSON-RPC 1.0   
-JSON-RPC 2.0   ✓
-Batch requests ✓
-HTTP           ✓
-IPC            ✓
-WS             ✓
-============== ==========
-
-HEX value encoding
-------------------
-
-At present there are two key datatypes that are passed over JSON:
-unformatted byte arrays and quantities. Both are passed with a hex
-encoding, however with different requirements to formatting:
-
-When encoding **QUANTITIES** (integers, numbers): encode as hex, prefix
-with “0x”, the most compact representation (slight exception: zero
-should be represented as “0x0”). Examples:
-
--  0x41 (65 in decimal)
--  0x400 (1024 in decimal)
--  WRONG: 0x (should always have at least one digit - zero is “0x0”)
--  WRONG: 0x0400 (no leading zeroes allowed)
--  WRONG: ff (must be prefixed 0x)
-
-When encoding **UNFORMATTED DATA** (byte arrays, account addresses,
-hashes, bytecode arrays): encode as hex, prefix with “0x”, two hex
-digits per byte. Examples:
-
--  0x41 (size 1, “A”)
--  0x004200 (size 3, “\\0B\0”)
--  0x (size 0, ““)
--  WRONG: 0xf0f0f (must be even number of digits)
--  WRONG: 004200 (must be prefixed 0x)
-
-Currently
-`cpp-ethereum <https://github.com/ethereum/cpp-ethereum>`__,\ `go-ethereum <https://github.com/ethereum/go-ethereum>`__
-and `parity <https://github.com/paritytech/parity>`__ provide JSON-RPC
-communication over http and IPC (unix socket Linux and OSX/named pipes
-on Windows). Version 1.4 of go-ethereum, version 1.6 of Parity and
-version 0.8 of Pantheon onwards have websocket support.
-
-The default block parameter
----------------------------
-
-The following methods have an extra default block parameter:
-
--  `eth_getBalance <#eth_getbalance>`__
--  `eth_getCode <#eth_getcode>`__
--  `eth_getTransactionCount <#eth_gettransactioncount>`__
--  `eth_getStorageAt <#eth_getstorageat>`__
--  `eth_call <#eth_call>`__
-
-When requests are made that act on the state of ethereum, the last
-default block parameter determines the height of the block.
-
-The following options are possible for the defaultBlock parameter:
-
--  ``HEX String`` an integer block number
--  ``String "earliest"`` for the earliest/genesis block
--  ``String "latest"`` for the latest mined block
--  ``String "pending"`` for the pending state/transactions
-
-Curl Examples Explained
------------------------
-
-The curl options below might return a response where the node complains
-about the content type, this is because the –data option sets the
-content type to application/x-www-form-urlencoded . If your node does
-complain, manually set the header by placing -H “Content-Type:
-application/json” at the start of the call.
-
-The examples also do not include the URL/IP & port combination which
-must be the last argument given to curl e.x. 127.0.0.1:8545
-
-2. eth Namespace
-================
-
-web3_clientVersion
-------------------
-
-Returns the current client version.
-
-Parameters
-~~~~~~~~~~
-
-none
-
-Returns
-~~~~~~~
-
-``String`` - The current client version.
-
-Example
-~~~~~~~
-
-.. code:: js
-
-   // Request
-   curl -X POST --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
-
-   // Result
-   {
-     "id":67,
-     "jsonrpc":"2.0",
-     "result": "PlatONEnetwork/platone/v0.9.9-stable/linux-amd64/go1.11.4"
-   }
-
---------------
-
-web3_sha3
----------
-
-Returns Keccak-256 (*not* the standardized SHA3-256) of the given data.
-
-.. _parameters-1:
-
-Parameters
-~~~~~~~~~~
-
-``DATA`` - the data to convert into a SHA3 hash.
-
-Example Parameters
-~~~~~~~~~~~~~~~~~~
-
-.. code:: js
-
-   params: [
-     "0x74657374"  // the hex string of text message "test"
-   ]
-
-.. _returns-1:
-
-Returns
-~~~~~~~
-
-``DATA`` - The SHA3 result of the given string.
-
-.. _example-1:
-
-Example
-~~~~~~~
-
-.. code:: js
-
-   // Request
-   curl -X POST --data '{"jsonrpc":"2.0","method":"web3_sha3","params":["0x74657374"],"id":64}'
-
-   // Result
-   {
-     "id":64,
-     "jsonrpc": "2.0",
-     "result": "0x9c22ff5f21f0b81b113e63f7db6da94fedef11b2119b4088b89664fb9a3cb658"
-   }
-
---------------
-
-net_listening
--------------
-
-Returns ``true`` if client is actively listening for network
-connections.
-
-.. _parameters-2:
-
-Parameters
-~~~~~~~~~~
-
-none
-
-.. _returns-2:
-
-Returns
-~~~~~~~
-
-``Boolean`` - ``true`` when listening, otherwise ``false``.
-
-.. _example-2:
-
-Example
-~~~~~~~
-
-.. code:: js
-
-   // Request
-   curl -X POST --data '{"jsonrpc":"2.0","method":"net_listening","params":[],"id":67}'
-
-   // Result
-   {
-     "id":67,
-     "jsonrpc":"2.0",
-     "result":true
-   }
-
---------------
-
-net_peerCount
--------------
-
-Returns number of peers currently connected to the client.
-
-.. _parameters-3:
-
-Parameters
-~~~~~~~~~~
-
-none
-
-.. _returns-3:
-
-Returns
-~~~~~~~
-
-``QUANTITY`` - integer of the number of connected peers.
-
-.. _example-3:
-
-Example
-~~~~~~~
-
-``./platonecil.sh four``
-
-.. code:: js
-
-   // Request
-   curl -X POST --data '{"jsonrpc":"2.0","method":"net_peerCount","params":[],"id":74}'
-
-   // Result
-   {
-     "id":74,
-     "jsonrpc": "2.0",
-     "result": "0x3"   // 3个节点
-   }
-
---------------
-
-eth_protocolVersion*\*
-----------------------
+eth_protocolVersion
+========================
 
 Returns the current ethereum protocol version.
 
-.. _parameters-4:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^
 
 none
 
-.. _returns-4:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^
 
 ``String`` - The current ethereum protocol version.
 
-.. _example-4:
 
 Example
-~~~~~~~
+^^^^^^^^^^^
 
 .. code:: js
 
@@ -341,30 +37,22 @@ Example
      "result": "0x3f"
    }
 
---------------
 
-eth_newHeads\*
---------------
+.. _eth-syncing:
 
-eth_monitor\*
--------------
-
-eth_syncing*\*
---------------
+eth_syncing
+===================
 
 Returns an object with data about the sync status or ``false``.
 
-.. _parameters-5:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^^^^
 
 none
 
-.. _returns-5:
-
 Returns
-~~~~~~~
+^^^^^^^^^^^^
 
 ``Object|Boolean``, An object with sync status data or ``FALSE``, when
 not syncing: - ``startingBlock``: ``QUANTITY`` - The block at which the
@@ -373,10 +61,8 @@ import started (will only be reset, after the sync reached his head) -
 eth_blockNumber - ``highestBlock``: ``QUANTITY`` - The estimated highest
 block
 
-.. _example-5:
-
 Example
-~~~~~~~
+^^^^^^^^^^^^
 
 .. code:: js
 
@@ -400,31 +86,27 @@ Example
      "result": false
    }
 
---------------
+.. _eth-coinbase:
 
 eth_coinbase
-------------
+=================
 
 Returns the client coinbase address.
 
-.. _parameters-6:
-
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^^^
 
 none
 
-.. _returns-6:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^^
 
 ``DATA``, 20 bytes - the current coinbase address.
 
-.. _example-6:
 
 Example
-~~~~~~~
+^^^^^^^^^^^
 
 .. code:: js
 
@@ -438,31 +120,28 @@ Example
      "result": "0x0a86ced495e8d452a52f24e4ff7dd59bb532bd94"
    }
 
---------------
+.. _eth-etherbase:
 
-eth_etherbase*\*
-----------------
+eth_etherbase
+=================
 
 Returns the client etherbase address.
 
-.. _parameters-7:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^
 
 none
 
-.. _returns-7:
 
 Returns
-~~~~~~~
+^^^^^^^^^^
 
 ``DATA``, 20 bytes - the current etherbase address.
 
-.. _example-7:
 
 Example
-~~~~~~~
+^^^^^^^^^^
 
 .. code:: js
 
@@ -476,31 +155,28 @@ Example
      "result": "0x0a86ced495e8d452a52f24e4ff7dd59bb532bd94"
    }
 
---------------
+.. _eth-gasPrice:
 
-eth_gasPrice*\*
----------------
+eth_gasPrice
+================
 
 Returns the current price per gas.
 
-.. _parameters-8:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^^
 
 none
 
-.. _returns-8:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^
 
 ``QUANTITY`` - integer of the current gas price.
 
-.. _example-8:
 
 Example
-~~~~~~~
+^^^^^^^^
 
 no gas Price in PlatONE?
 
@@ -516,31 +192,27 @@ no gas Price in PlatONE?
      "result": "0x0"
    }
 
---------------
+.. _eth-accounts:
 
 eth_accounts
-------------
+===============
 
 Returns a list of addresses owned by client.
 
-.. _parameters-9:
-
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^
 
 none
 
-.. _returns-9:
 
 Returns
-~~~~~~~
+^^^^^^^^^
 
 ``Array of DATA``, 20 Bytes - addresses owned by the client.
 
-.. _example-9:
 
 Example
-~~~~~~~
+^^^^^^^^
 
 .. code:: js
 
@@ -554,31 +226,28 @@ Example
      "result": ["0x909daf40f4df3cb7e8f7b88570f3f15f2fa3a121", "0x60102f6ad17a35c456086e1e669cf5fb0d7438d2"]
    }
 
---------------
+.. _eth-blockNumber:
 
 eth_blockNumber
----------------
+=================
 
 Returns the number of most recent block.
 
-.. _parameters-10:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^
 
 none
 
-.. _returns-10:
 
 Returns
-~~~~~~~
+^^^^^^^^^^
 
 ``QUANTITY`` - integer of the current block number the client is on.
 
-.. _example-10:
 
 Example
-~~~~~~~
+^^^^^^^^^^
 
 .. code:: js
 
@@ -592,27 +261,24 @@ Example
      "result": "0x15" // The height of the block is 21
    }
 
---------------
+.. _eth-getBalance:
 
 eth_getBalance
---------------
+=================
 
-i Returns the balance of the account of given address.
+Returns the balance of the account of given address.
 
-.. _parameters-11:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^
 
-1. ``DATA``, 20 Bytes - address to check for balance.
-2. ``QUANTITY|TAG`` - integer block number, or the string ``"latest"``,
-   ``"earliest"`` or ``"pending"``, see the `default block
-   parameter <#the-default-block-parameter>`__
+1） ``DATA``, 20 Bytes - address to check for balance
 
-.. _example-parameters-1:
+2） ``QUANTITY|TAG`` - integer block number, or the string ``"latest"``, ``"earliest"`` or ``"pending"``, see the :ref:`default block parameter <rpc-dbp>`
+
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -621,17 +287,15 @@ Example Parameters
       'latest'
    ]
 
-.. _returns-11:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^
 
 ``QUANTITY`` - integer of the current balance.
 
-.. _example-11:
 
 Example
-~~~~~~~
+^^^^^^^^^^^
 
 .. code:: js
 
@@ -647,27 +311,24 @@ Example
 
 Notation: currently there is no balance in PlatONE
 
---------------
+.. _eth-getAccountBaseInfo:
 
-eth_getAccountBaseInfo\*
-------------------------
+eth_getAccountBaseInfo
+===========================
 
 Returns the balance of the account of given address.
 
-.. _parameters-12:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^
 
-1. ``DATA``, 20 Bytes - address to check for balance.
-2. ``QUANTITY|TAG`` - integer block number, or the string ``"latest"``,
-   ``"earliest"`` or ``"pending"``, see the `default block
-   parameter <#the-default-block-parameter>`__
+1） ``DATA``, 20 Bytes - address to check for balance
 
-.. _example-parameters-2:
+2） ``QUANTITY|TAG`` - integer block number, or the string ``"latest"``, ``"earliest"`` or ``"pending"``, see the :ref:`default block parameter <rpc-dbp>`
+
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -676,17 +337,15 @@ Example Parameters
       'latest'
    ]
 
-.. _returns-12:
 
 Returns
-~~~~~~~
+^^^^^^^^^^
 
 ``QUANTITY`` - integer of the current balance.
 
-.. _example-12:
 
 Example
-~~~~~~~
+^^^^^^^^^^^^
 
 .. code:: js
 
@@ -705,38 +364,35 @@ Example
          "Creator":0x0000000000000000000000000000000000000000}
    }
 
+.. _eth-getStorageAt:
+
 eth_getStorageAt
-----------------
+=====================
 
 Returns the value from a storage position at a given address.
 
-.. _parameters-13:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^
 
-1. ``DATA``, 20 Bytes - address of the storage.
-2. ``QUANTITY`` - integer of the position in the storage.
-3. ``QUANTITY|TAG`` - integer block number, or the string ``"latest"``,
-   ``"earliest"`` or ``"pending"``, see the `default block
-   parameter <#the-default-block-parameter>`__
+1） ``DATA``, 20 Bytes - address of the storage
 
-.. _returns-13:
+2） ``QUANTITY`` - integer of the position in the storage
+
+3） ``QUANTITY|TAG`` - integer block number, or the string ``"latest"``, ``"earliest"`` or ``"pending"``, see the :ref:`default block parameter <rpc-dbp>`
+
 
 Returns
-~~~~~~~
+^^^^^^^^^^
 
 ``DATA`` - the value at this storage position.
 
-.. _example-13:
 
 Example
-~~~~~~~
+^^^^^^^^^
 
 Calculating the correct position depends on the storage to retrieve.
-Consider the following contract deployed at
-``0x030695ef05b886b13862698885903d7d5e5a2805`` by address
-``0xb8364878c7dd8ba362dfab428d45723c29257b5b``.
+Consider the following contract deployed at ``0x030695ef05b886b13862698885903d7d5e5a2805`` by address ``0xb8364878c7dd8ba362dfab428d45723c29257b5b``.
 
 ::
 
@@ -791,27 +447,25 @@ Now to fetch the storage:
 
    {"jsonrpc":"2.0","id":1,"result":"0x000000000000000000000000000000000000000000000000000000000000162e"}
 
---------------
+.. _eth-getTransactionCount:
 
 eth_getTransactionCount
------------------------
+===========================
 
 Returns the number of transactions *sent* from an address.
 
-.. _parameters-14:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^
 
-1. ``DATA``, 20 Bytes - address.
-2. ``QUANTITY|TAG`` - integer block number, or the string ``"latest"``,
-   ``"earliest"`` or ``"pending"``, see the `default block
-   parameter <#the-default-block-parameter>`__
+1） ``DATA``, 20 Bytes - address
+
+2） ``QUANTITY|TAG`` - integer block number, or the string ``"latest"``, ``"earliest"`` or ``"pending"``, see the :ref:`default block parameter <rpc-dbp>`
 
 .. _example-parameters-3:
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -820,18 +474,16 @@ Example Parameters
       'latest' // state at the latest block
    ]
 
-.. _returns-14:
 
 Returns
-~~~~~~~
+^^^^^^^^^^
 
 ``QUANTITY`` - integer of the number of transactions send from this
 address.
 
-.. _example-14:
 
 Example
-~~~~~~~
+^^^^^^^^^^^
 
 .. code:: js
 
@@ -845,25 +497,23 @@ Example
      "result": "0x1" // 1
    }
 
---------------
+.. _eth-getBlockTransactionCountByHash:
 
 eth_getBlockTransactionCountByHash
-----------------------------------
+=====================================
 
 Returns the number of transactions in a block from a block matching the
 given block hash.
 
-.. _parameters-15:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^
 
-1. ``DATA``, 32 Bytes - hash of a block.
+``DATA``, 32 Bytes - hash of a block
 
-.. _example-parameters-4:
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -871,17 +521,14 @@ Example Parameters
       '0xcd021448dcc4f9a6a7fd553b541199a2ebaab1de8e739bc6680eb0e62a870e11'
    ]
 
-.. _returns-15:
 
 Returns
-~~~~~~~
+^^^^^^^^^^
 
-``QUANTITY`` - integer of the number of transactions in this block.
-
-.. _example-15:
+``QUANTITY`` - integer of the number of transactions in this block
 
 Example
-~~~~~~~
+^^^^^^^^^
 
 .. code:: js
 
@@ -895,27 +542,23 @@ Example
      "result": "0x1" // 1
    }
 
---------------
+.. _eth-getBlockTransactionCountByNumber:
 
 eth_getBlockTransactionCountByNumber
-------------------------------------
+========================================
 
 Returns the number of transactions in a block matching the given block
 number.
 
-.. _parameters-16:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^
 
-1. ``QUANTITY|TAG`` - integer of a block number, or the string
-   ``"earliest"``, ``"latest"`` or ``"pending"``, as in the `default
-   block parameter <#the-default-block-parameter>`__.
+``QUANTITY|TAG`` - integer of a block number, or the string ``"earliest"``, ``"latest"`` or ``"pending"``, see the :ref:`default block parameter <rpc-dbp>`
 
-.. _example-parameters-5:
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -923,17 +566,15 @@ Example Parameters
       'latest',
    ]
 
-.. _returns-16:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^
 
-``QUANTITY`` - integer of the number of transactions in this block.
+``QUANTITY`` - integer of the number of transactions in this block
 
-.. _example-16:
 
 Example
-~~~~~~~
+^^^^^^^^^^^
 
 .. code:: js
 
@@ -947,27 +588,24 @@ Example
      "result": "0x1" // There is 1 transaction in the current block
    }
 
---------------
+.. _eth-getCode:
 
 eth_getCode
------------
+===============
 
 Returns code at a given address.
 
-.. _parameters-17:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^
 
-1. ``DATA``, 20 Bytes - address.
-2. ``QUANTITY|TAG`` - integer block number, or the string ``"latest"``,
-   ``"earliest"`` or ``"pending"``, see the `default block
-   parameter <#the-default-block-parameter>`__.
+1） ``DATA``, 20 Bytes - address
 
-.. _example-parameters-6:
+2） ``QUANTITY|TAG`` - integer block number, or the string ``"latest"``, ``"earliest"`` or ``"pending"``, see the :ref:`default block parameter <rpc-dbp>`
+
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -976,17 +614,15 @@ Example Parameters
       'latest'
    ]
 
-.. _returns-17:
 
 Returns
-~~~~~~~
+^^^^^^^^^^
 
-``DATA`` - the code from the given address.
+``DATA`` - the code from the given address
 
-.. _example-17:
 
 Example
-~~~~~~~
+^^^^^^^^^
 
 Deploy a solidity contract
 
@@ -1002,10 +638,10 @@ Deploy a solidity contract
      "result": "0x608060405234801561001057600080fd5b506004361061005e576000357c0100000000000000000000000000000000000000000000000000000000900480630c6af81614610063578063262a9dff1461009457806367e0badb146100b8575b600080fd5b6100926004803603602081101561007957600080fd5b81019080803560030b90602001909291905050506100dc565b005b61009c610102565b604051808260030b60030b815260200191505060405180910390f35b6100c0610114565b604051808260030b60030b815260200191505060405180910390f35b806000806101000a81548163ffffffff021916908360030b63ffffffff16021790555050565b6000809054906101000a900460030b81565b60008060009054906101000a900460030b90509056fea265627a7a723158202f431f1087cf66d88ca0871e94603a8d6b3fe9c05c6c334762b801417af7959864736f6c63430005110032"
    }
 
---------------
+.. _eth-sign:
 
 eth_sign
---------
+===========
 
 The sign method calculates an Ethereum specific signature with:
 ``sign(keccak256("\x19Ethereum Signed Message:\n" + len(message) + message)))``.
@@ -1015,29 +651,27 @@ recognisable as an Ethereum specific signature. This prevents misuse
 where a malicious DApp can sign arbitrary data (e.g. transaction) and
 use the signature to impersonate the victim.
 
-**Note** the address to sign with must be unlocked.
+.. note:: the address to sign with must be unlocked.
 
-.. _parameters-18:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^
 
 account, message
 
-1. ``DATA``, 20 Bytes - address.
-2. ``DATA``, N Bytes - message to sign.
+1） ``DATA``, 20 Bytes - address
 
-.. _returns-18:
+2） ``DATA``, N Bytes - message to sign
+
 
 Returns
-~~~~~~~
+^^^^^^^^^^^^
 
 ``DATA``: Signature
 
-.. _example-18:
 
 Example
-~~~~~~~
+^^^^^^^^^
 
 .. code:: js
 
@@ -1056,10 +690,10 @@ calculated with ``eth_sign`` can be found
 `here <https://gist.github.com/bas-vk/d46d83da2b2b4721efb0907aecdb7ebd>`__.
 The contract is deployed on the testnet Ropsten and Rinkeby.
 
---------------
+.. _eth-signTransaction:
 
-eth_signTransaction\*
----------------------
+eth_signTransaction
+=====================
 
 The sign method calculates an Ethereum specific signature with:
 ``sign(keccak256("\x19Ethereum Signed Message:\n" + len(message) + message)))``.
@@ -1071,27 +705,24 @@ use the signature to impersonate the victim.
 
 **Note** the address to sign with must be unlocked.
 
-.. _parameters-19:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^^
 
 account, message
 
-1. ``DATA``, 20 Bytes - address.
-2. ``DATA``, N Bytes - message to sign.
+1） ``DATA``, 20 Bytes - address
 
-.. _returns-19:
+2） ``DATA``, N Bytes - message to sign
 
 Returns
-~~~~~~~
+^^^^^^^^^^^
 
 ``DATA``: Signature
 
-.. _example-19:
 
 Example
-~~~~~~~
+^^^^^^^^^^^
 
 .. code:: js
 
@@ -1119,20 +750,19 @@ Example
      }
    }
 
---------------
+.. _eth-sendTransaction:
 
 eth_sendTransaction
--------------------
+=======================
 
 Creates new message call transaction or a contract creation, if the data
 field contains code.
 
-.. _parameters-20:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^
 
-1. ``Object`` - The transaction object
+``Object`` - The transaction object
 
 -  ``from``: ``DATA``, 20 Bytes - The address the transaction is send
    from.
@@ -1151,10 +781,9 @@ Parameters
 -  ``nonce``: ``QUANTITY`` - (optional) Integer of a nonce. This allows
    to overwrite your own pending transactions that use the same nonce.
 
-.. _example-parameters-7:
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -1167,22 +796,20 @@ Example Parameters
      "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
    }]
 
-.. _returns-20:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^^
 
 ``DATA``, 32 Bytes - the transaction hash, or the zero hash if the
 transaction is not yet available.
 
-Use `eth_getTransactionReceipt <#eth_gettransactionreceipt>`__ to get
+Use :ref:`eth_getTransactionReceipt <eth-getTransactionReceipt>` to get
 the contract address, after the transaction was mined, when you created
 a contract.
 
-.. _example-20:
 
 Example
-~~~~~~~
+^^^^^^^^^^^^
 
 .. code:: js
 
@@ -1196,46 +823,41 @@ Example
      "result": "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331"
    }
 
---------------
+.. _eth-sendRawTransaction:
 
 eth_sendRawTransaction
-----------------------
+============================
 
-Creates new message call transaction or a contract creation for signed
-transactions.
+Creates new message call transaction or a contract creation for signed transactions.
 
-.. _parameters-21:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^
 
-1. ``DATA``, The signed transaction data.
+``DATA``, The signed transaction data
 
-.. _example-parameters-8:
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
    params: ["0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"]
 
-.. _returns-21:
 
 Returns
-~~~~~~~
+^^^^^^^^^^
 
 ``DATA``, 32 Bytes - the transaction hash, or the zero hash if the
 transaction is not yet available.
 
-Use `eth_getTransactionReceipt <#eth_gettransactionreceipt>`__ to get
+Use :ref:`eth_getTransactionReceipt <eth-getTransactionReceipt>` to get
 the contract address, after the transaction was mined, when you created
 a contract.
 
-.. _example-21:
 
 Example
-~~~~~~~
+^^^^^^^^^
 
 .. code:: js
 
@@ -1249,23 +871,19 @@ Example
      "result": "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331"
    }
 
---------------
-
-eth_resend\*
-------------
+.. _eth-call:
 
 eth_call
---------
+=============
 
 Executes a new message call immediately without creating a transaction
 on the block chain.
 
-.. _parameters-22:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^
 
-1. ``Object`` - The transaction call object
+1） ``Object`` - The transaction call object
 
 -  ``from``: ``DATA``, 20 Bytes - (optional) The address the transaction
    is sent from.
@@ -1283,21 +901,17 @@ Parameters
    Solidity
    documentation <https://solidity.readthedocs.io/en/latest/abi-spec.html>`__
 
-2. ``QUANTITY|TAG`` - integer block number, or the string ``"latest"``,
-   ``"earliest"`` or ``"pending"``, see the `default block
-   parameter <#the-default-block-parameter>`__
+2） ``QUANTITY|TAG`` - integer block number, or the string ``"latest"``, ``"earliest"`` or ``"pending"``, see the :ref:`default block parameter <rpc-dbp>`
 
-.. _returns-22:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^
 
-``DATA`` - the return value of executed contract.
+``DATA`` - the return value of executed contract
 
-.. _example-22:
 
 Example
-~~~~~~~
+^^^^^^^^^^
 
 .. code:: js
 
@@ -1311,10 +925,10 @@ Example
      "result": "0x"
    }
 
---------------
+.. _eth-estimateGas:
 
 eth_estimateGas
----------------
+====================
 
 Generates and returns an estimate of how much gas is necessary to allow
 the transaction to complete. The transaction will not be added to the
@@ -1322,28 +936,25 @@ blockchain. Note that the estimate may be significantly more than the
 amount of gas actually used by the transaction, for a variety of reasons
 including EVM mechanics and node performance.
 
-.. _parameters-23:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^
 
-See `eth_call <#eth_call>`__ parameters, expect that all properties are
+See :ref:`eth_call <eth-call>` parameters, expect that all properties are
 optional. If no gas limit is specified platone uses the block gas limit
 from the pending block as an upper bound. As a result the returned
 estimate might not be enough to executed the call/transaction when the
 amount of gas is higher than the pending block gas limit.
 
-.. _returns-23:
 
 Returns
-~~~~~~~
+^^^^^^^^^
 
-``QUANTITY`` - the amount of gas used.
+``QUANTITY`` - the amount of gas used
 
-.. _example-23:
 
 Example
-~~~~~~~
+^^^^^^^^^^
 
 .. code:: js
 
@@ -1357,26 +968,24 @@ Example
      "result": "0x5208" // 21000
    }
 
---------------
+.. _eth-getBlockByHash:
 
 eth_getBlockByHash
-------------------
+========================
 
 Returns information about a block by hash.
 
-.. _parameters-24:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^
 
-1. ``DATA``, 32 Bytes - Hash of a block.
-2. ``Boolean`` - If ``true`` it returns the full transaction objects, if
-   ``false`` only the hashes of the transactions.
+1） ``DATA``, 32 Bytes - Hash of a block
 
-.. _example-parameters-9:
+2） ``Boolean`` - If ``true`` it returns the full transaction objects, if ``false`` only the hashes of the transactions
+
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -1385,10 +994,9 @@ Example Parameters
        true
    ]
 
-.. _returns-24:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^^
 
 ``Object`` - A block object, or ``null`` when no block was found:
 
@@ -1426,10 +1034,9 @@ Returns
    Bytes transaction hashes depending on the last given parameter.
 -  ``uncles``: ``Array`` - Array of uncle hashes.
 
-.. _example-24:
 
 Example
-~~~~~~~
+^^^^^^^^
 
 .. code:: js
 
@@ -1474,26 +1081,23 @@ Example
      }
    }
 
---------------
+.. _eth-getBlockByNumber:
 
 eth_getBlockByNumber
---------------------
+========================
 
 Returns information about a block by block number.
 
-.. _parameters-25:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^^
 
-1. ``QUANTITY|TAG`` - integer of a block number, or the string
-   ``"earliest"``, ``"latest"`` or ``"pending"``, as in the `default
-   block parameter <#the-default-block-parameter>`__.
-2. ``Boolean`` - If ``true`` it returns the full transaction objects, if
-   ``false`` only the hashes of the transactions.
+1） ``QUANTITY|TAG`` - integer of a block number, or the string ``"earliest"``, ``"latest"`` or ``"pending"``, see the :ref:`default block parameter <rpc-dbp>`
+
+2） ``Boolean`` - If ``true`` it returns the full transaction objects, if ``false`` only the hashes of the transactions
 
 Example Parameter
-~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -1502,44 +1106,40 @@ Example Parameter
       true
    ]
 
-.. _returns-25:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^^
 
-See `eth_getBlockByHash <#eth_getblockbyhash>`__
+See :ref:`eth_getBlockByHash <eth-getBlockByHash>`
 
-.. _example-25:
 
 Example
-~~~~~~~
+^^^^^^^^^^^^^
 
 .. code:: js
 
    // Request
    curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":["latest", true],"id":1}'
 
-Result see `eth_getBlockByHash <#eth_getblockbyhash>`__
+Result see :ref:`eth_getBlockByHash <eth-getBlockByHash>`
 
---------------
+.. _eth-getTransactionByHash:
 
 eth_getTransactionByHash
-------------------------
+===============================
 
 Returns the information about a transaction requested by transaction
 hash.
 
-.. _parameters-26:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^^^
 
-1. ``DATA``, 32 Bytes - hash of a transaction
+``DATA``, 32 Bytes - hash of a transaction
 
-.. _example-parameters-10:
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -1547,10 +1147,9 @@ Example Parameters
       "0x7aac91a30b45d03f43d7949e673b1243c93d0adc7190f184681e83eac705a19f"
    ]
 
-.. _returns-26:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^^
 
 ``Object`` - A transaction object, or ``null`` when no transaction was
 found:
@@ -1575,10 +1174,9 @@ found:
 -  ``r``: ``QUANTITY`` - ECDSA signature r
 -  ``s``: ``QUANTITY`` - ECDSA signature s
 
-.. _example-26:
 
 Example
-~~~~~~~
+^^^^^^^^^^^^
 
 .. code:: js
 
@@ -1625,26 +1223,24 @@ Example
    s:0x7eae6bad6a318409a467d187819511f7bf47a5a0970955a1bc34285e6b3429ee
    txType:0x1
 
---------------
+.. _eth-getTransactionByBlockHashAndIndex:
 
 eth_getTransactionByBlockHashAndIndex
--------------------------------------
+============================================
 
 Returns information about a transaction by block hash and transaction
 index position.
 
-.. _parameters-27:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^
 
-1. ``DATA``, 32 Bytes - hash of a block.
-2. ``QUANTITY`` - integer of the transaction index position.
+1） ``DATA``, 32 Bytes - hash of a block
 
-.. _example-parameters-11:
+2） ``QUANTITY`` - integer of the transaction index position
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -1653,47 +1249,40 @@ Example Parameters
       '0x0' // 0
    ]
 
-.. _returns-27:
 
 Returns
-~~~~~~~
+^^^^^^^^^^
 
-See `eth_getTransactionByHash <#eth_gettransactionbyhash>`__
-
-.. _example-27:
+See :ref:`eth_getTransactionByHash <eth-getTransactionByHash>`
 
 Example
-~~~~~~~
+^^^^^^^^^^^^
 
 .. code:: js
 
    // Request
    curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getTransactionByBlockHashAndIndex","params":["0xcd021448dcc4f9a6a7fd553b541199a2ebaab1de8e739bc6680eb0e62a870e11", "0x0"],"id":1}'
 
-Result see `eth_getTransactionByHash <#eth_gettransactionbyhash>`__
+Result see :ref:`eth_getTransactionByHash <eth-getTransactionByHash>`
 
---------------
+.. _eth-getTransactionByBlockNumberAndIndex:
 
 eth_getTransactionByBlockNumberAndIndex
----------------------------------------
+================================================
 
-Returns information about a transaction by block number and transaction
-index position.
+Returns information about a transaction by block number and transaction index position.
 
-.. _parameters-28:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^
 
-1. ``QUANTITY|TAG`` - a block number, or the string ``"earliest"``,
-   ``"latest"`` or ``"pending"``, as in the `default block
-   parameter <#the-default-block-parameter>`__.
-2. ``QUANTITY`` - the transaction index position.
+1） ``QUANTITY|TAG`` - a block number, or the string ``"earliest"``, ``"latest"`` or ``"pending"``, see the :ref:`default block parameter <rpc-dbp>`
 
-.. _example-parameters-12:
+2） ``QUANTITY`` - the transaction index position
+
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -1702,44 +1291,39 @@ Example Parameters
       '0x0' // 0
    ]
 
-.. _returns-28:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^^
 
-See `eth_getTransactionByHash <#eth_gettransactionbyhash>`__
+See :ref:`eth_getTransactionByHash <eth-getTransactionByHash>`
 
-.. _example-28:
 
 Example
-~~~~~~~
+^^^^^^^^^^^^^^
 
 .. code:: js
 
    // Request
    curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getTransactionByBlockNumberAndIndex","params":["latest", "0x0"],"id":1}'
 
-Result see `eth_getTransactionByHash <#eth_gettransactionbyhash>`__
+Result see :ref:`eth_getTransactionByHash <eth-getTransactionByHash>`
 
---------------
+.. _eth-getRawTransactionByHash:
 
-eth_getRawTransactionByHash\*
------------------------------
+eth_getRawTransactionByHash
+==================================
 
-Returns the information about a raw transaction requested by transaction
-hash.
+Returns the information about a raw transaction requested by transaction hash.
 
-.. _parameters-29:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^^^
 
-1. ``DATA``, 32 Bytes - hash of a transaction
+``DATA``, 32 Bytes - hash of a transaction
 
-.. _example-parameters-13:
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -1747,17 +1331,15 @@ Example Parameters
       "0x7aac91a30b45d03f43d7949e673b1243c93d0adc7190f184681e83eac705a19f"
    ]
 
-.. _returns-29:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^
 
 ``DATA``
 
-.. _example-29:
 
 Example
-~~~~~~~
+^^^^^^^^^^
 
 .. code:: js
 
@@ -1773,26 +1355,25 @@ Example
      }
    }
 
---------------
+.. _eth-getRawTransactionByBlockHashAndIndex:
 
-eth_getRawTransactionByBlockHashAndIndex\*
-------------------------------------------
+eth_getRawTransactionByBlockHashAndIndex
+===========================================
 
 Returns information about a raw transaction by block hash and
 transaction index position.
 
-.. _parameters-30:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^
 
-1. ``DATA``, 32 Bytes - hash of a block.
-2. ``QUANTITY`` - integer of the transaction index position.
+1） ``DATA``, 32 Bytes - hash of a block
 
-.. _example-parameters-14:
+2） ``QUANTITY`` - integer of the transaction index position
+
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -1801,48 +1382,40 @@ Example Parameters
       '0x0' // 0
    ]
 
-.. _returns-30:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^
 
-See `eth_getRawTransactionByHash <#eth_getrawtransactionbyhash>`__
+See :ref:`eth_getRawTransactionByHash <eth-getRawTransactionByHash>`
 
-.. _example-30:
 
 Example
-~~~~~~~
+^^^^^^^^^^^
 
 .. code:: js
 
    // Request
    curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getTransactionByBlockHashAndIndex","params":["0xcd021448dcc4f9a6a7fd553b541199a2ebaab1de8e739bc6680eb0e62a870e11", "0x0"],"id":1}'
 
-Result see
-`eth_getRawTransactionByHash <#eth_getrawtransactionbyhash>`__
+Result see :ref:`eth_getRawTransactionByHash <eth-getRawTransactionByHash>`
 
---------------
+.. _eth-getRawTransactionByBlockNumberAndIndex:
 
-eth_getRawTransactionByBlockNumberAndIndex\*
---------------------------------------------
+eth_getRawTransactionByBlockNumberAndIndex
+==================================================
 
-Returns information about a raw transaction by block number and
-transaction index position.
-
-.. _parameters-31:
+Returns information about a raw transaction by block number and transaction index position.
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^
 
-1. ``QUANTITY|TAG`` - a block number, or the string ``"earliest"``,
-   ``"latest"`` or ``"pending"``, as in the `default block
-   parameter <#the-default-block-parameter>`__.
-2. ``QUANTITY`` - the transaction index position.
+1） ``QUANTITY|TAG`` - a block number, or the string ``"earliest"``, ``"latest"`` or ``"pending"``, see the :ref:`default block parameter <rpc-dbp>`
 
-.. _example-parameters-15:
+2） ``QUANTITY`` - the transaction index position
+
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -1851,46 +1424,39 @@ Example Parameters
       '0x0' // 0
    ]
 
-.. _returns-31:
 
 Returns
-~~~~~~~
+^^^^^^^^^
 
-See `eth_getRawTransactionByHash <#eth_getrawtransactionbyhash>`__
-
-.. _example-31:
+See :ref:`eth_getRawTransactionByHash <eth-getRawTransactionByHash>`
 
 Example
-~~~~~~~
+^^^^^^^^^^
 
 .. code:: js
 
    // Request
    curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getTransactionByBlockNumberAndIndex","params":["latest", "0x0"],"id":1}'
 
-Result see
-`eth_getRawTransactionByHash <#eth_getrawtransactionbyhash>`__
+Result see :ref:`eth_getRawTransactionByHash <eth-getRawTransactionByHash>`
 
---------------
+.. _eth-getTransactionReceipt:
 
 eth_getTransactionReceipt
--------------------------
+================================
 
 Returns the receipt of a transaction by transaction hash.
 
-**Note** That the receipt is not available for pending transactions.
-
-.. _parameters-32:
+.. note:: That the receipt is not available for pending transactions.
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^^
 
-1. ``DATA``, 32 Bytes - hash of a transaction
+``DATA``, 32 Bytes - hash of a transaction
 
-.. _example-parameters-16:
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -1898,13 +1464,11 @@ Example Parameters
       '0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238'
    ]
 
-.. _returns-32:
 
 Returns
-~~~~~~~
+^^^^^^^^^
 
-``Object`` - A transaction receipt object, or ``null`` when no receipt
-was found:
+``Object`` - A transaction receipt object, or ``null`` when no receipt was found:
 
 -  ``transactionHash``: ``DATA``, 32 Bytes - hash of the transaction.
 -  ``transactionIndex``: ``QUANTITY`` - integer of the transaction’s
@@ -1934,10 +1498,8 @@ It also returns *either* :
    Byzantium)
 -  ``status``: ``QUANTITY`` either ``1`` (success) or ``0`` (failure)
 
-.. _example-32:
-
 Example
-~~~~~~~
+^^^^^^^^^^^
 
 .. code:: js
 
@@ -1964,31 +1526,28 @@ Example
      }
    }
 
---------------
+.. _eth-pendingTransactions:
 
-eth_pendingTransactions\*
--------------------------
+eth_pendingTransactions
+===========================
 
 Returns the pending transactions list.
 
-.. _parameters-33:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^^
 
 none
 
-.. _returns-33:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^^
 
 ``Array`` - A list of pending transactions.
 
-.. _example-33:
 
 Example
-~~~~~~~
+^^^^^^^^^^
 
 .. code:: js
 
@@ -2003,31 +1562,28 @@ Example
       }]
    }
 
---------------
+.. _eth-pendingTransactionsLength:
 
-eth_pendingTransactionsLength\*
--------------------------------
+eth_pendingTransactionsLength
+==================================
 
 Returns the length of the pending transactions list.
 
-.. _parameters-34:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^
 
 none
 
-.. _returns-34:
 
 Returns
-~~~~~~~
+^^^^^^^^^^
 
-``Array`` - A list of pending transactions.
+``Array`` - A list of pending transactions
 
-.. _example-34:
 
 Example
-~~~~~~~
+^^^^^^^^^^^
 
 .. code:: js
 
@@ -2041,17 +1597,16 @@ Example
    "result": 0
    }
 
---------------
+.. _eth-newFilter:
 
 eth_newFilter
--------------
+==================
 
 Creates a filter object, based on filter options, to notify when the
-state changes (logs). To check if the state has changed, call
-`eth_getFilterChanges <#eth_getfilterchanges>`__.
+state changes (logs). To check if the state has changed, call :ref:`eth_getFilterChanges <eth-getFilterChanges>`.
 
 A note on specifying topic filters:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Topics are order-dependent. A transaction with a log with topics [A, B]
 will be matched by the following topic filters: \* ``[]`` “anything” \*
@@ -2061,12 +1616,11 @@ after)” \* ``[A, B]`` “A in first position AND B in second position (and
 anything after)” \* ``[[A, B], [A, B]]`` “(A OR B) in first position AND
 (A OR B) in second position (and anything after)”
 
-.. _parameters-35:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^^^^
 
-1. ``Object`` - The filter options:
+``Object`` - The filter options:
 
 -  ``fromBlock``: ``QUANTITY|TAG`` - (optional, default: ``"latest"``)
    Integer block number, or ``"latest"`` for the last mined block or
@@ -2080,10 +1634,9 @@ Parameters
    ``DATA`` topics. Topics are order-dependent. Each topic can also be
    an array of DATA with “or” options.
 
-.. _example-parameters-17:
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -2094,17 +1647,15 @@ Example Parameters
      "topics": ["0x000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6ebf0b", null, ["0x000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6ebf0b", "0x0000000000000000000000000aff3454fce5edbc8cca8697c15331677e6ebccc"]]
    }]
 
-.. _returns-35:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^
 
-``QUANTITY`` - A filter id.
+``QUANTITY`` - A filter id
 
-.. _example-35:
 
 Example
-~~~~~~~
+^^^^^^^^^^^^
 
 .. code:: js
 
@@ -2118,33 +1669,29 @@ Example
      "result": "0x1" // 1
    }
 
---------------
+.. _eth-newBlockFilter:
 
 eth_newBlockFilter
-------------------
+=======================
 
 Creates a filter in the node, to notify when a new block arrives. To
-check if the state has changed, call
-`eth_getFilterChanges <#eth_getfilterchanges>`__.
+check if the state has changed, call :ref:`eth_getFilterChanges <eth-getFilterChanges>`.
 
-.. _parameters-36:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^^
 
 None
 
-.. _returns-36:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^
 
-``QUANTITY`` - A filter id.
+``QUANTITY`` - A filter id
 
-.. _example-36:
 
 Example
-~~~~~~~
+^^^^^^^^^^
 
 .. code:: js
 
@@ -2158,36 +1705,29 @@ Example
      "result": "0x1" // 1
    }
 
---------------
-
-eth_newPendingTransactions\*
-----------------------------
+.. _eth-newPendingTransactionFilter:
 
 eth_newPendingTransactionFilter
--------------------------------
+=================================
 
 Creates a filter in the node, to notify when new pending transactions
-arrive. To check if the state has changed, call
-`eth_getFilterChanges <#eth_getfilterchanges>`__.
+arrive. To check if the state has changed, call :ref:`eth_getFilterChanges <eth-getFilterChanges>`.
 
-.. _parameters-37:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^
 
 None
 
-.. _returns-37:
 
 Returns
-~~~~~~~
+^^^^^^^^^
 
-``QUANTITY`` - A filter id.
+``QUANTITY`` - A filter id
 
-.. _example-37:
 
 Example
-~~~~~~~
+^^^^^^^^^^
 
 .. code:: js
 
@@ -2201,27 +1741,24 @@ Example
      "result": "0x1" // 1
    }
 
---------------
+.. _eth-uninstallFilter:
 
 eth_uninstallFilter
--------------------
+========================
 
 Uninstalls a filter with given id. Should always be called when watch is
 no longer needed. Additonally Filters timeout when they aren’t requested
-with `eth_getFilterChanges <#eth_getfilterchanges>`__ for a period of
-time.
+with :ref:`eth_getFilterChanges <eth-getFilterChanges>` for a period of time.
 
-.. _parameters-38:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^
 
-1. ``QUANTITY`` - The filter id.
+``QUANTITY`` - The filter id
 
-.. _example-parameters-18:
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -2229,18 +1766,16 @@ Example Parameters
      "0xb" // 11
    ]
 
-.. _returns-38:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^
 
 ``Boolean`` - ``true`` if the filter was successfully uninstalled,
 otherwise ``false``.
 
-.. _example-38:
 
 Example
-~~~~~~~
+^^^^^^^^
 
 .. code:: js
 
@@ -2254,25 +1789,23 @@ Example
      "result": true
    }
 
---------------
+.. _eth-getFilterChanges:
 
 eth_getFilterChanges
---------------------
+==========================
 
 Polling method for a filter, which returns an array of logs which
 occurred since last poll.
 
-.. _parameters-39:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^
 
-1. ``QUANTITY`` - the filter id.
+``QUANTITY`` - the filter id
 
-.. _example-parameters-19:
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -2280,10 +1813,9 @@ Example Parameters
      "0x16" // 22
    ]
 
-.. _returns-39:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^^
 
 ``Array`` - Array of log objects, or an empty array if nothing has
 changed since last poll.
@@ -2322,10 +1854,9 @@ changed since last poll.
       (e.g. ``Deposit(address,bytes32,uint256)``), except you declared
       the event with the ``anonymous`` specifier.)
 
-.. _example-39:
 
 Example
-~~~~~~~
+^^^^^^^^^^
 
 .. code:: js
 
@@ -2350,24 +1881,22 @@ Example
        }]
    }
 
---------------
+.. _eth-getFilterLogs:
 
 eth_getFilterLogs
------------------
+======================
 
 Returns an array of all logs matching filter with given id.
 
-.. _parameters-40:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^
 
-1. ``QUANTITY`` - The filter id.
+``QUANTITY`` - The filter id
 
-.. _example-parameters-20:
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -2375,38 +1904,35 @@ Example Parameters
      "0x16" // 22
    ]
 
-.. _returns-40:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^^
 
-See `eth_getFilterChanges <#eth_getfilterchanges>`__
+See :ref:`eth_getFilterChanges <eth-getFilterChanges>`
 
-.. _example-40:
 
 Example
-~~~~~~~
+^^^^^^^^^^^^
 
 .. code:: js
 
    // Request
    curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getFilterLogs","params":["0x16"],"id":74}'
 
-Result see `eth_getFilterChanges <#eth_getfilterchanges>`__
+Result see :ref:`eth_getFilterChanges <eth-getFilterChanges>`
 
---------------
+.. _eth-getLogs:
 
 eth_getLogs
------------
+=============
 
 Returns an array of all logs matching a given filter object.
 
-.. _parameters-41:
 
 Parameters
-~~~~~~~~~~
+^^^^^^^^^^^^^^^
 
-1. ``Object`` - The filter options:
+``Object`` - The filter options:
 
 -  ``fromBlock``: ``QUANTITY|TAG`` - (optional, default: ``"latest"``)
    Integer block number, or ``"latest"`` for the last mined block or
@@ -2427,10 +1953,9 @@ Parameters
    hash ``blockHash``. If ``blockHash`` is present in the filter
    criteria, then neither ``fromBlock`` nor ``toBlock`` are allowed.
 
-.. _example-parameters-21:
 
 Example Parameters
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: js
 
@@ -2438,45 +1963,19 @@ Example Parameters
      "topics": ["0x000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6ebf0b"]
    }]
 
-.. _returns-41:
 
 Returns
-~~~~~~~
+^^^^^^^^^^^
 
-See `eth_getFilterChanges <#eth_getfilterchanges>`__
+See :ref:`eth_getFilterChanges <eth-getFilterChanges>`
 
-.. _example-41:
 
 Example
-~~~~~~~
+^^^^^^^^^^^^
 
 .. code:: js
 
    // Request
    curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getLogs","params":[{"topics":["0x000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6ebf0b"]}],"id":74}'
 
-Result see `eth_getFilterChanges <#eth_getfilterchanges>`__
-
---------------
-
-eth_logs\*
-----------
-
-4. Admin Namespace
-==================
-
-Please refer to `admin
-namespace <https://geth.ethereum.org/docs/rpc/ns-admin>`__
-
-5. Personal Namespace
-=====================
-
-Please refer to `personal
-namespace <https://geth.ethereum.org/docs/rpc/ns-personal>`__
-
-6. Txpool Namespace
-===================
-
-Please refer to `txpool
-namespace <https://geth.ethereum.org/docs/rpc/ns-txpool>`__
-
+Result see :ref:`eth_getFilterChanges <eth-getFilterChanges>`

@@ -17,4 +17,5 @@ database/
 
 # sphinx
 build/
+make.bat
 

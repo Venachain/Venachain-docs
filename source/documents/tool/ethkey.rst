@@ -2,7 +2,7 @@
 密钥工具 (ethkey)
 =================
 
-1. 概述
+概述
 =======
 
 PlatONE与Ethereum一致都使用了基于secp256k1椭圆曲线的加解密、签名验签方案。
@@ -20,9 +20,9 @@ PlatONE中用到公私钥的地方主要有以下两处：
 
 PlatONE提供了密钥工具ethkey，用于产生密钥对。
 
-该工具位于\ ``~/PlatONE-Go/release/linux/bin``\ 目录下。
+该工具位于 ``~/PlatONE-Go/release/linux/bin`` 目录下。
 
-2. 创建密钥对 
+创建密钥对 
 =============
 
 .. code:: shell
@@ -37,7 +37,7 @@ PlatONE提供了密钥工具ethkey，用于产生密钥对。
 
 该命令会创建一组新的密钥对，其中私钥是用户自己保存的，地址及公钥可以公开。
 
-3. 创建密钥文件
+创建密钥文件
 ===============
 
 .. code:: shell
@@ -73,7 +73,7 @@ keyfile.json文件的内容如下所示：
        "version":3
    }
 
-4. 查看密钥文件信息 
+查看密钥文件信息 
 ===================
 
 .. code:: shell
@@ -92,7 +92,7 @@ keyfile.json文件的内容如下所示：
    Public key:     04f7acbc87ddf0da6edbd3ac86f81ebac69992cd4b40897855322c5c4ed029cacd5e1b9ef5b78d66576de68041689702fe5a893cae5f46def58e25738efa2ff801
    Private key:    e01cbcdbf2bea366eac27ec1214cd84fe718a77bee15a30102ef88f297b15cff
 
-5. 签名消息 
+签名消息 
 ===========
 
 .. code:: shell
@@ -108,7 +108,7 @@ keyfile.json文件的内容如下所示：
    Passphrase:
    Signature: cf394180f0ae2e507470e904eeba1cbcc8882c2b73ea9e712fcd897a5d195d292df076171dfb03e1913226de5060e5e7548ecc3091157f8d5b8b62def6c6d9d600
 
-6. 验证签名
+验证签名
 ===========
 
 .. code:: shell
@@ -128,4 +128,4 @@ keyfile.json文件的内容如下所示：
    Recovered public key: 04f7acbc87ddf0da6edbd3ac86f81ebac69992cd4b40897855322c5c4ed029cacd5e1b9ef5b78d66576de68041689702fe5a893cae5f46def58e25738efa2ff801
    Recovered address: 0x8B5d3Af7bF4d309D4C83Ed30936f78FBB1AcAA18
 
-.. note:: 上述命令的地址和签名需要改成你自己的对应的地址和签名，message内容可以改成你需要签名打内容，但是需要保持第五节和第六节打message内容一致。
+.. note:: 上述命令的地址和签名需要改成你自己的对应的地址和签名，message内容可以改成你需要签名的内容，但是需要保持签名和验签的message内容一致。
