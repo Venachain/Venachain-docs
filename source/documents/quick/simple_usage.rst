@@ -2,7 +2,7 @@
 使用方法
 ========
 
-.. note:: 详细使用方法请阅读 :ref:`节点部署工具platonectl <tool-platonectl>`
+.. note:: 详细使用方法请阅读 :ref:`节点部署工具venachainctl <tool-venachainctl>`
 
 连接到console
 ================
@@ -11,9 +11,9 @@
 
 .. code-block:: bash
 
-   ./platonectl.sh console -n 0
+   ./venachainctl.sh console -n 0
 
-.. note:: 详细使用方法请阅读 :ref:`platonectl console的使用方法 <platonectl-console>`
+.. note:: 详细使用方法请阅读 :ref:`venachainctl console的使用方法 <venachainctl-console>`
 
 获取所有节点
 ===============
@@ -22,7 +22,7 @@
 
 .. code:: bash
 
-   ./platonectl.sh get
+   ./venachainctl.sh get
 
 查看节点信息
 ===============
@@ -31,7 +31,7 @@
 
 .. code:: bash
 
-   ./platonectl.sh status -n 0
+   ./venachainctl.sh status -n 0
 
 console:
 
@@ -54,14 +54,14 @@ console:
 .. code:: bash
 
    # 停止节点
-   ./platonectl.sh stop -n 0
+   ./venachainctl.sh stop -n 0
    # 停止运行节点，并清除数据
-   ./platonectl.sh clear -n 0
+   ./venachainctl.sh clear -n 0
 
 执行如下命令可以停止所有节点，并清理链数据。
 
 .. code:: bash
 
    cd ${WORKSPACE}/scripts/
-   ./platonectl.sh clear -a
+   ./venachainctl.sh clear -a
    

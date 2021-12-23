@@ -2,7 +2,7 @@
 Java SDK
 ===========
 
-PlatONE Java SDK是面向java开发者，提供的PlatONE联盟链的java开发工具包，提供了在应用层（java代码）访问区块链节点并获取服务的接口，比如部署合约、调用合约、查询链上数据等。
+Venachain Java SDK是面向java开发者，提供的Venachain联盟链的java开发工具包，提供了在应用层（java代码）访问区块链节点并获取服务的接口，比如部署合约、调用合约、查询链上数据等。
 
 下载与安装
 ============
@@ -32,32 +32,32 @@ PlatONE Java SDK是面向java开发者，提供的PlatONE联盟链的java开发�
 
        <dependencies>
            <dependency>
-               <groupId>com.platone.client</groupId>
+               <groupId>com.venachain.client</groupId>
                <artifactId>core</artifactId>
                <version>0.4.1</version>
            </dependency>
            <dependency>
-               <groupId>com.platone.client</groupId>
+               <groupId>com.venachain.client</groupId>
                <artifactId>crypto</artifactId>
                <version>0.4.1</version>
            </dependency>
            <dependency>
-               <groupId>com.platone.client</groupId>
+               <groupId>com.venachain.client</groupId>
                <artifactId>abi</artifactId>
                <version>0.4.1</version>
            </dependency>
            <dependency>
-               <groupId>com.platone.client</groupId>
+               <groupId>com.venachain.client</groupId>
                <artifactId>rlp</artifactId>
                <version>0.4.1</version>
            </dependency>
            <dependency>
-               <groupId>com.platone.client</groupId>
+               <groupId>com.venachain.client</groupId>
                <artifactId>tuples</artifactId>
                <version>0.4.1</version>
            </dependency>
            <dependency>
-               <groupId>com.platone.client</groupId>
+               <groupId>com.venachain.client</groupId>
                <artifactId>utils</artifactId>
                <version>0.4.1</version>
            </dependency>
@@ -111,7 +111,7 @@ PlatONE Java SDK是面向java开发者，提供的PlatONE联盟链的java开发�
 连接节点
 ===========
 
-首先需要与PlatONE节点建立连接，以获取链上有关服务。PlatONE支持建立http连接和websocket连接两种方式。
+首先需要与Venachain节点建立连接，以获取链上有关服务。Venachain支持建立http连接和websocket连接两种方式。
 
 .. code:: java
 
@@ -129,7 +129,7 @@ PlatONE Java SDK是面向java开发者，提供的PlatONE联盟链的java开发�
 **说明**
 
 - 建立Websocket连接需要显式调用connect方法（与HTTP不同）。
-- PlatONE节点需要在启动时打开websocket监听功能，即启动时加入参数：``–ws`` 。
+- Venachain节点需要在启动时打开websocket监听功能，即启动时加入参数：``–ws`` 。
 
 合约交互
 ============
@@ -213,7 +213,7 @@ PlatONE Java SDK是面向java开发者，提供的PlatONE联盟链的java开发�
 
           //optional
           class NodeConfiguration {
-                  public static final String WALLETSOURCE = "/home/username/Work/PlatONE/data/keystore/keyfile.json";
+                  public static final String WALLETSOURCE = "/home/username/Work/Venachain/data/keystore/keyfile.json";
                   public static final String DEMOBIN = "/home/user/Work/client-sdk-0.4.1/contract/firstdemo.wasm";
               }
 
@@ -235,7 +235,7 @@ PlatONE Java SDK是面向java开发者，提供的PlatONE联盟链的java开发�
 
           //optional
           class NodeConfiguration {
-                  public static final String WALLETSOURCE = "/home/username/Work/PlatONE/data/keystore/keyfile.json";
+                  public static final String WALLETSOURCE = "/home/username/Work/Venachain/data/keystore/keyfile.json";
                   public static final String DEMOBIN = "/home/user/Work/client-sdk-0.4.0/contract/firstdemo.wasm";
               }
 
@@ -265,18 +265,18 @@ PlatONE Java SDK是面向java开发者，提供的PlatONE联盟链的java开发�
                  Web3j web3j = Web3j.build(new HttpService("http://127.0.0.1:6791"));
 
                  try {
-                     // 密钥账户，keyfile.json为ethkey工具生成的账户文件，参照《PlatONE密钥工具文档》
+                     // 密钥账户，keyfile.json为ethkey工具生成的账户文件，参照《Venachain密钥工具文档》
                      Credentials credentials = WalletUtils.loadCredentials("1", "/home/wxuser/keyfile.json");
 
                      // 合约数据
-                     byte[] dataBytes = Files.readBytes(new File("/home/user/PlatONE-Workspace-0.2/contracts/build/appContract/demo/demo.wasm"));
+                     byte[] dataBytes = Files.readBytes(new File("/home/user/Venachain-Workspace-0.2/contracts/build/appContract/demo/demo.wasm"));
                      String binData = Hex.toHexString(dataBytes);
 
                      // 加载合约
                      Demo demo = Demo.load(binData, "0x1d7f2695b43be56f52f24baa199420f8c10ac1d3", web3j, credentials, new DefaultWasmGasProvider());
 
-                     // 调用demo合约的setName方法，参数输入字符串"platone"
-                     TransactionReceipt ret = demo.setName("platone").send();
+                     // 调用demo合约的setName方法，参数输入字符串"venachain"
+                     TransactionReceipt ret = demo.setName("venachain").send();
                      System.out.println("Transaction Hash: "+ret.getTransactionHash());
 
                      // 调用demo合约的getName方法
@@ -296,7 +296,7 @@ PlatONE Java SDK是面向java开发者，提供的PlatONE联盟链的java开发�
                  try {
                      Web3j web3j = Web3j.build(new HttpService("http://127.0.0.1:6791"));
                      Credentials credentials = WalletUtils.loadCredentials("1", "/home/wxuser/keyfile.json");
-                     byte[] dataBytes = Files.readBytes(new File("/home/user/PlatONE-Workspace-0.2/contracts/build/appContract/demo/demo.wasm"));
+                     byte[] dataBytes = Files.readBytes(new File("/home/user/Venachain-Workspace-0.2/contracts/build/appContract/demo/demo.wasm"));
                      String binData = Hex.toHexString(dataBytes);
                      // load contract
                      CnsManager cns = CnsManager.load(null, "0x0000000000000000000000000000000000000011", web3j, credentials, new DefaultWasmGasProvider());
@@ -374,8 +374,8 @@ PlatONE Java SDK是面向java开发者，提供的PlatONE联盟链的java开发�
 
 .. code:: java
 
-       // 调用demo合约的setName方法，参数输入字符串"platone"
-       TransactionReceipt ret = demo.setName("platone").send();
+       // 调用demo合约的setName方法，参数输入字符串"venachain"
+       TransactionReceipt ret = demo.setName("venachain").send();
        System.out.println("Transaction Hash: "+ret.getTransactionHash());
 
        // 根据receipt获取event数据

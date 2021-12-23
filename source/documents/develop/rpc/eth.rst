@@ -178,7 +178,7 @@ Returns
 Example
 ^^^^^^^^
 
-no gas Price in PlatONE?
+no gas Price in Venachain?
 
 .. code:: js
 
@@ -309,7 +309,7 @@ Example
      "result": "0x0" // The balance is 0
    }
 
-Notation: currently there is no balance in PlatONE
+Notation: currently there is no balance in Venachain
 
 .. _eth-getAccountBaseInfo:
 
@@ -429,7 +429,7 @@ the position with:
 
    keccak(decodeHex("000000000000000000000000391694e7e0b0cce554cb130d723a9d27458f9298" + "0000000000000000000000000000000000000000000000000000000000000001"))
 
-The platone console which comes with the web3 library can be used to
+The venachain console which comes with the web3 library can be used to
 make the calculation:
 
 .. code:: js
@@ -941,7 +941,7 @@ Parameters
 ^^^^^^^^^^^
 
 See :ref:`eth_call <eth-call>` parameters, expect that all properties are
-optional. If no gas limit is specified platone uses the block gas limit
+optional. If no gas limit is specified venachain uses the block gas limit
 from the pending block as an upper bound. As a result the returned
 estimate might not be enough to executed the call/transaction when the
 amount of gas is higher than the pending block gas limit.
@@ -1946,7 +1946,7 @@ Parameters
    ``DATA`` topics. Topics are order-dependent. Each topic can also be
    an array of DATA with “or” options.
 -  ``blockhash``: ``DATA``, 32 Bytes - (optional) With the addition of
-   EIP-234 (platone >= v1.8.13 or Parity >= v2.1.0), ``blockHash`` is a
+   EIP-234 (venachain >= v1.8.13 or Parity >= v2.1.0), ``blockHash`` is a
    new filter option which restricts the logs returned to the single
    block with the 32-byte hash ``blockHash``. Using ``blockHash`` is
    equivalent to ``fromBlock`` = ``toBlock`` = the block number with

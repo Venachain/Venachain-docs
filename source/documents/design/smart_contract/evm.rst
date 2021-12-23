@@ -206,12 +206,12 @@ ByteCode如下所示：
 
 在二进制的开头部分通常是用来判断一个函数是否是payable的。比如CALLVALUE指令会得到transacation是否发了eth，如果发了eth，ISZERO的结果就会是false，因此不会执行跳转。从这里可以看出来，对一个合约地址不可以同时进行转账和调用合约两项事情。
 
-PlatONE对EVM支持情况说明
+Venachain对EVM支持情况说明
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-PlatONE支持以太坊Byzantine的协议，后续更新的evm协议暂不支持（比如2019年更新的Constantinople、Istanbul等）。
+Venachain支持以太坊Byzantine的协议，后续更新的evm协议暂不支持（比如2019年更新的Constantinople、Istanbul等）。
 
-在以太坊Byzantium版本之后，目前有以下几个版本，其中新增的字节码PlatONE暂不支持
+在以太坊Byzantium版本之后，目前有以下几个版本，其中新增的字节码Venachain暂不支持
 
 -  Constantinople（2019.1.16更新）
 
@@ -224,7 +224,7 @@ available in assembly.
 -  Istanbul (2019.12.7更新) Opcodes ``chainid`` and ``selfbalance`` are
    available in assembly.
 
-目前PlatONE对solidity版本没有要求，0.4.x～0.6.x都可以使用，但是编译solidity合约时候需要明确指定EVM版本为Byzantium，因为目前
+目前Venachain对solidity版本没有要求，0.4.x～0.6.x都可以使用，但是编译solidity合约时候需要明确指定EVM版本为Byzantium，因为目前
 
 如果合约中涉及到Byzantium版本EVM不支持的功能，底层链也不会支持，变现为合约执行时gas耗尽。
 

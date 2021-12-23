@@ -7,7 +7,7 @@
 系统要求
 ===========
 
-本文档提供PlatONE在Linux环境下安装方式,在编译安装PlatONE之前,
+本文档提供Venachain在Linux环境下安装方式,在编译安装Venachain之前,
 需确保系统已经安装了如下环境:
 
 -  gcc 7.3+
@@ -33,15 +33,16 @@ CPU  1核1.5GHZ 4核2.4GHZ
 源码下载及编译
 =================
 
-首先用户需要从github下载PlatONE源码并编译
+首先用户需要从github下载Venachain源码并编译
 
 .. code:: bash
 
-   # 获取PlatONE源码
-   git clone --recursive https://git-c.i.wxblockchain.com/PlatONE/src/node/PlatONE-Go.git
+   # 获取Venachain源码
+   git clone --recursive https://github.com/Venachain/Venachain.git
 
-   # 编译PlatONE
-   cd PlatONE-Go
+
+   # 编译Venachain
+   cd Venachain
    make all
 
 编译完成后，会在release目录下生成搭链所需的材料。
@@ -54,4 +55,4 @@ CPU  1核1.5GHZ 4核2.4GHZ
 .. code:: bash
 
    cd ${WORKSPACE}/scripts/
-   ./platonectl.sh clear -a
+   ./venachainctl.sh clear -a

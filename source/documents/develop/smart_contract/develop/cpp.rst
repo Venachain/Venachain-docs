@@ -211,7 +211,7 @@ map结构支持如下的几种api：
 Event
 =============
 
-Event允许我们方便地使用PlatONE的日志基础设施。我们可以在dapp中监听Event，当合约中产生Event时，会使相关参数被存储到交易的Log中。这些Log与地址相关联，被写入区块链中，可以通过交易Receipt查询某个交易所产生的Event。
+Event允许我们方便地使用Venachain的日志基础设施。我们可以在dapp中监听Event，当合约中产生Event时，会使相关参数被存储到交易的Log中。这些Log与地址相关联，被写入区块链中，可以通过交易Receipt查询某个交易所产生的Event。
 
 宏 ``BCWASM_EVENT`` 和 ``BCWASM_EMIT_EVENT`` 提供了对合约Event的直接支持，使用方法如下：
 
@@ -353,7 +353,7 @@ bcwasm库提供了类 ``DeployedContract`` 用于跨合约调用，当需要在�
 初始化方法中注册cns合约
 =========================
 
-PlatONE在系统合约中提供了CNS服务功能，可以将合约注册至系统合约中，以实现使用合约名称版本调用合约而无需使用地址。可以在合约的初始化方法 ``init()`` 中直接将合约注册到系统合约中，以便使用CNS合约的便捷功能。
+Venachain在系统合约中提供了CNS服务功能，可以将合约注册至系统合约中，以实现使用合约名称版本调用合约而无需使用地址。可以在合约的初始化方法 ``init()`` 中直接将合约注册到系统合约中，以便使用CNS合约的便捷功能。
 
 通过在 ``init()`` 方法中调用cnsManager合约的 ``cnsRegisterFromInit(name,version)`` 方法就可以实现，需要注意合约版本必须是 ``"x.x.x.x"`` 的格式。
 
@@ -417,7 +417,7 @@ caller()、origin()和address()
    char/int8_t  
    void  
 
-2） platone合约库对u32和定长数组bytesN未定义，目前可以分别用uint32_t和char[]数组代替。
+2） Venachain合约库对u32和定长数组bytesN未定义，目前可以分别用uint32_t和char[]数组代替。
 
 3） 在实现合约对外接口的查询方法是时，若函数返回的是字符串（比如通过调用string的c_str()方法），需要在该函数内部新申请（malloc）一段内存，并将该字符串copy到这段新的内存，由于该内存是由BCWasm虚拟机统一管理，故不存在内存泄露问题。返回字符串类型时，可以使用 ``RETURN_CHARARRAY`` 宏实现，该宏定义如下
 

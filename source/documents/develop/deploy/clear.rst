@@ -9,7 +9,7 @@
 
 .. code:: bash
 
-    ./platonectl.sh stop -n ${node_id}
+    ./venachainctl.sh stop -n ${node_id}
 
 **参数**
 
@@ -25,7 +25,7 @@
 
 .. code:: bash
 
-    ./platonectl.sh clear -n ${node_id}
+    ./venachainctl.sh clear -n ${node_id}
 
 **参数**
 

@@ -8,17 +8,17 @@
 1.1. 创建genesis.json文件
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1) 生成 **节点** 密钥对，需要进入目录PlatONE-Go/build/bin
+1) 生成 **节点** 密钥对，需要进入目录~/release/linux/bin
 
 .. code:: bash
 
-      ./ethkey genkeypair
+   ./ethkey genkeypair
 
 .. code:: console
 
-      Address   :  0xC71433b47f1b0053f935AEf64758153B24cE7445
-      PrivateKey:  b428720a89d003a1b393c642e6e32713dd6a6f82fe4098b9e3a90eb38e23b6bb
-      PublicKey :  68bb049008c7226de3188b6376127354507e1b1e553a2a8b988bb99b33c4d995e426596fc70ce12f7744100bc69c5f0bce748bc298bf8f0d0de1f5929850b5f4
+   Address   :  0xD55c2d0dd0e02F71eC06c6FFE8A9b6F11924af93
+   PrivateKey:  bc8cf5265898eaf57719de05a1a1e9a02195f08144813f64613065f62535f8d6
+   PublicKey :  44e28023831d1abf070f0ade4ed3d840b6e6e1102876038d72bad3434d1c1ebcbee194947a53485be68f81a92945c47e3a534c5f2f598b2f91fb90c508384558
 
 输出说明：
 
@@ -26,28 +26,22 @@
 -  ``PrivateKey`` : 节点私钥。
 -  ``PublicKey`` : 节点公钥。
 
-2) 将节点私钥存储在
-   ./data/platone/nodekey中，私钥是上一步生成的PrivateKey。
+2) 将节点密钥对存储在../data/node-0/中
 
 .. code:: bash
 
-      mkdir -p ./data/platone
-      echo "b428720a89d003a1b393c642e6e32713dd6a6f82fe4098b9e3a90eb38e23b6bb" > ./data/platone/nodekey
-      cat ./data/platone/nodekey
-      sudo updatedb
-      locate nodekey
-
-.. code:: console
-
-      /home/wxuser/work/golang/src/github.com/PlatONEnetwork/PlatONE-Go/build/bin/data/platone/nodekey
+      mkdir -p ../data/node-0/
+      echo "D55c2d0dd0e02F71eC06c6FFE8A9b6F11924af93" > ../data/node-0/node.address
+      echo "bc8cf5265898eaf57719de05a1a1e9a02195f08144813f64613065f62535f8d6" > ../data/node-0/node.prikey
+      echo "44e28023831d1abf070f0ade4ed3d840b6e6e1102876038d72bad3434d1c1ebcbee194947a53485be68f81a92945c47e3a534c5f2f598b2f91fb90c508384558" > ../data/node-0/node.pubkey
 
 3) 配置初始化文件
 
-在 /PlatONE_Network/PlatONE-Go/release/linux/conf/ 目录下存在genesis.json的模版 ``genesis.json.istanbul.template`` . 通过修改其中的参数生成 ``genesis.json`` 文件。
+在 ~/release/linux/conf/ 目录下存在genesis.json的模版 ``genesis.json.istanbul.template`` . 通过修改其中的参数生成 ``genesis.json`` 文件。
 
 .. code:: bash
 
-   cp ./PlatONE-Go/release/linux/conf/genesis.json.istanbul.template ./PlatONE-Go/build/bin
+   cp ../conf/genesis.json.istanbul.template ../conf/genesis.json
 
 模板文件：
 
@@ -108,117 +102,120 @@
 1.2. 初始化节点和创世区块
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-在 ``PlatONE-Go/build/bin`` 目录下执行下面指令初始化创世区块：
+在 ``~/release/linux/bin`` 目录下执行下面指令初始化创世区块：
 
 .. code:: console
 
-   $ platone --datadir ./data init genesis.json
+   ./venachain --datadir ../data/node-0 init ../conf/genesis.json
 
 结果如下：
 
 .. code:: console
 
-   INFO [01-09|17:31:58.832] Maximum peer count                       ETH=50 LES=0 total=50
-   INFO [01-09|17:31:58.833] Allocated cache and file handles         database=/home/wxuser/manual-Platon/build/bin/data/platon/chaindata cache=16 handles=16
-   INFO [01-09|17:31:58.839] Writing custom genesis block
-   INFO [01-09|17:31:58.840] Persisted trie from memory database      nodes=1 size=150.00B time=34.546µs gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
-   INFO [01-09|17:31:58.840] Successfully wrote genesis state         database=chaindata                                                  hash=4fe06b…382a26
-   INFO [01-09|17:31:58.840] Allocated cache and file handles         database=/home/wxuser/manual-Platon/build/bin/data/platon/lightchaindata cache=16 handles=16
-   INFO [01-09|17:31:58.848] Writing custom genesis block
-   INFO [01-09|17:31:58.848] Persisted trie from memory database      nodes=1 size=150.00B time=238.177µs gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
-   INFO [01-09|17:31:58.848] Successfully wrote genesis state         database=lightchaindata                                                  hash=4fe06b…382a26
+   INFO [12-23|16:36:22.113] Maximum peer count                       ETH=50 LES=0 total=50 RoutineID=1
+   INFO [12-23|16:36:22.114] Allocated cache and file handles         database=/home/wujingwen/workspace/go/src/Venachain/release/linux/data/node-0/venachain/chaindata cache=16 handles=16 RoutineID=1
+   INFO [12-23|16:36:22.381] Persisted trie from memory database      nodes=12 size=2.27kB time=158.5µs gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B RoutineID=1
+   INFO [12-23|16:36:22.382] Successfully wrote genesis state         database=chaindata                                                                                hash=f0d242…d4183b RoutineID=1
+   INFO [12-23|16:36:22.382] Allocated cache and file handles         database=/home/wujingwen/workspace/go/src/Venachain/release/linux/data/node-0/venachain/lightchaindata cache=16 handles=16 RoutineID=1
+   INFO [12-23|16:36:22.573] Persisted trie from memory database      nodes=12 size=2.27kB time=219.3µs gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B RoutineID=1
+   INFO [12-23|16:36:22.574] Successfully wrote genesis state         database=lightchaindata                                                                                hash=f0d242…d4183b RoutineID=1
 
 查看目录：
 
 .. code:: bash
 
-   ll -R data/
+   ll -R ../data/node-0
 
 结果如下：
 
 .. code:: console
 
-   data/:
+   ../data/node-0:
+   total 20
+   drwx------ 2 root root 4096 Dec 23 16:36 keystore
+   -rw-r--r-- 1 root root   41 Dec 23 16:29 node.address
+   -rw-r--r-- 1 root root   65 Dec 23 16:29 node.prikey
+   -rw-r--r-- 1 root root  129 Dec 23 16:29 node.pubkey
+   drwxr-xr-x 4 root root 4096 Dec 23 16:36 venachain
+
+   ../data/node-0/keystore:
    total 0
-   drwx------ 2 wxuser wxuser 91 Jan  9 17:25 keystore
-   drwxr-xr-x 4 wxuser wxuser 45 Jan  9 17:31 platon
 
-   data/keystore:
-   total 4
-   -rw------- 1 wxuser wxuser 491 Jan  9 17:25 UTC--2019-01-09T09-25-28.487164507Z--60208c048e7eb8e38b0fac40406b819ce95aa7af
+   ../data/node-0/venachain:
+   total 8
+   drwxr-xr-x 2 root root 4096 Dec 23 16:36 chaindata
+   drwxr-xr-x 2 root root 4096 Dec 23 16:36 lightchaindata
 
-   data/platon:
-   total 0
-   drwxr-xr-x 2 wxuser wxuser 85 Jan  9 17:31 chaindata
-   drwxr-xr-x 2 wxuser wxuser 85 Jan  9 17:31 lightchaindata
+   ../data/node-0/venachain/chaindata:
+   total 20
+   -rw-r--r-- 1 root root 4239 Dec 23 16:36 000001.log
+   -rw-r--r-- 1 root root   16 Dec 23 16:36 CURRENT
+   -rw-r--r-- 1 root root    0 Dec 23 16:36 LOCK
+   -rw-r--r-- 1 root root  358 Dec 23 16:36 LOG
+   -rw-r--r-- 1 root root   54 Dec 23 16:36 MANIFEST-000000
 
-   data/platon/chaindata:
-   total 16
-   -rw-r--r-- 1 wxuser wxuser 1802 Jan  9 17:31 000001.log
-   -rw-r--r-- 1 wxuser wxuser   16 Jan  9 17:31 CURRENT
-   -rw-r--r-- 1 wxuser wxuser    0 Jan  9 17:31 LOCK
-   -rw-r--r-- 1 wxuser wxuser  358 Jan  9 17:31 LOG
-   -rw-r--r-- 1 wxuser wxuser   54 Jan  9 17:31 MANIFEST-000000
-
-   data/platon/lightchaindata:
-   total 16
-   -rw-r--r-- 1 wxuser wxuser 1802 Jan  9 17:31 000001.log
-   -rw-r--r-- 1 wxuser wxuser   16 Jan  9 17:31 CURRENT
-   -rw-r--r-- 1 wxuser wxuser    0 Jan  9 17:31 LOCK
-   -rw-r--r-- 1 wxuser wxuser  358 Jan  9 17:31 LOG
-   -rw-r--r-- 1 wxuser wxuser   54 Jan  9 17:31 MANIFEST-000000
+   ../data/node-0/venachain/lightchaindata:
+   total 20
+   -rw-r--r-- 1 root root 4239 Dec 23 16:36 000001.log
+   -rw-r--r-- 1 root root   16 Dec 23 16:36 CURRENT
+   -rw-r--r-- 1 root root    0 Dec 23 16:36 LOCK
+   -rw-r--r-- 1 root root  358 Dec 23 16:36 LOG
+   -rw-r--r-- 1 root root   54 Dec 23 16:36 MANIFEST-000000
 
 2. 启动节点
 ===============
 
-1) 在 ``PlatONE-Go/build/bin`` 目录下执行下面指令：
+1) 在 ``~/release/linux/bin`` 目录下执行下面指令：
 
 .. code:: bash
 
-   ./platone --identity "platon" --datadir ./data --port 16789 --rpcaddr 0.0.0.0 --rpcport 6789 --rpcapi "db,eth,net,web3,admin,personal" --rpc --nodiscover --nodekey "./data/platone/nodekey" --verbosity 4 --wasmlog ./wasm.log --bootnodes "enode://68bb049008c7226de3188b6376127354507e1b1e553a2a8b988bb99b33c4d995e426596fc70ce12f7744100bc69c5f0bce748bc298bf8f0d0de1f5929850b5f4@127.0.0.1:16789"
+   ./venachain --identity "venachain" --datadir ../data/node-0 --port 16791 --rpcaddr 0.0.0.0 --rpcport 6791 --rpcapi "rpcapi db,eth,net,web3,admin,personal,txpool,istanbul" --rpc --nodiscover --nodekey "../data/node-0/node.prikey" --verbosity 4 --wasmlog ../data/node-0/logs/wasm.log --bootnodes "enode://292333f7cf4810ccc09886c417425e29e0a3ede16bc0991715439df99f72ea5d503cbdacef77fad8bc35378cee247c0100920ac96f53889e90ece4775b775534@127.0.0.1:16791"
 
-.. note:: ``--verbosity 4`` 会将wasm log打出来， ``--wasmlog`` 指定将log输出到哪个文件, ``--bootnodes`` 需要指定genesis.json中observeNodes字段中的一个或者多个enode节点
+.. note:: ``--verbosity 4`` 会将wasm log打出来， ``--wasmlog`` 指定将log输出到哪个文件, ``--bootnodes`` 需要指定genesis.json中firstValidatorNode字段中的一个或者多个enode节点
 
 .. code:: console
 
-   INFO [01-09|17:42:01.165] Maximum peer count                       ETH=50 LES=0 total=50
-   INFO [01-09|17:42:01.166] Starting peer-to-peer node               instance=Geth/node1/v1.8.16-stable-7ee6fe39/linux-amd64/go1.11.4
-   INFO [01-09|17:42:01.166] Allocated cache and file handles         database=/home/wxuser/manual-Platon/build/bin/data/platon/chaindata cache=768 handles=512
-   INFO [01-09|17:42:01.183] Initialised chain configuration          config="{ChainID: 300 Homestead: 1 DAO: <nil> DAOSupport: false EIP150: 2 EIP155: 3 EIP158: 3 Byzantium: 4 Constantinople: <nil> Engine: &{0 0 0 0 0 [{127.0.0.1 16789 16789 68bb049008c7226de3188b6376127354507e1b1e553a2a8b988bb99b33c4d995e426596fc70ce12f7744100bc69c5f0bce748bc298bf8f0d0de1f5929850b5f4 [149 178 250 27 246 47 49 86 100 108 50 3 199 20 51 180 127 27 0 83 249 53 174 246 71 88 21 59 36 206 116 69] {0 0 <nil>}}] 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 <nil>}}"
-   INFO [01-09|17:42:01.183] Initialising Ethereum protocol           versions="[63 62]" network=300
-   INFO [01-09|17:42:01.184] Loaded most recent local header          number=0 hash=4fe06b…382a26 age=1mo5d6h
-   INFO [01-09|17:42:01.184] Loaded most recent local full block      number=0 hash=4fe06b…382a26 age=1mo5d6h
-   INFO [01-09|17:42:01.184] Loaded most recent local fast block      number=0 hash=4fe06b…382a26 age=1mo5d6h
-   INFO [01-09|17:42:01.184] Read the StateDB instance from the cache map sealHash=bbbae7…30dbfb
-   INFO [01-09|17:42:01.184] Loaded local transaction journal         transactions=0 dropped=0
-   INFO [01-09|17:42:01.185] Regenerated local transaction journal    transactions=0 accounts=0
-   INFO [01-09|17:42:01.185] Loaded local mpc transaction journal     mpc transactions=0 dropped=0
-   INFO [01-09|17:42:01.185] Init mpc processor success               osType=linux icepath= httpEndpoint=http://127.0.0.1:6789
-   INFO [01-09|17:42:01.185] commitDuration                           commitDuration=950.000
-   INFO [01-09|17:42:01.185] Set the block time at the end of the last round of consensus startTimeOfEpoch=1543979656
-   INFO [01-09|17:42:01.185] Starting P2P networking
-   INFO [01-09|17:42:03.298] UDP listener up                          self=enode://aa18a88c1463c1f1026c6cb0b781027d898d19ed9c11b10ad7a3a9ee2d0c09ab607d9b24bc4580bd816c0194215461cd88bf65955e0d87cf69e0157d464c582b@[::]:16789
-   INFO [01-09|17:42:03.299] Transaction pool price threshold updated price=1000000000
-   INFO [01-09|17:42:03.300] IPC endpoint opened                      url=/home/wxuser/manual-Platon/build/bin/data/platon.ipc
-   INFO [01-09|17:42:03.300] RLPx listener up                         self=enode://aa18a88c1463c1f1026c6cb0b781027d898d19ed9c11b10ad7a3a9ee2d0c09ab607d9b24bc4580bd816c0194215461cd88bf65955e0d87cf69e0157d464c582b@[::]:16789
-   INFO [01-09|17:42:03.300] HTTP endpoint opened                     url=http://0.0.0.0:6789                                  cors= vhosts=localhost
-   INFO [01-09|17:42:03.300] Transaction pool price threshold updated price=1000000000
+   DEBUG[12-23|16:44:02.498] Sanitizing Go's GC trigger               percent=100 RoutineID=1
+   INFO [12-23|16:44:02.499] Maximum peer count                       ETH=50 LES=0 total=50 RoutineID=1
+   DEBUG[12-23|16:44:02.499] FS scan times                            list=14.3µs set=1.6µs diff=1.1µs RoutineID=1
+   INFO [12-23|16:44:02.499] Starting peer-to-peer node               instance=VenaChain/venachain/v1.0.1-stable-98441c98/linux-amd64/go1.16.7 RoutineID=1
+   INFO [12-23|16:44:02.499] Allocated cache and file handles         database=/home/wujingwen/workspace/go/src/Venachain/release/linux/data/node-0/venachain/extdb cache=768 handles=1024 RoutineID=1
+   INFO [12-23|16:44:02.759] Allocated cache and file handles         database=/home/wujingwen/workspace/go/src/Venachain/release/linux/data/node-0/venachain/chaindata cache=768 handles=1024 RoutineID=1
+   INFO [12-23|16:44:02.991] Chain already have been initialized.     RoutineID=1
+   INFO [12-23|16:44:02.991] Initialised chain configuration          config="{ChainID: 300 Engine: istanbul}" RoutineID=1
+   INFO [12-23|16:44:02.992] Initialising Ethereum protocol           versions=[1] network=1 RoutineID=1
+   INFO [12-23|16:44:02.994] Loaded most recent local header          number=0 hash=f0d242…d4183b age=52y8mo5d RoutineID=1
+   INFO [12-23|16:44:02.994] Loaded most recent local full block      number=0 hash=f0d242…d4183b age=52y8mo5d RoutineID=1
+   INFO [12-23|16:44:02.995] Loaded most recent local fast block      number=0 hash=f0d242…d4183b age=52y8mo5d RoutineID=1
+   DEBUG[12-23|16:44:02.997] get CurrentBlock() in chain              RoutineID=1
+   DEBUG[12-23|16:44:02.997] reset txpool                             RoutineID=1 oldHash=000000…000000 oldNumber=0 newHash=f0d242…d4183b newNumber=0 RoutineID=1
+   INFO [12-23|16:44:02.997] Regenerated local transaction journal    transactions=0 accounts=0 RoutineID=1
+   DEBUG[12-23|16:44:02.998] Transaction pool info                    pool="&{config:{Locals:[] NoLocals:false Journal:/home/wujingwen/workspace/go/src/Venachain/release/linux/data/node-0/venachain/transactions.rlp Rejournal:3600000000000 PriceLimit:1 PriceBump:10 AccountSlots:16 GlobalSlots:40960 AccountQueue:64 GlobalQueue:1024 GlobalTxCount:10000 Lifetime:10800000000000} chainconfig:0xc003bac0c0 extDb:0xc0000d06e0 chain:0xc000640460 gasPrice:0xc003badf00 txFeed:{once:{done:0 m:{state:0 sema:0}} sendLock:<nil> removeSub:<nil> sendCases:[] mu:{state:0 sema:0} inbox:[] etype:<nil> closed:false} scope:{mu:{state:0 sema:0} subs:map[] closed:false} chainHeadCh:0xc00010ed80 chainHeadEventCh:0xc00010ed20 chainHeadSub:0xc00069ab40 exitCh:0xc00018efc0 signer:{chainId:0xc003bac1c0 chainIdMul:0xc003badec0} mu:{w:{state:0 sema:0} writerSem:0 readerSem:0 readerCount:0 readerWait:0} currentState:0xc0001fddc0 pendingState:0xc0027272f0 db:0xc0000d0790 currentMaxGas:4712388 locals:0xc00013b300 journal:0xc00007e640 pending:map[] all:0xc003badee0 wg:{noCopy:{} state1:[0 1 0]} txExtBuffer:0xc00010ede0 resetHead:<nil> txch:0xc00018f020 completeCnt:0 pk:0xc0002d18f0}" RoutineID=1
+   DEBUG[12-23|16:44:02.998] get CurrentBlock() in chain              RoutineID=92
+   INFO [12-23|16:44:02.998] commitDuration in Millisecond            commitDuration=2850 RoutineID=1
+   INFO [12-23|16:44:02.999] Starting P2P networking                  RoutineID=1
+   DEBUG[12-23|16:44:02.999] Begin consensus for new block            number=1 gasLimit=10000000000 parentHash=f0d242…d4183b parentNumber=0 parentStateRoot=e07971…1cdac1 timestamp=1640249042999 RoutineID=93
+   INFO [12-23|16:44:02.999] RLPx listener up                         self="enode://44e28023831d1abf070f0ade4ed3d840b6e6e1102876038d72bad3434d1c1ebcbee194947a53485be68f81a92945c47e3a534c5f2f598b2f91fb90c508384558@[::]:16791?discport=0" RoutineID=100
+   INFO [12-23|16:44:02.999] ********** current peers length ********** len=0 RoutineID=102
+   INFO [12-23|16:44:03.000] ********** current peers length ********** len=0 RoutineID=102
+   INFO [12-23|16:44:03.000] the miner was not running, initialize it RoutineID=1
+   INFO [12-23|16:44:03.000] Transaction pool price threshold updated price=1000000000 RoutineID=1
 
-2) platone 与log相关的启动参数
+2) venachain 与log相关的启动参数
 
-启动platone时, 指定 ``--moduleLogParams`` 参数可以把platone的log分块写入文件。
+启动venachain时, 指定 ``--moduleLogParams`` 参数可以把venachain的log分块写入文件。
 
 .. code:: bash
 
-   --moduleLogParams '{"platone_log": ["/"], "__dir__": ["../../logs"], "__size__": ["67108864"]}'
+   --moduleLogParams '{"venachain_log": ["/"], "__dir__": ["'${LOG_DIR}'"], "__size__": ["'${LOG_SIZE}'"]}'
 
 参数说明:
 
--  ``platone_log``: 指定输出platone中哪个模块的日志。 如:
+-  ``venachain_log``: 指定输出venachain中哪个模块的日志。 如:
 
-   + ``"platone_log": ["/consensus", "/p2p"]``，则只输出consensus模块和p2p模块中打印的日志。
+   + ``"venachain_log": ["/consensus", "/p2p"]``，则只输出consensus模块和p2p模块中打印的日志。
 
-   +  ``"platone_log": ["/"]`` 则表示输出所有模块的日志。
+   +  ``"venachain_log": ["/"]`` 则表示输出所有模块的日志。
 
 -  ``__dir__``: 指定的log输出的目录位置。
 
@@ -226,11 +223,11 @@
 
 随时间推移, 日志文件会越积越多, 建议进行挂载, 或者进行定期删除等操作。
 
-更多的platone启动参数, 可以执行以下命令, 进行查看。
+更多的venachain启动参数, 可以执行以下命令, 进行查看。
 
 .. code:: bash
 
-   platone -h
+   ./venachain -h
 
 
 3. 节点加入区块链
@@ -241,7 +238,10 @@
 
 .. code:: bash
 
-   curl --silent --write-out --output /dev/null -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"personal_newAccount\",\"params\":[\"${phrase}\"],\"id\":${node_id}}"  http://${IP}:${RPC_PORT}
+   curl --silent --write-out --output /dev/null -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"personal_newAccount\",\"params\":[\"${phrase}\"],\"id\":1}"  http://${IP}:${RPC_PORT}
+
+   ## 例
+   curl --silent --write-out --output /dev/null -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"personal_newAccount\",\"params\":[\"0\"],\"id\":1}"  http://127.0.0.1:6791
 
 - ``IP`` 为当前部署节点的ip地址
 
@@ -249,51 +249,64 @@
 
 - ``phrase`` 是要设置的密码
 
-- ``node_id`` 为节点名
-
-会在 ``${workspace}/data/node-${node_id}/keystore`` 下生成 ``UTC*`` 文件，在 ``${workspace}/conf`` 下生成 ``keyfile.json``
+会在 ``~/release/linux/data/node-0/keystore`` 下生成 ``UTC*`` 文件
 
 3.2. 解锁账户
+
+.. code:: bash
+
+   cp ../data/node-0/keystore/UTC* ../conf/keyfile.json
+
+3.3. 解锁账户
 ^^^^^^^^^^^^^^^^^^
 
 .. code:: bash
 
-   curl -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"personal_unlockAccount\",\"params\":[\"${ACCOUNT}\",\"${phrase}\",0],\"id\":${node_id}}"  http://${IP}:${RPC_PORT}
+   curl -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"personal_unlockAccount\",\"params\":[\"${ACCOUNT}\",\"${phrase}\",0],\"id\":1}"  http://${IP}:${RPC_PORT}
+
+   ## 例
+   curl -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\",\"method\":\"personal_unlockAccount\",\"params\":[\"0x2b63c4404f74ff8af325afe494c4f0a9b3a2c821\",\"0\",0],\"id\":1}"  http://127.0.0.1:6791
 
 - ``IP`` 为当前部署节点的ip地址
 
 - ``RPC_PORT`` 是当前部署节点的rpc接口
 
-- ``ACCOUNT`` 是前一步生成的 ``0x`` 开头的账户地址
+- ``ACCOUNT`` 是 ``UTC*`` 文件中 ``address`` 的value值，加上 ``0x`` 前缀
 
 - ``phrase`` 是要设置的密码
 
 - ``node_id`` 为节点名
 
-3.3. 升级账户权限
+3.4. 升级账户权限
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - 升级账户为系统管理员
 
 .. code:: bash
 
-   ./platonecli role setSuperAdmin  --keyfile ../conf/keyfile.json --url ${IP}:${RPC_PORT}
+   ./venachaincli role setSuperAdmin  --keyfile ../conf/keyfile.json --url {IP}:${RPC_PORT}
 
-- ``IP`` 为当前部署节点的ip地址
+   ## 例
+   ./venachaincli role setSuperAdmin  --keyfile ../conf/keyfile.json --url 127.0.0.1:6791
 
-- ``RPC_PORT`` 是当前部署节点的rpc接口
+- ``IP`` 为firstnode的ip地址
+
+- ``RPC_PORT`` 是firstnode的rpc接口
 
 - 升级账户为链管理员
 
 .. code:: bash
 
-   ./platonecli role addChainAdmin ${ACCOUNT}  --keyfile ../conf/keyfile.json --url ${IP}:${RPC_PORT}
+   ./venachaincli role addChainAdmin ${ACCOUNT}  --keyfile ../conf/keyfile.json --url {IP}:${RPC_PORT}
 
-- ``ACCOUNT`` 是 ``3.1.`` 中生成的 ``0x`` 开头的账户地址
+   ## 例
+   ./venachaincli role addChainAdmin 0x2b63c4404f74ff8af325afe494c4f0a9b3a2c821  --keyfile ../conf/keyfile.json --url 127.0.0.1:6791
 
-- ``IP`` 为当前部署节点的ip地址
+- ``ACCOUNT`` 是 ``3.3.`` 中的相同
 
-- ``RPC_PORT`` 是当前部署节点的rpc接口
+- ``IP`` 为firstnode的ip地址
+
+- ``RPC_PORT`` 是firstnode的rpc接口
 
 .. note::
 
@@ -304,7 +317,10 @@
 
 .. code:: bash
 
-   ./platonecli node add "${node_id}" "${pubkey}" "${external_ip}" "${internal_ip}" --keyfile ../conf/keyfile.json --url ${IP}:${RPC_PORT}
+   ./venachaincli node add "${node_id}" "${pubkey}" "${external_ip}" "${internal_ip}" --keyfile ../conf/keyfile.json --url ${IP}:${RPC_PORT}
+
+   ## 例
+   ./venachaincli node add "0" "292333f7cf4810ccc09886c417425e29e0a3ede16bc0991715439df99f72ea5d503cbdacef77fad8bc35378cee247c0100920ac96f53889e90ece4775b775534" "127.0.0.1" "127.0.0.1" --keyfile ../conf/keyfile.json --url 127.0.0.1:6791
 
 - ``node_id`` 是节点名
 
@@ -323,9 +339,13 @@
 
 .. code:: bash
 
-   ./platonecli  node update "${node_id}" --type "consensus" --keyfile ../conf/keyfile.json
+   ./venachaincli  node update "${node_id}" --type "consensus" --keyfile ../conf/keyfile.json
 
-- ``node_name`` 是节点名
+   ## 例
+   ./venachaincli  node update "0" --type "consensus" --keyfile ../conf/keyfile.json
+
+
+- ``node_id`` 是节点名
 
 .. note::
 

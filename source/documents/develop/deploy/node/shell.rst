@@ -16,10 +16,10 @@
 .. code:: bash
 
    cd ${WORKSPACE}/scripts
-   ./platonectl.sh setupgen -n ${node_id} --ip ${ip} --p2p_port ${p2p_port} --interpreter ${interpreter} --auto true
+   ./venachainctl.sh setupgen -n ${node_id} --ip ${ip} --p2p_port ${p2p_port} --interpreter ${interpreter} --auto true
 
    ## 示例
-   ./platonectl.sh setupgen --auto true
+   ./venachainctl.sh setupgen --auto true
 
 **参数**
 
@@ -57,11 +57,11 @@
 .. code:: bash
 
    cd ${WORKSPACE}/scripts/
-   ./platonectl.sh init -n ${node_id} --ip ${ip} --rpc_port ${rpc_port} --p2p_port ${p2p_port} --ws_port ${ws_port} --auto true
+   ./venachainctl.sh init -n ${node_id} --ip ${ip} --rpc_port ${rpc_port} --p2p_port ${p2p_port} --ws_port ${ws_port} --auto true
 
    # 示例
-   ./platonectl.sh init --auto true
-   ./platonectl.sh init -n 3 --ip 127.0.0.1 --rpc_port 6794 --p2p_port 16794 --ws_port 26794 --auto true
+   ./venachainctl.sh init --auto true
+   ./venachainctl.sh init -n 3 --ip 127.0.0.1 --rpc_port 6794 --p2p_port 16794 --ws_port 26794 --auto true
 
 **参数**
 
@@ -92,23 +92,23 @@
 
 .. code:: bash
 
-   ./platonectl.sh -n ${node_id} --bootnodes ${bootnodes} --logsize ${logsize} --logdir ${logdir} --extraoptions ${extraoptions} --txcount ${txcount} 
+   ./venachainctl.sh -n ${node_id} --bootnodes ${bootnodes} --logsize ${logsize} --logdir ${logdir} --extraoptions ${extraoptions} --txcount ${txcount} 
 
    ## 示例
-   ./platonectl.sh start -n 0
-   ./platonectl.sh start -n 3 --bootnodes "enode://7a7ab8ab54810b84907cc8e445229db1da2080bad0d2f2360f0faa085d6e5fce16fe1fa13955de00503da31b701865275dff22c1ad21824cf33e7e54a4968997@127.0.0.1:16791" --logsize 66666666 --logdir "/opt/logs" --extraoptions "--verbosity 2" --txcount 2000
+   ./venachainctl.sh start -n 0
+   ./venachainctl.sh start -n 3 --bootnodes "enode://7a7ab8ab54810b84907cc8e445229db1da2080bad0d2f2360f0faa085d6e5fce16fe1fa13955de00503da31b701865275dff22c1ad21824cf33e7e54a4968997@127.0.0.1:16791" --logsize 66666666 --logdir "/opt/logs" --extraoptions "--verbosity 2" --txcount 2000
 
 **参数**
 
 .. code:: bash
 
-   --nodeid, -n      		node id , must specified
+   --nodeid, -n            node id , must specified
    --bootnodes, -b         bootnodes (default: read genesis.json)
-   --logsize, -s        	log size (default: 67108864)
-   --logdir, -d        	   log dir path (default: {WORKSPACE}/data/node-${node_id}/logs)
+   --logsize, -s           log size (default: 67108864)
+   --logdir, -d            log dir path (default: {WORKSPACE}/data/node-${node_id}/logs)
    --extraoptions, -e      extra options (default: --debug)
    --txcount, -c           max tx count in a block (default: 1000)
-   --all, -a				   start all nodes
+   --all, -a               start all nodes
 
 **说明**
 
@@ -116,9 +116,9 @@
 
    + 节点数据： ``${WORKSPACE}/data/node-${node_id}/``
 
-   + 节点运行日志： ``${logdir}/platone_log/``
+   + 节点运行日志： ``${logdir}/venachain_log/``
 
-   + 日志文件夹中包含wasm执行的日志与platone运行的日志. 随时间推移， 日志文件会越积越多, 建议进行挂载, 或者进行定期删除等操作。
+   + 日志文件夹中包含wasm执行的日志与venachain运行的日志. 随时间推移， 日志文件会越积越多, 建议进行挂载, 或者进行定期删除等操作。
 
 -  logdir：参数加引号，用绝对路径
 
@@ -143,7 +143,7 @@ firstnode加入区块链
 
 .. code:: bash
 
-   ./platonectl.sh deploysys -n ${node_id} --auto true
+   ./venachainctl.sh deploysys -n ${node_id} --auto true
 
 
 **参数**
@@ -176,10 +176,10 @@ firstnode加入区块链
 
    ## 节点加入区块链
 
-   ./platonectl.sh addnode -n ${node_id}
+   ./venachainctl.sh addnode -n ${node_id}
 
 .. code:: bash
 
    ## 节点更新为共识节点
 
-   ./platonectl.sh updatesys -n ${node_id}
+   ./venachainctl.sh updatesys -n ${node_id}

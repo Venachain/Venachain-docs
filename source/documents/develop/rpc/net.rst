@@ -57,7 +57,7 @@ Returns
 Example
 ^^^^^^^^^^^
 
-``./platonecil.sh four``
+``./venachaincil.sh four``
 
 .. code:: js
 

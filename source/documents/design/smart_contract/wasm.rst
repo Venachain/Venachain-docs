@@ -330,7 +330,7 @@ func_type实体类型的字段组成结构如下：
 虚拟指令集
 ^^^^^^^^^^^^
 
-MVP版本的WebAssembly虚拟指令一共191条。大体上可以分为以下10大类。EVM直接在指令集里面添加了一些与底层链交互的指令，例如：balance，call，coinbase，timestamp等，而WebAssembly则是可以通过import特性，更加灵活的添加一些方法与底层链进行交互，在PlatONE中添加了caller，origin，balance，getstate，setstate等import方法与底层链进行交互。
+MVP版本的WebAssembly虚拟指令一共191条。大体上可以分为以下10大类。EVM直接在指令集里面添加了一些与底层链交互的指令，例如：balance，call，coinbase，timestamp等，而WebAssembly则是可以通过import特性，更加灵活的添加一些方法与底层链进行交互，在Venachain中添加了caller，origin，balance，getstate，setstate等import方法与底层链进行交互。
 
 数据类型
 ^^^^^^^^^^^

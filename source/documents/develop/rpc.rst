@@ -16,7 +16,7 @@ message passing environments. It uses JSON (`RFC
 
 1） JavaScript API
 
-To talk to an PlatONE node from inside a JavaScript application use the
+To talk to an Venachain node from inside a JavaScript application use the
 `web3.js <https://github.com/ethereum/web3.js>`__ library, which gives a
 convenient interface for the RPC methods. See the `JavaScript
 API <https://github.com/ethereum/wiki/wiki/JavaScript-API>`__ for more.
@@ -35,13 +35,13 @@ You can start the HTTP JSON-RPC with the ``--rpc`` flag
 
 .. code:: bash
 
-   platone --rpc
+   venachain --rpc
 
 change the default port (8545) and listing address (localhost) with:
 
 .. code:: bash
 
-   platone --rpc --rpcaddr <ip> --rpcport <portnumber>
+   venachain --rpc --rpcaddr <ip> --rpcport <portnumber>
 
 If accessing the RPC from a browser, CORS will need to be enabled with
 the appropriate domain set. Otherwise, JavaScript calls are limit by the
@@ -49,16 +49,16 @@ same-origin policy and requests will fail:
 
 .. code:: bash
 
-   platone --rpc --rpccorsdomain "http://localhost:3000"
+   venachain --rpc --rpccorsdomain "http://localhost:3000"
 
-The JSON RPC can also be started from the `platone
+The JSON RPC can also be started from the `venachain
 console <https://github.com/ethereum/go-ethereum/wiki/JavaScript-Console>`__
 using the ``admin.startRPC(addr, port)`` command.
 
 3） JSON-RPC support
 
 ============== ==========
-\              PlatONE-Go
+\              venachain-Go
 ============== ==========
 JSON-RPC 1.0   
 JSON-RPC 2.0   ✓

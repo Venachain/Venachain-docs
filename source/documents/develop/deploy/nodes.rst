@@ -18,24 +18,24 @@
 
 首先在主机A上，下载源码并编译，参照第1部分。
 
-然后将编译好的PlatONE-Go/release目录，分发到B、C、D主机。
+然后将编译好的Venachain/release目录，分发到B、C、D主机。
 
 .. code:: bash
 
-   scp -r PlatONE-Go/release user@172.25.1.14:~/
-   scp -r PlatONE-Go/release user@172.25.1.15:~/
-   scp -r PlatONE-Go/release user@172.25.1.16:~/
+   scp -r Venachain/release user@172.25.1.14:~/
+   scp -r Venachain/release user@172.25.1.15:~/
+   scp -r Venachain/release user@172.25.1.16:~/
 
 2. 在A主机搭建单节点区块链
 =================================
 
-参照 :ref:`单机部署 <deploy-node>` ，在节点A上搭建单节点区块链，然后将genesis.json文件广播出来给其他节点，放置于PlatONE-Go/release/linux/conf目录下。
+参照 :ref:`单机部署 <deploy-node>` ，在节点A上搭建单节点区块链，然后将genesis.json文件广播出来给其他节点，放置于Venachain/release/linux/conf目录下。
 
 .. code:: bash
 
-   scp -r genesis.json user@172.25.1.14:~/PlatONE-Go/release/linux/conf
-   scp -r genesis.json user@172.25.1.15:~/PlatONE-Go/release/linux/conf
-   scp -r genesis.json user@172.25.1.16:~/PlatONE-Go/release/linux/conf
+   scp -r genesis.json user@172.25.1.14:~/Venachain/release/linux/conf
+   scp -r genesis.json user@172.25.1.15:~/Venachain/release/linux/conf
+   scp -r genesis.json user@172.25.1.16:~/Venachain/release/linux/conf
 
 3. 在B、C、D生成创世区块及节点信息
 ====================================
@@ -44,8 +44,8 @@
 
 .. code:: bash
 
-   cd  ~/PlatONE-Go/release/linux/scripts
-   ./platonectl.sh init -n 1 --ip 172.25.1.14 --rpc_port 6791 --p2p_port 16791 --ws_port 26791 --auto true
+   cd  ~/Venachain/release/linux/scripts
+   ./venachainctl.sh init -n 1 --ip 172.25.1.14 --rpc_port 6791 --p2p_port 16791 --ws_port 26791 --auto true
 
 此步骤会根据 ``genesis.json`` 文件生成创世区块，以及节点的连接信息（IP端口、节点密钥）
 
@@ -56,11 +56,11 @@
 .. code:: bash
 
    # node.ip, node.p2p_port, node.rpc_port, node.pubkey
-   # --> user@172.25.1.14:~/PlatONE-Go/release/linux/data/node-1
-   scp node.ip user@172.25.1.14:~/PlatONE-Go/release/linux/data/node-1
-   scp node.p2p_port user@172.25.1.14:~/PlatONE-Go/release/linux/data/node-1
-   scp node.rpc_port user@172.25.1.14:~/PlatONE-Go/release/linux/data/node-1
-   scp node.pubkey user@172.25.1.14:~/PlatONE-Go/release/linux/data/node-1
+   # --> user@172.25.1.14:~/Venachain/release/linux/data/node-1
+   scp node.ip user@172.25.1.14:~/Venachain/release/linux/data/node-1
+   scp node.p2p_port user@172.25.1.14:~/Venachain/release/linux/data/node-1
+   scp node.rpc_port user@172.25.1.14:~/Venachain/release/linux/data/node-1
+   scp node.pubkey user@172.25.1.14:~/Venachain/release/linux/data/node-1
 
 4. B、C、D主机启动节点
 ==============================
@@ -69,7 +69,7 @@
 
 .. code:: bash
 
-   ./platonectl.sh start -n 1
+   ./venachainctl.sh start -n 1
 
 B节点启动后会主动连接A节点，加入网络，成为观察者节点。
 
@@ -84,7 +84,7 @@ B节点启动后会主动连接A节点，加入网络，成为观察者节点。
 
 .. code:: bash
 
-   ./platonectl.sh addnode -n 1
+   ./venachainctl.sh addnode -n 1
 
 本步骤会在系统合约中写入了B节点信息，B节点成为观察者节点（可以同步交易及数据，但是不参与共识出块）
 
@@ -97,4 +97,4 @@ B节点启动后会主动连接A节点，加入网络，成为观察者节点。
 
 .. code:: bash
 
-   ./platonectl.sh updatesys -n 1
+   ./venachainctl.sh updatesys -n 1

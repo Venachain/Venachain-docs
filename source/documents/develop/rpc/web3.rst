@@ -29,7 +29,7 @@ Example
    {
      "id":67,
      "jsonrpc":"2.0",
-     "result": "PlatONEnetwork/platone/v0.9.9-stable/linux-amd64/go1.11.4"
+     "result": "Venachain/Venachain/v0.9.9-stable/linux-amd64/go1.11.4"
    }
 
 

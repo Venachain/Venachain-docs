@@ -7,33 +7,33 @@ Istanbul 共识算法
 概述
 =======
 
-PlatONE
+Venachain
 中的共识为高度优化的BFT类共识算法，其容错率为1/3，在保留即时确认（instant
 finality）的关键特性的同时,极大地提高了去中心化的程度。共识可以保证上链的区块是确定的，也就是说链不会出现分叉，同时每一个有效的区块都会插入到链上。
 
-PlatONE
-的共识支持超过100个共识节点。相对于其他一些常见的BFT共识，PlatONE
+Venachain
+的共识支持超过100个共识节点。相对于其他一些常见的BFT共识，Venachain
 的共识的性能有显著的提升。在10个共识节点的情况下，TPS 接近 1000。
 
-PlatONE 的共识运行的相关参数可以灵活地进行配置，并且 PlatONE
+Venachain 的共识运行的相关参数可以灵活地进行配置，并且 Venachain
 的共识中的共识节点集合可以灵活地进行更新。近期计划支持共识的插件化，以及共识的可审计性等。
 
-PlatONE 共识是在 round 上进行的。在特定的 round
+Venachain 共识是在 round 上进行的。在特定的 round
 上，通过预先设置的策略选取一个出块者节点。出块者节点的选取策略目前支持两种：round
 robin 和 sticky proposer。
 
 出块者节点提议区块后，各共识节点进行共识。共识分三阶段，其中后两个阶段为投票阶段，用以保证
-Safety。PlatONE 共识使用 round change
+Safety。Venachain 共识使用 round change
 机制结合锁定和解锁机制来保证共识的的 liveness
 。通过优化解锁机制，解决了业界多个知名项目内存在的共识死锁问题。
 
-PlatONE
+Venachain
 共识会为每一个链上的区块生成共识证明，也就是对于该区块的各共识节点的有效签名，因而区块可以进行自验证，同时也能支持轻节点。
 
-区块中如果不包含交易，则称为空区块。PlatONE
+区块中如果不包含交易，则称为空区块。Venachain
 目前支持不出空区块，也就是上链的区块中都含有交易。不出空区块的机制可以有效地节省区块链占用的存储空间。
 
-以下具体介绍 PlatONE 中的共识算法。
+以下具体介绍 Venachain 中的共识算法。
 
 共识节点选取机制
 ===================
@@ -114,7 +114,7 @@ PlatONE
 状态迁移
 -----------
 
-下图描述了PlatONE的共识流程的状态迁移过程。
+下图描述了Venachain的共识流程的状态迁移过程。
 
 .. figure:: ../../../images/design/consensus/istanbul_state_flow.jpg
 

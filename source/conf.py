@@ -17,9 +17,9 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'PlatONE'
-copyright = '2021, PlatONE Team'
-author = 'PlatONE Team'
+project = 'Venachain'
+copyright = '2021, Venachain Team'
+author = 'Venachain Team'
 version = '1.0'
 release = '1.0.0'
 
@@ -68,7 +68,7 @@ html_theme = 'sphinx_rtd_theme'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = []
 
-html_logo = './images/platone-logo.svg'
+html_logo = './images/venachain-logo.png'
 
 html_theme_options = {
     'logo_only': True,
