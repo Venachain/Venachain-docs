@@ -19,7 +19,7 @@
 
 .. code:: bash
 
-      ./venachaincli role setSuperAdmin  --keyfile ../conf/keyfile.json
+      ./vcl role setSuperAdmin  --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -57,7 +57,7 @@
 
 .. code:: bash
 
-      ./venachaincli role transferSuperAdmin "0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18"  --keyfile ../conf/keyfile.json
+      ./vcl role transferSuperAdmin "0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18"  --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -96,15 +96,15 @@
 .. code:: bash
 
       #链管理员
-      ./venachaincli role addChainAdmin 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
+      ./vcl role addChainAdmin 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
       #群组管理员
-      ./venachaincli role addGroupAdmin 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
+      ./vcl role addGroupAdmin 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
       #节点管理员
-      ./venachaincli role addNodeAdmin 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
+      ./vcl role addNodeAdmin 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
       #合约管理员
-      ./venachaincli role addContractAdmin 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
+      ./vcl role addContractAdmin 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
       #普通合约部署者
-      ./venachaincli role addContractDeployer 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
+      ./vcl role addContractDeployer 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -142,15 +142,15 @@
 .. code:: bash
 
       #链管理员
-      ./venachaincli role delChainAdmin 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
+      ./vcl role delChainAdmin 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
       #群组管理员
-      ./venachaincli role delGroupAdmin 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
+      ./vcl role delGroupAdmin 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
       #节点管理员
-      ./venachaincli role delNodeAdmin 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
+      ./vcl role delNodeAdmin 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
       #合约管理员
-      ./venachaincli role delContractAdmin 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
+      ./vcl role delContractAdmin 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
       #普通合约部署者
-      ./venachaincli role delContractDeployer 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
+      ./vcl role delContractDeployer 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18  --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -189,7 +189,7 @@
 .. code:: bash
 
       #以SUPER_ADMIN为例
-      ./venachaincli role getAddrListOfRole "SUPER_ADMIN"  --keyfile ../conf/keyfile.json
+      ./vcl role getAddrListOfRole "SUPER_ADMIN"  --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -219,7 +219,7 @@
 .. code:: bash
 
       #以SUPER_ADMIN为例
-      ./venachaincli role hasRole 0x10ad2ec4831a1f89ec870a3224fead87cdb75931 SUPER_ADMIN  --keyfile ../conf/keyfile.json
+      ./vcl role hasRole 0x10ad2ec4831a1f89ec870a3224fead87cdb75931 SUPER_ADMIN  --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -251,7 +251,7 @@
 .. code:: bash
 
       #以SUPER_ADMIN为例
-      ./venachaincli role getRoles 0x10ad2ec4831a1f89ec870a3224fead87cdb75931  --keyfile ../conf/keyfile.json
+      ./vcl role getRoles 0x10ad2ec4831a1f89ec870a3224fead87cdb75931  --keyfile ../conf/keyfile.json
 
 **输出结果**
 

@@ -25,7 +25,7 @@
 
 .. code:: bash
 
-      ./venachaincli fw query "0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0"  --keyfile ../conf/keyfile.json  
+      ./vcl fw query "0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0"  --keyfile ../conf/keyfile.json  
 
 **输出结果**
 
@@ -57,7 +57,7 @@
 
 .. code:: bash
 
-      ./venachaincli fw start "0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0"  --keyfile ../conf/keyfile.json  
+      ./vcl fw start "0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0"  --keyfile ../conf/keyfile.json  
 
 **输出结果**
 
@@ -94,7 +94,7 @@
 
 .. code:: bash
 
-      ./venachaincli fw stop "0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0"  --keyfile ../conf/keyfile.json  
+      ./vcl fw stop "0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0"  --keyfile ../conf/keyfile.json  
 
 **输出结果**
 
@@ -138,7 +138,7 @@
 .. code:: bash
 
       # 导出防火墙规则到指定路径
-      ./venachaincli fw export "0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0" --file <file path> --keyfile ../conf/keyfile.json
+      ./vcl fw export "0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0" --file <file path> --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -172,7 +172,7 @@
 
 .. code:: bash
 
-      ./venachaincli fw import "0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0" --file <file path> --keyfile ../conf/keyfile.json
+      ./vcl fw import "0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0" --file <file path> --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -205,7 +205,7 @@
 .. code:: bash
 
       ## 新增一条防火墙规则
-      ./venachaincli fw new 0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0 accept 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18 function1  --keyfile ../conf/keyfile.json
+      ./vcl fw new 0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0 accept 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18 function1  --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -247,7 +247,7 @@
 
 .. code:: bash
 
-      ./venachaincli fw delete 0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0 accept 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18 function1  --keyfile ../conf/keyfile.json
+      ./vcl fw delete 0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0 accept 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18 function1  --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -289,7 +289,7 @@
 
 .. code:: bash
 
-      ./venachaincli fw reset 0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0 reject 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18 function1  --keyfile ../conf/keyfile.json
+      ./vcl fw reset 0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0 reject 0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18 function1  --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -331,9 +331,9 @@
 .. code:: bash
 
       # 清除对应防火墙操作规则
-      ./venachaincli fw clear "0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0" --action "Reject"  --keyfile ../conf/keyfile.json
+      ./vcl fw clear "0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0" --action "Reject"  --keyfile ../conf/keyfile.json
       # 清除所有防火墙规则
-      ./venachaincli fw clear "0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0" --all  --keyfile ../conf/keyfile.json
+      ./vcl fw clear "0x37bb31bc209d1d0d049fa3de34609b4de8d8c6d0" --all  --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -378,9 +378,9 @@
 .. code:: bash
 
       # 清除对应防火墙操作规则
-      ./venachaincli fw clear "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --action "Reject" --keyfile ../conf/keyfile.json
+      ./vcl fw clear "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --action "Reject" --keyfile ../conf/keyfile.json
       # 清除所有防火墙规则
-      ./venachaincli fw clear "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --all --keyfile ../conf/keyfile.json
+      ./vcl fw clear "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --all --keyfile ../conf/keyfile.json
 
 **输出结果**
 

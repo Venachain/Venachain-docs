@@ -33,7 +33,7 @@
 .. code:: bash
 
       #注意一次只能操作一个系统参数
-      ./venachaincli sysconfig set  --audit-con audit  --keyfile ../conf/keyfile.json
+      ./vcl sysconfig set  --audit-con audit  --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -57,7 +57,7 @@
 
 .. code:: bash
 
-      ./venachaincli sysconfig set --vrf-params '{"electionEpoch":7,"nextElectionBlock":0,"validatorCount":3}' --keyfile ../conf/keyfile.json
+      ./vcl sysconfig set --vrf-params '{"electionEpoch":7,"nextElectionBlock":0,"validatorCount":3}' --keyfile ../conf/keyfile.json
 
 系统参数获取 sysconfig get
 ===============================
@@ -86,7 +86,7 @@
 .. code:: bash
 
       #注意一次只能获取一个系统参数
-      ./venachaincli sysconfig get  --audit-con  --keyfile ../conf/keyfile.json
+      ./vcl sysconfig get  --audit-con  --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -99,4 +99,4 @@
 
 .. code:: bash
 
-      ./venachaincli sysconfig get --vrf-params  --keyfile ../conf/keyfile.json
+      ./vcl sysconfig get --vrf-params  --keyfile ../conf/keyfile.json

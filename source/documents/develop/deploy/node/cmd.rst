@@ -284,10 +284,10 @@
 
 .. code:: bash
 
-   ./venachaincli role setSuperAdmin  --keyfile ../conf/keyfile.json --url {IP}:${RPC_PORT}
+   ./vcl role setSuperAdmin  --keyfile ../conf/keyfile.json --url {IP}:${RPC_PORT}
 
    ## 例
-   ./venachaincli role setSuperAdmin  --keyfile ../conf/keyfile.json --url 127.0.0.1:6791
+   ./vcl role setSuperAdmin  --keyfile ../conf/keyfile.json --url 127.0.0.1:6791
 
 - ``IP`` 为firstnode的ip地址
 
@@ -297,10 +297,10 @@
 
 .. code:: bash
 
-   ./venachaincli role addChainAdmin ${ACCOUNT}  --keyfile ../conf/keyfile.json --url {IP}:${RPC_PORT}
+   ./vcl role addChainAdmin ${ACCOUNT}  --keyfile ../conf/keyfile.json --url {IP}:${RPC_PORT}
 
    ## 例
-   ./venachaincli role addChainAdmin 0x2b63c4404f74ff8af325afe494c4f0a9b3a2c821  --keyfile ../conf/keyfile.json --url 127.0.0.1:6791
+   ./vcl role addChainAdmin 0x2b63c4404f74ff8af325afe494c4f0a9b3a2c821  --keyfile ../conf/keyfile.json --url 127.0.0.1:6791
 
 - ``ACCOUNT`` 是 ``3.3.`` 中的相同
 
@@ -317,10 +317,10 @@
 
 .. code:: bash
 
-   ./venachaincli node add "${node_id}" "${pubkey}" "${external_ip}" "${internal_ip}" --keyfile ../conf/keyfile.json --url ${IP}:${RPC_PORT}
+   ./vcl node add "${node_id}" "${pubkey}" "${external_ip}" "${internal_ip}" --keyfile ../conf/keyfile.json --url ${IP}:${RPC_PORT}
 
    ## 例
-   ./venachaincli node add "0" "292333f7cf4810ccc09886c417425e29e0a3ede16bc0991715439df99f72ea5d503cbdacef77fad8bc35378cee247c0100920ac96f53889e90ece4775b775534" "127.0.0.1" "127.0.0.1" --keyfile ../conf/keyfile.json --url 127.0.0.1:6791
+   ./vcl node add "0" "292333f7cf4810ccc09886c417425e29e0a3ede16bc0991715439df99f72ea5d503cbdacef77fad8bc35378cee247c0100920ac96f53889e90ece4775b775534" "127.0.0.1" "127.0.0.1" --keyfile ../conf/keyfile.json --url 127.0.0.1:6791
 
 - ``node_id`` 是节点名
 
@@ -339,10 +339,10 @@
 
 .. code:: bash
 
-   ./venachaincli  node update "${node_id}" --type "consensus" --keyfile ../conf/keyfile.json
+   ./vcl  node update "${node_id}" --type "consensus" --keyfile ../conf/keyfile.json
 
    ## 例
-   ./venachaincli  node update "0" --type "consensus" --keyfile ../conf/keyfile.json
+   ./vcl  node update "0" --type "consensus" --keyfile ../conf/keyfile.json
 
 
 - ``node_id`` 是节点名

@@ -42,7 +42,7 @@
 
 .. code:: bash
 
-      ./venachaincli node add "test" "feffe2938d427088f5fcce94a9245760b92c468d3ca25ab5ef2b1cdccf0ed911963b74ca2dffef20ef135966e34ebcc905d1f12c1df09f05974a617cf8afe8e8" "127.0.0.1" "127.0.0.1" --keyfile ../conf/keyfile.json
+      ./vcl node add "test" "feffe2938d427088f5fcce94a9245760b92c468d3ca25ab5ef2b1cdccf0ed911963b74ca2dffef20ef135966e34ebcc905d1f12c1df09f05974a617cf8afe8e8" "127.0.0.1" "127.0.0.1" --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -79,7 +79,7 @@
 
 .. code:: bash
 
-      ./venachaincli node delete "test" --keyfile ../conf/keyfile.json
+      ./vcl node delete "test" --keyfile ../conf/keyfile.json
 
 .. note::
 
@@ -126,17 +126,17 @@
 .. code:: bash
 
       ## 返回网络中所有节点
-      ./venachaincli node query --all --keyfile ../conf/keyfile.json
+      ./vcl node query --all --keyfile ../conf/keyfile.json
       ## 根据查询键进行搜索
-      ./venachaincli node query --name "test" --keyfile ../conf/keyfile.json
+      ./vcl node query --name "test" --keyfile ../conf/keyfile.json
 
-      ./venachaincli node query --status "valid" --keyfile ../conf/keyfile.json
+      ./vcl node query --status "valid" --keyfile ../conf/keyfile.json
 
-      ./venachaincli node query --type "consensus" --keyfile ../conf/keyfile.json
+      ./vcl node query --type "consensus" --keyfile ../conf/keyfile.json
 
-      ./venachaincli node query -publicKey feffe2938d427088f5fcce94a9245760b92c468d3ca25ab5ef2b1cdccf0ed911963b74ca2dffef20ef135966e34ebcc905d1f12c1df09f05974a617cf8afe8e8 --keyfile ../conf/keyfile.json 
+      ./vcl node query -publicKey feffe2938d427088f5fcce94a9245760b92c468d3ca25ab5ef2b1cdccf0ed911963b74ca2dffef20ef135966e34ebcc905d1f12c1df09f05974a617cf8afe8e8 --keyfile ../conf/keyfile.json 
       ## 组合查询
-      ./venachaincli node query --status "valid" --name "root" --keyfile ../conf/keyfile.json
+      ./vcl node query --status "valid" --name "root" --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -192,7 +192,7 @@
 .. code:: bash
 
       # 指定公钥对应的节点数目
-      ./venachaincli  node stat --status "valid" --keyfile ../conf/keyfile.json
+      ./vcl  node stat --status "valid" --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -230,11 +230,11 @@
 .. code:: bash
 
       # 更新节点type信息
-      ./venachaincli  node update "test" --type "consensus" --keyfile ../conf/keyfile.json
+      ./vcl  node update "test" --type "consensus" --keyfile ../conf/keyfile.json
       # 更新节点desc信息
-      ./venachaincli  node update "test" --desc "this is a description" --keyfile ../conf/keyfile.json
+      ./vcl  node update "test" --desc "this is a description" --keyfile ../conf/keyfile.json
         # 更新节点delayNum信息
-      ./venachaincli  node update "test" --delay 10 --keyfile ../conf/keyfile.json
+      ./vcl  node update "test" --delay 10 --keyfile ../conf/keyfile.json
 
 **输出结果**
 

@@ -35,13 +35,13 @@ CA操作 ca
 .. code:: bash
 
       #1. 根据私钥生成公钥（使用SM2，生成PEM格式）
-      ./venachaincli ca generateKey --curve SM2 --target public --format PEM --private key.PEM --file public.PEM
+      ./vcl ca generateKey --curve SM2 --target public --format PEM --private key.PEM --file public.PEM
 
       #2. 根据给定的算法生成hex格式私钥
-      ./venachaincli ca generateKey --curve secp256k1 --target private --format HEX --file private.PEM
+      ./vcl ca generateKey --curve secp256k1 --target private --format HEX --file private.PEM
 
       #3. 生成公私钥对
-      ./venachaincli ca generateKey -curve SM2 --target pair --format PEM --file key.PEM
+      ./vcl ca generateKey -curve SM2 --target pair --format PEM --file key.PEM
 
 生成证书签名请求文件 CA generateCSR
 ========================================
@@ -66,7 +66,7 @@ CA操作 ca
 
 .. code:: bash
 
-      ./venachaincli ca generateCSR --organization wxbc --commonName test --dgst sm3 --private key.PEM --file testCSR.PEM
+      ./vcl ca generateCSR --organization wxbc --commonName test --dgst sm3 --private key.PEM --file testCSR.PEM
 
 生成自签名证书 CA genSelfSignCert
 ========================================
@@ -92,7 +92,7 @@ CA操作 ca
 
 .. code:: bash
 
-      ./venachaincli ca genSelfSignCert --organization wxbc --commonName test --dgst sm3 --serial 1 --file testcert.PEM --private key.PEM
+      ./vcl ca genSelfSignCert --organization wxbc --commonName test --dgst sm3 --serial 1 --file testcert.PEM --private key.PEM
 
 根据CSR生成证书 CA generateCA
 =================================
@@ -118,7 +118,7 @@ CA操作 ca
 
 .. code:: bash
 
-      ./venachaincli ca create --dgst sm3 --serial 2 --ca cacert.PEM --csr testCSR.PEM --file test1cert.PEM --private key.PEM
+      ./vcl ca create --dgst sm3 --serial 2 --ca cacert.PEM --csr testCSR.PEM --file test1cert.PEM --private key.PEM
 
 验证证书 CA verifyCA
 =========================
@@ -140,4 +140,4 @@ CA操作 ca
 
 .. code:: bash
 
-      ./venachaincli ca verify --ca cacert.PEM --cert test1cert.PEM 
+      ./vcl ca verify --ca cacert.PEM --cert test1cert.PEM 

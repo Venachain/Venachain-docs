@@ -6,7 +6,7 @@
 Venachain 简介
 ===============
 
-.. figure:: images/homepage/Venachain.jpg
+.. figure:: images/homepage/Venachain.png
 
 
 Venachain是 **基于隐私计算** 的新一代联盟区块链平台，以支持企业级应用。平台提出了一种以隐私计算为特色的企业级联盟链基础设施，可满足金融商业等多种需求场景。
@@ -64,7 +64,7 @@ Venachain是 **基于隐私计算** 的新一代联盟区块链平台，以支�
    :hidden:
    
    documents/tool/venachainctl
-   documents/tool/venachaincli
+   documents/tool/vcl
    documents/tool/ethkey
    
 .. toctree::

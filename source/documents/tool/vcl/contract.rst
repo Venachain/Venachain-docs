@@ -38,12 +38,12 @@
 
       # 通过合约地址调用合约
       ## wasm合约（默认）
-      ./venachaincli contract execute "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206" "setName" --param wxbc  --abi "../../../cmd/venachaincli/test/test_case/wasm/contracta.cpp.abi.json" --keyfile ../conf/keyfile.json
+      ./vcl contract execute "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206" "setName" --param wxbc  --abi "../../../cmd/vcl/test/test_case/wasm/contracta.cpp.abi.json" --keyfile ../conf/keyfile.json
       ## evm合约
-      ./venachaincli contract execute ... ... --param --vm evm --keyfile ../conf/keyfile.json
+      ./vcl contract execute ... ... --param --vm evm --keyfile ../conf/keyfile.json
 
       # 通过合约名称调用合约（cns服务）
-      ./venachaincli contract execute "test" "setName" --param wxbc --abi "../../../cmd/venachaincli/test/test_case/wasm/contracta.cpp.abi.json" --keyfile ../conf/keyfile.json
+      ./vcl contract execute "test" "setName" --param wxbc --abi "../../../cmd/vcl/test/test_case/wasm/contracta.cpp.abi.json" --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -71,7 +71,7 @@
 
 .. code:: bash
 
-      ./venachaincli contract methods --abi "../../../cmd/venachaincli/test/test_case/wasm/contracta.cpp.abi.json"
+      ./vcl contract methods --abi "../../../cmd/vcl/test/test_case/wasm/contracta.cpp.abi.json"
 
 **输出结果**
 
@@ -115,9 +115,9 @@
 .. code:: bash
 
       ## wasm合约
-      ./venachaincli contract deploy "../../../cmd/venachaincli/test/test_case/wasm/contracta.wasm" --abi "../../../cmd/venachaincli/test/test_case/wasm/contracta.cpp.abi.json"  --keyfile ../conf/keyfile.json
+      ./vcl contract deploy "../../../cmd/vcl/test/test_case/wasm/contracta.wasm" --abi "../../../cmd/vcl/test/test_case/wasm/contracta.cpp.abi.json"  --keyfile ../conf/keyfile.json
       ## evm合约
-      ./venachaincli contract deploy ../../../cmd/venachaincli/test/test_case/sol/storage_byzantium_065.bin --abi ../../../cmd/venachaincli/test/test_case/sol/storage_byzantium_065.abi --keyfile ../conf/keyfile.json -vm evm 
+      ./vcl contract deploy ../../../cmd/vcl/test/test_case/sol/storage_byzantium_065.bin --abi ../../../cmd/vcl/test/test_case/sol/storage_byzantium_065.abi --keyfile ../conf/keyfile.json -vm evm 
 
 **输出结果**
 
@@ -174,7 +174,7 @@
 
 .. code:: bash
 
-      ./venachaincli contract receipt 0x86d35fdd3bd67969ba71acba50076551ba8de31230b3bbfa8a536177c1610c23
+      ./vcl contract receipt 0x86d35fdd3bd67969ba71acba50076551ba8de31230b3bbfa8a536177c1610c23
 
 **输出结果**
 

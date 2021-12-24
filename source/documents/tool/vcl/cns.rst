@@ -32,10 +32,10 @@ cns解析 cns resolve
 .. code:: bash
 
    # 查询最新版本
-   ./venachaincli cns resolve "test"  --keyfile ../conf/keyfile.json
+   ./vcl cns resolve "test"  --keyfile ../conf/keyfile.json
 
    # 查询指定版本
-   ./venachaincli cns resolve "test" --version "1.0.0.0"  --keyfile ../conf/keyfile.json
+   ./vcl cns resolve "test" --version "1.0.0.0"  --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -67,7 +67,7 @@ cns注册 cns register
 
 .. code:: bash
 
-   ./venachaincli cns register "test" "1.0.0.0" "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206"  --keyfile ../conf/keyfile.json
+   ./vcl cns register "test" "1.0.0.0" "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206"  --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -107,7 +107,7 @@ cns重定向 cns redirect
 
 .. code:: bash
 
-   ./venachaincli cns register "test" "1.1.0.0" "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206"  --keyfile ../conf/keyfile.json
+   ./vcl cns register "test" "1.1.0.0" "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206"  --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -149,14 +149,14 @@ cns信息查询 cns query
 .. code:: bash
 
       # 1 查询已注册的合约
-      ./venachaincli cns query --all --keyfile ../conf/keyfile.json 
+      ./vcl cns query --all --keyfile ../conf/keyfile.json 
       # 2 通过合约名称进行查询 - 查询该名称注册历史
-      ./venachaincli cns query --contract "test" --keyfile ../conf/keyfile.json 
+      ./vcl cns query --contract "test" --keyfile ../conf/keyfile.json 
       # 3 通过注册者进行查询
-      ./venachaincli cns query "0x01a369998e4a141c5e2b40dbcbaf4a601d57cfa5" --pageNum "10" --pageSize "0" --keyfile ../conf/keyfile.json 
+      ./vcl cns query "0x01a369998e4a141c5e2b40dbcbaf4a601d57cfa5" --pageNum "10" --pageSize "0" --keyfile ../conf/keyfile.json 
       # 4 通过合约地址进行查询
       ## 目前接口为通过地址查询未被注销的合约
-      ./venachaincli cns query --contract "0x01a369998e4a141c5e2b40dbcbaf4a601d57cfa5" --keyfile ../conf/keyfile.json 
+      ./vcl cns query --contract "0x01a369998e4a141c5e2b40dbcbaf4a601d57cfa5" --keyfile ../conf/keyfile.json 
 
 **输出结果**
 
@@ -229,9 +229,9 @@ cns状态查询 cns state
 .. code:: bash
 
       # 查询合约地址是否注册
-      ./venachaincli cns state "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206" --keyfile ../conf/keyfile.json
+      ./vcl cns state "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206" --keyfile ../conf/keyfile.json
       # 查询合约名称是否被注册
-      ./venachaincli cns state "test" --keyfile ../conf/keyfile.json
+      ./vcl cns state "test" --keyfile ../conf/keyfile.json
 
 **输出结果**
 

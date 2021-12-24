@@ -34,7 +34,7 @@
 
 .. code:: bash
 
-   ./venachaincli account add "0xb239401ecf8427f17c6de134d6a6bddd3100251f" "Alice" --phone "13111111111" --email "alice@wx.bc.com" --organization wxbc --keyfile ../conf/keyfile.json
+   ./vcl account add "0xb239401ecf8427f17c6de134d6a6bddd3100251f" "Alice" --phone "13111111111" --email "alice@wx.bc.com" --organization wxbc --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -81,13 +81,13 @@
 
    # optional flags:
    ## 修改用户电话
-   ./venachaincli account update "0xb239401ecf8427f17c6de134d6a6bddd3100251f" --phone "13241231233" --keyfile ../conf/keyfile.json
+   ./vcl account update "0xb239401ecf8427f17c6de134d6a6bddd3100251f" --phone "13241231233" --keyfile ../conf/keyfile.json
 
    ## 修改用户邮箱
-   ./venachaincli account update "0xb239401ecf8427f17c6de134d6a6bddd3100251f" --email "123@qq.com" --keyfile ../conf/keyfile.json
+   ./vcl account update "0xb239401ecf8427f17c6de134d6a6bddd3100251f" --email "123@qq.com" --keyfile ../conf/keyfile.json
 
    ## 修改用户所属机构
-   ./venachaincli account update "0xb239401ecf8427f17c6de134d6a6bddd3100251f" --organization "wxbc" --keyfile ../conf/keyfile.json
+   ./vcl account update "0xb239401ecf8427f17c6de134d6a6bddd3100251f" --organization "wxbc" --keyfile ../conf/keyfile.json
 
 **输出结果**
 
@@ -130,10 +130,10 @@
 .. code:: bash
 
    # 1 通过用户账户地址查询用户信息
-   ./venachaincli account query --user "0xb239401ecf8427f17c6de134d6a6bddd3100251f" --keyfile ../conf/keyfile.json
+   ./vcl account query --user "0xb239401ecf8427f17c6de134d6a6bddd3100251f" --keyfile ../conf/keyfile.json
 
    # 2 通过用户账户名查询用户信息
-   ./venachaincli account query --user "Alice" --keyfile ../conf/keyfile.json
+   ./vcl account query --user "Alice" --keyfile ../conf/keyfile.json
 
 **输出结果**
 
