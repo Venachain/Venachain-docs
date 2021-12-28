@@ -26,9 +26,9 @@
 
 - ``--url <string>``: 通过–url与全局变量config.Url获取URL
 
-      + 当未提供–url时,使用变量config.Url中的值
-      + 当提供–url时，读取–url中的值并覆盖config.json中url键对应的值
-      + 既未提供–url且全局变量config.Url的值为空，报错并提示错误
+   + 当未提供–url时,使用变量config.Url中的值
+   + 当提供–url时，读取–url中的值并覆盖config.json中url键对应的值
+   + 既未提供–url且全局变量config.Url的值为空，报错并提示错误
 
 不等待交易回执结果
 =============================

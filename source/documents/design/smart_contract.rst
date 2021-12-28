@@ -13,5 +13,6 @@ Venachain同时支持EVM和WASM两种类型智能合约虚拟机，其中EVM虚�
 .. toctree::
    :hidden:
    
-   smart_contract/evm
    smart_contract/wasm
+   smart_contract/evm
+   

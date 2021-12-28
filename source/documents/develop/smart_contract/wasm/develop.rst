@@ -1,5 +1,5 @@
 ================
-cpp合约开发
+合约开发(cpp)
 ================
 
 本文档通过一系列代码示例讲解合约的各个功能，用户可以通过学习这些例子来深入理解如何编写一个应用合约。
@@ -88,7 +88,7 @@ Wasm合约内置库为数据的持久化提供了 ``setState()`` 方法，可以
 Const方法
 ==============
 
-合约中的 ``const`` 类型方法提供对合约状态的只读操作，该类型声明的函数不能够修改合约数据，一般用来查询合约的链上数据。下方代码中， ``getData()`` 即为const方法，用于查询数据。
+合约中的 ``const`` 类型方法提供对合约状态的只读操作，该类型声明的函数不能够修改合约数据，一般用来查询合约的链上数据。下方代码中， ``getData()`` 即为 ``const`` 方法，用于查询数据。
 
 .. code:: cpp
 
@@ -153,13 +153,11 @@ bcwasm中提供了map类型的封装，定义map结构时，需要指定map的�
    char mapName[] = "students";
    bcwasm::db::Map<mapName, std::string, Student_t> students;
 
-map结构支持如下的几种api：
+map结构支持如下的几种api: 
 
--  ``find(key)``: 根据key查找value
--  ``insert(key, value)``:
-   当map中还没有以key为索引的内容时，插入以key为索引的value
--  ``update(key, value)`` ：
-   当map中已经存在以key为索引的内容时，更新key对应的value
+-  ``find(key)`` ：根据key查找value
+-  ``insert(key, value)`` ：当map中还没有以key为索引的内容时，插入以key为索引的value
+-  ``update(key, value)`` ：当map中已经存在以key为索引的内容时，更新key对应的value
 
 下方的示例合约中定义了一个map用于保存学生的姓名、年龄信息，以学生姓名为key作为索引，其中 ``setData`` 方法输入学生的姓名、年龄， ``getData`` 方法根据姓名查询学生的年龄。
 
@@ -213,7 +211,7 @@ Event
 
 Event允许我们方便地使用Venachain的日志基础设施。我们可以在dapp中监听Event，当合约中产生Event时，会使相关参数被存储到交易的Log中。这些Log与地址相关联，被写入区块链中，可以通过交易Receipt查询某个交易所产生的Event。
 
-宏 ``BCWASM_EVENT`` 和 ``BCWASM_EMIT_EVENT`` 提供了对合约Event的直接支持，使用方法如下：
+宏 ``BCWASM_EVENT`` 和 ``BCWASM_EMIT_EVENT`` 提供了对合约Event的直接支持，使用方法如下： 
 
 .. code:: cpp
 
@@ -223,7 +221,7 @@ Event允许我们方便地使用Venachain的日志基础设施。我们可以在
    /// 触发Event
    BCWASM_EMIT_EVENT(setData,name,age);
 
-我们在示例合约中加入Event事件，每次调用 ``setData()`` 时，触发Event事件，示例合约代码如下所示：
+我们在示例合约中加入Event事件，每次调用 ``setData()`` 时，触发Event事件，示例合约代码如下所示： 
 
 .. code:: cpp
 
@@ -304,14 +302,13 @@ Event允许我们方便地使用Venachain的日志基础设施。我们可以在
      transactionIndex: 0
    }
 
-在Receipt的logs字段中是我们通过Event产生的数据，其中主要字段的含义为：
+在Receipt的logs字段中是我们通过Event产生的数据，其中主要字段的含义为: 
 
--  address: 产生该Event的合约地址
--  blockHash: 产生该Event的交易所在区块哈希
--  blockNumber: 产生该Event的交易所在区块号
--  data: Event参数的Rlp编码，在上面合约示例中为[name,age]的RLP编码
--  topics:
-   Event名称的哈希值，在上面合约示例为字符串 ``"setData"`` 的哈希值
+-  address：产生该Event的合约地址
+-  blockHash：产生该Event的交易所在区块哈希
+-  blockNumber：产生该Event的交易所在区块号
+-  data：Event参数的Rlp编码，在上面合约示例中为[name,age]的RLP编码
+-  topics：Event名称的哈希值，在上面合约示例为字符串 ``"setData"`` 的哈希值
 
 跨合约调用
 =================
@@ -320,8 +317,8 @@ bcwasm库提供了类 ``DeployedContract`` 用于跨合约调用，当需要在�
 
 .. code:: cpp
 
-   // 调用目的地址： "0x07894a9f9edffe4b73eb8928f76ee2993039e4d7"
-   // 调用的方法： setData(name,age)
+   // 调用目的地址:  "0x07894a9f9edffe4b73eb8928f76ee2993039e4d7"
+   // 调用的方法:  setData(name,age)
    bcwasm::DeployedContract regManagerContract("0x07894a9f9edffe4b73eb8928f76ee2993039e4d7");
    char name[]= "name";
    int64_t age = 18;
@@ -368,7 +365,7 @@ Venachain在系统合约中提供了CNS服务功能，可以将合约注册至�
 hash()
 ============
 
-bcwasm库提供了与以太坊一致的哈希方法 ``sha3()`` ，使用方式如下所示：
+bcwasm库提供了与以太坊一致的哈希方法 ``sha3()`` ，使用方式如下所示： 
 
 .. code:: cpp
 
@@ -433,7 +430,7 @@ caller()、origin()和address()
    } \
    while(0)
 
-4） wasm合约内置库中的u256类型转换字符串类型需要进行如下调用：
+4） wasm合约内置库中的u256类型转换字符串类型需要进行如下调用: 
 
 .. code:: cpp
 

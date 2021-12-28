@@ -38,7 +38,7 @@
 
 - 执行命令后，会先停止节点，再清除 ``${WORKSPACE}/data/node-${node_id}/``
 
-- --all参数：
+- all参数：
 
   + 如果选择all，那么 ``genesis.json``  会被清除并备份至 ``{WORKSPACE}/conf/bak``, ``keyfile.json`` 仍被保留在 ``{WORKSPACE}/conf``
 

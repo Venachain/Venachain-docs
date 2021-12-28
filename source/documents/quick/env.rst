@@ -43,7 +43,7 @@ CPU  1核1.5GHZ 4核2.4GHZ
 
    # 编译Venachain
    cd Venachain
-   make all
+   make clean && make all
 
 编译完成后，会在release目录下生成搭链所需的材料。
 

@@ -169,7 +169,7 @@
         ]
       }
 
-.. note:: 无"approver"字段
+.. note:: 无 ``approver`` 字段
 
 节点统计 node stat
 ======================

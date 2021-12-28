@@ -8,7 +8,7 @@
 1.1. 创建密钥与创世区块(仅firstnode执行)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- 会在 ``{WORKSPACE}/data/node-${node_id}`` 目录下，生成节点的公私钥、IP端口等信息。 
+- 会在 ``{WORKSPACE}/data/node-${node_id}`` 目录下，生成节点的公私钥、 IP 端口等信息。 
 - 会在 ``{WORKSPACE}/conf`` 目录下生成一个 ``genesis.json`` 文件。
 
 **命令**
@@ -118,7 +118,7 @@
 
    + 节点运行日志： ``${logdir}/venachain_log/``
 
-   + 日志文件夹中包含wasm执行的日志与venachain运行的日志. 随时间推移， 日志文件会越积越多, 建议进行挂载, 或者进行定期删除等操作。
+   + 日志文件夹中包含 wasm 执行的日志与 venachain 运行的日志. 随时间推移， 日志文件会越积越多, 建议进行挂载, 或者进行定期删除等操作。
 
 -  logdir：参数加引号，用绝对路径
 
@@ -150,23 +150,23 @@ firstnode加入区块链
 
 .. code:: bash
 
-   --nodeid, -n      		node id , must specified
-   --auto         			create account automatically with phrase 0
+   --nodeid, -n      node id , must specified
+   --auto            create account automatically with phrase 0
 
 **说明**
 
-- 在 ``{WORKSPACE}/conf`` 下会生成 ``keyfile.json``
 - 在 ``{WORKSPACE}/data/node-${node_id}/keystore`` 生成 ``UTC*`` 文件
+- 在 ``{WORKSPACE}/conf`` 下会生成 ``keyfile.json``
 - auto参数
-   + 如果为true
+   + 如果为 true
       会用默认密码 0 创建账号
-   + 如果不为true
+   + 如果不为 true
       手动输入设置密码
 
 非firstnode加入区块链
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. note:: firstnode必须已加入区块链
+.. note:: firstnode 必须已加入区块链
 
 - 将节点加入区块链并更新为共识节点
 

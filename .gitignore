@@ -16,6 +16,6 @@ buildUnitTest/
 database/
 
 # sphinx
-build/
+/build/
 make.bat
 

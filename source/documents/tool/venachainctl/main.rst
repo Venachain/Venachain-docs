@@ -8,10 +8,6 @@ init
 
 **用法**
 
-.. code:: bash
-
-   ./venachainctl.sh init -h
-
 .. code:: console
 
    init OPTIONS

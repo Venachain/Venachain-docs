@@ -24,6 +24,26 @@
 
    ./venachainctl.sh get
 
+.. code:: console
+
+   result:
+   {
+         "code":0,
+         "msg":"success",
+         "data":[{
+                  "name":"0",
+                  "owner":"",
+                  "desc":"",
+                  "type":1,
+                  "status":1,
+                  "externalIP":"127.0.0.1",
+                  "internalIP":"127.0.0.1",
+                  "publicKey":"c3aa288636206cf9dd974913e5659c60263f57baed342437dde1a949e4c9401dfba05cfb5cc9015675e56985a9ea0694fdb97a042139af2af0f2289cb177c358",
+                  "rpcPort":6791,
+                  "p2pPort":16791
+         }]
+   }
+
 查看节点信息
 ===============
 
@@ -37,19 +57,20 @@ console:
 
 .. code:: console
 
-   disable -> node_id:  0
-             node info:
-                     node.address: f92f1c1469d1a8c38964c63d62d3167842ce70cd
-                     node.ip: 127.0.0.1
+   running -> node_id:  0
+            node info:
+                     account: 926ee5594dadc8d65ea29f376423812becc84e4e
+                     node.address: e8679931E1d48915cA551563aCeD01472d40206E
+                     node.pubkey: c3aa288636206cf9dd974913e5659c60263f57baed342437dde1a949e4c9401dfba05cfb5cc9015675e56985a9ea0694fdb97a042139af2af0f2289cb177c358
+                     node.ip_addr: 127.0.0.1
                      node.rpc_port: 6791
                      node.p2p_port: 16791
                      node.ws_port: 26791
-                     node.pubkey: 9afcb45d2725059a5a6a7f379d6404b6c914b02dd3e7a33d29c87b3f28f8f63b78ffe2736a3cb52ae45bbf57471d438eac71ddcc0bdfbaa56d65e59d457159b2
 
 停止和清除
 =============
 
-您可以停止节点并清除节点数据：
+您可以停止节点并清除节点数据： 
 
 .. code:: bash
 
