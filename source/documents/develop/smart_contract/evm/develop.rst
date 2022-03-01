@@ -36,7 +36,7 @@ Ubutu系统下安装solc：
 
 `其他环境下solc安装方式 <https://solidity-cn.readthedocs.io/zh/develop/installing-solidity.html>`__ 
 
-truffer方式
+truffle方式
 ^^^^^^^^^^^^^^
 
 环境要求：
@@ -47,26 +47,17 @@ truffer方式
 
 **安装方式一：直接安装**
 
-1. 通过npm安装：
-
 .. code:: bash
 
     npm install -g truffle 
-
-2. 初始化空白模版：
-
-.. code:: bash
-
-    # filepath 为可选项，即合约生成文件存放的路径
-    truffle init [filepath] 
 
 .. _evm-contract-truffle-build2:
 
 **安装方式二：源码编译**
 
-1. 下载truffle项目源码： `源码链接 <https://github.com/trufflesuite/truffle/tree/v5.5.0>`__
+1) 下载truffle项目源码： `源码链接 <https://github.com/trufflesuite/truffle/tree/v5.5.0>`__
 
-2. 编译项目：
+2) 编译项目：
 
 .. code:: bash
 
@@ -76,7 +67,22 @@ truffer方式
     # 在truffle项目根目录下执行编译
     yarn
 
-3. 初始化空白模版：
+合约编写
+================
+
+初始化空白模板
+^^^^^^^^^^^^^^
+
+.. note:: 如果是使用truffle方式，那么需要先初始化空白模板。非truffle方式编写solidity合约可跳过本部分。
+
+如果使用 :ref:`安装方式一：直接安装 <evm-contract-truffle-build1>` 安装truffle的，那么
+
+.. code:: bash
+
+    # filepath 为可选项，即合约生成文件存放的路径
+    truffle init [filepath] 
+
+如果使用 :ref:`安装方式二：源码编译 <evm-contract-truffle-build2>` 安装truffle的，那么
 
 .. code:: bash
 
@@ -97,7 +103,7 @@ truffer方式
 可在生成的空白模版上修改合约。
 
 编写solidity合约
-================
+^^^^^^^^^^^^^^^^^
 
 下面是一个简单solidity智能合约代码的例子：
 
@@ -126,20 +132,20 @@ truffer方式
 
 solidity值类型包括：
 
--  布尔(Booleans)
--  整型(Integer)
--  地址(Address)
--  定长字节数组(fixed byte arrays)
--  有理数和整型(Rational and Integer Literals，String literals)
--  枚举类型(Enums)
--  函数(Function Types)
+- 布尔(Booleans)
+- 整型(Integer)
+- 地址(Address)
+- 定长字节数组(fixed byte arrays)
+- 有理数和整型(Rational and Integer Literals，String literals)
+- 枚举类型(Enums)
+- 函数(Function Types)
 
 复杂类型，占用空间较大的。在拷贝时占用空间较大。所以考虑通过引用传递。常见的引用类型有：
 
--  不定长字节数组（bytes）
--  字符串（string）
--  数组（Array）
--  结构体（Struts）
+- 不定长字节数组（bytes）
+- 字符串（string）
+- 数组（Array）
+- 结构体（Struts）
 
-更多solidity语法参见：`solidy语法 <https://www.tryblockchain.org/>`__
+更多solidity语法参见：`solidity语法 <https://www.tryblockchain.org/>`__
 
