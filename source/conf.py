@@ -66,7 +66,7 @@ html_theme = 'sphinx_rtd_theme'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = []
+html_static_path = ['_static'] 
 
 html_logo = './images/venachain-logo.png'
 
@@ -76,3 +76,6 @@ html_theme_options = {
 }
 
 html_show_sourcelink = False
+
+def setup(app):
+    app.add_css_file('css/my_theme.css')
