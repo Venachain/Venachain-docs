@@ -12,7 +12,7 @@
 
 .. code:: bash
 
-   ./ethkey genkeypair
+   ./venakey genkeypair
 
 .. code:: console
 
@@ -77,7 +77,7 @@
 
       echo 'date +%s'
 
-- ``0xDEFAULT-ACCOUNT`` 替换为 ``./ethkey genkeypair`` 节点的地址。
+- ``0xDEFAULT-ACCOUNT`` 替换为 ``./venakey genkeypair`` 节点的地址。
 
 替换后生成的文件：
 

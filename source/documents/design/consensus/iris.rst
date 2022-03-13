@@ -1,7 +1,7 @@
 .. _ibft:
 
 ====================
-Istanbul共识算法
+Iris共识算法
 ====================
 
 概述
@@ -90,7 +90,7 @@ Venachain 共识会为每一个链上的区块生成共识证明，也就是对�
 
 下图描述了Venachain的共识流程的状态迁移过程。
 
-.. figure:: ../../../images/design/consensus/istanbul_state_flow.jpg
+.. figure:: ../../../images/design/consensus/iris_state_flow.jpg
 
 -  ``NEW ROUND`` -> ``PRE-PREPARED``：
 
@@ -179,7 +179,7 @@ round change 的流程
 锁定区块的机制
 ----------------
 
-除了共识起始阶段，当收到更高区块的同步数据时，或当前高度成功产生区块并达成共识时，锁定被状态重置为非锁定状态，并开始新一轮对更高区块共识。如未能在锁定期间收到 ``+2/3`` 个指定round和区块的 ``commit`` 投票，则触发 ``ROUND CHANGE`` 。并且，在特定场景下，原有锁定解锁机制还会出现死锁的情况，我们在代码层面也优化了相关的解锁实现。具体可参考「对Istanbul锁定解锁机制的优化」。
+除了共识起始阶段，当收到更高区块的同步数据时，或当前高度成功产生区块并达成共识时，锁定被状态重置为非锁定状态，并开始新一轮对更高区块共识。如未能在锁定期间收到 ``+2/3`` 个指定round和区块的 ``commit`` 投票，则触发 ``ROUND CHANGE`` 。并且，在特定场景下，原有锁定解锁机制还会出现死锁的情况，我们在代码层面也优化了相关的解锁实现。具体可参考「对Iris锁定解锁机制的优化」。
 
 Consensus proof 目前的存储机制
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -198,13 +198,13 @@ Committed seal计算过程如下：
 	  
    +  ``PrivateKey`` ： 进行签名的validator节点的私钥
 
--  上面提到的 ``extraData`` 是区块头的一个字段，其数据组成为: EXTRA_VANITY \| ISTANBUL_EXTRA，其中|用以表示分隔EXTRA_VANITY和ISTANBUL_EXTRA的固定的索引（不是一个实际的分隔字符）。
+-  上面提到的 ``extraData`` 是区块头的一个字段，其数据组成为: EXTRA_VANITY \| IRIS_EXTRA，其中|用以表示分隔EXTRA_VANITY和IRIS_EXTRA的固定的索引（不是一个实际的分隔字符）。
 
--  IstabulExtra结构的类型定义如下： 
+-  IrisExtra结构的类型定义如下： 
 
 .. code:: go
 
-     type IstanbulExtra struct {
+     type IrisExtra struct {
      Validators    []common.Address    //Validator addresses
      Seal          []byte              //Proposer seal 65 bytes
      CommittedSeal [][]byte            //Committed seal, 65 * len(Validators) bytes

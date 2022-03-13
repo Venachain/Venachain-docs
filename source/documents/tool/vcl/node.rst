@@ -25,7 +25,7 @@
 .. code:: bash
 
       <name>:            节点名称
-      <publicKey>:       节点公钥，用于节点间安全通信。节点的公私钥对可由ethkey工具产生。
+      <publicKey>:       节点公钥，用于节点间安全通信。节点的公私钥对可由venakey工具产生。
       <externalIP>:      节点外网IP
       <internalIP>:      节点内网IP
 

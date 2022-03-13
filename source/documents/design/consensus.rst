@@ -5,5 +5,5 @@
 .. toctree::
    :maxdepth: 1
    
-   consensus/istanbul
+   consensus/iris
    consensus/vrf

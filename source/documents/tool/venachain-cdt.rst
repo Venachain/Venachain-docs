@@ -7,15 +7,21 @@ Wasm合约开发工具 (Venahcain-CDT)
 - 创建C++合约模版；
 - 将C++合约编译为wasm格式文件，并生成对应合约的ABI文件。
 
+.. note:: 安装或使用过程中遇到问题可以阅读 :ref:`Q&A <venachain-cdt-qa>` 部分进行排查。
+
+.. note:: Windows用户在安装与使用的过程中，建议使用 **Git Bash** 进行操作。
+
 安装
 =====
 
 有两种安装方式：
 
-- 方式一：使用已编译版本。将本项目的release对应操作系统版本下的压缩包解压至 ``/usr/local/`` 下，或将解压目录加入到PATH环境变量中即可。
+- 方式一：使用已编译版本。将本工具对应操作系统的 `release包 <https://git-c.i.wxblockchain.com/vena/src/Venachain-CDT/-/releases>`__ 解压到 ``${指定安装目录}`` 下。 **Linux** 与 **MacOS** 操作系统用户的 ``${指定安装目录}`` 为 ``/usr/local/`` ， **Windows** 用户的 ``${指定安装目录}`` 为 ``C:/`` 。
 - 方式二：手动编译安装。按照下文 :ref:`编译步骤 <venachain-cdt-build>` 进行手动编译安装。
 
 .. note:: 由于方式二的编译时间可能较长，推荐使用方式一。
+
+在安装完成后，将 ``${指定安装目录}/venachain.cdt`` 添加至环境变量中。如果是windows系统，还需要将 ``${指定安装目录}/venachain.cdt/bin`` 添加至环境变量中。
 
 .. _venachain-cdt-build:
 
@@ -25,19 +31,38 @@ Wasm合约开发工具 (Venahcain-CDT)
 编译要求
 ^^^^^^^^
 
-- gcc&g++ 7.4+ 或 Clang 7.0+
-- CMake 3.17+
+Linux
+--------
+
 - Git
 - Python
-- 若在windows环境编译，则要求：
-    
-  + 安装 `MinGW-W64 GCC-8.1.0 <https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/sjlj/x86_64-8.1.0-release-posix-sjlj-rt_v6-rev0.7z>`__ , 且安装路径不能含有空格(即: 不能安装在 ``Program Files`` 或 ``Program Files(x86)`` 目录), 否则可能导致编译失败.
-  + CMake 3.5+
+- CMake 3.17+
+- gcc&g++ 7.4+ 或 Clang 7.0+
+
+MacOS
+--------
+
+- Git
+- Python
+- CMake 3.17+
+- gcc&g++ 7.4+ 或 Clang 7.0+
+
+Windows
+---------
+
+* Git
+* Python
+* CMake 3.5+
+* `MinGW-W64 GCC-8.1.0 <https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/sjlj/x86_64-8.1.0-release-posix-sjlj-rt_v6-rev0.7z>`__ （注：安装路径不能含有空格，即不能安装在 ``Program Files`` 或 ``Program Files(x86)目录`` ，否则可能导致编译失败。）
+
+编译流程
+^^^^^^^^^
 
 Linux
-^^^^^^
+-------
 
-**安装依赖**
+安装依赖
+>>>>>>>>>>
 
 - Ubuntu
 
@@ -51,13 +76,15 @@ Linux
 
     sudo yum install gcc g++ make ncurses-devel zlib-devel
 
-**获取源码**
+获取源码
+>>>>>>>>>>>
 
 .. code:: bash
 
     git clone https://git-c.i.wxblockchain.com/vena/src/Venachain-CDT.git
 
-**执行编译**
+执行编译
+>>>>>>>>>
 
 .. code:: bash
 
@@ -67,15 +94,17 @@ Linux
     make && make install
 
 MacOS
-^^^^^^^
+-------
 
-**获取源码**
+获取源码
+>>>>>>>>>>
 
 .. code:: bash
 
     git clone https://git-c.i.wxblockchain.com/vena/src/Venachain-CDT.git
 
-**执行编译**
+执行编译
+>>>>>>>>>>
 
 .. code:: bash
 
@@ -85,65 +114,84 @@ MacOS
     make && make install
 
 Windows
-^^^^^^^^^
+--------
 
-**获取源码**
+获取源码
+>>>>>>>>>
 
 .. code:: bash
 
     git clone https://git-c.i.wxblockchain.com/vena/src/Venachain-CDT.git
 
-**执行编译**
+执行编译
+>>>>>>>>>>
 
 .. code:: bash
 
     cd Venachain-CDT
+
     mkdir build && cd build
+
     cmake -G "MinGW Makefiles" .. -DCMAKE_INSTALL_PREFIX="C:/venachain.cdt" -DCMAKE_MAKE_PROGRAM=mingw32-make
+
     mingw32-make && mingw32-make install
 
 使用
 =====
 
-在使用Venachain-CDT之前须将Venachain-CDT编译生成的执行文件路径加到PATH环境变量中。
+在使用Venachain-CDT之前，须将 ``${指定安装目录}/venachain.cdt`` 添加至环境变量中。
 
 C++合约项目分为两种类型：
 
 - 单文件项目：即合约项目中只包含一个C++合约文件。
-- 多文件项目：若合约文件涉及引用其他多个C++文件，则需要使用该类型。该类型项目采用 ``makefile`` 方式将合约编译为wasm文件。采用该种方式编译合约时，需将本项目下的 ``release`` 目录中的内容解压到 ``/usr/local`` 目录下，或采用上述 :ref:`手动编译安装 <venachain-cdt-build>` 的方式安装Venachain-CDT。
+- 多文件项目：若合约文件涉及引用其他多个C++文件，则需要使用该类型。该类型项目采用 ``makefile`` 方式将合约编译为wasm文件。
 
 单文件项目
 ^^^^^^^^^^
 
-**初始化项目**
+初始化项目
+-----------
 
 .. code:: bash
 
+    venachain-init -project=${PROJECT_NAME} -bare
+
+    ## 例
     venachain-init -project=example -bare
 
-**编译WASM文件**
+编译WASM文件
+---------------
 
 .. code:: bash
 
+    cd ${PROJECT_NAME}
+    venachain-cpp -o ${WASM_NAME}.wasm ${CPP_NAME}.cpp -abigen
+
+    ## 例
     cd example
     venachain-cpp -o example.wasm example.cpp -abigen
 
 多文件项目
 ^^^^^^^^^^
 
-**初始化项目**
+初始化项目
+-------------
 
 .. code :: bash
 
+    venachain-init -project=${PROJECT_NAME}
+
+    # 例
     venachain-init -project=cmake_example 
 
-**编译WASM文件**
+编译WASM文件
+--------------
 
 - Linux
 
 .. code:: bash
 
-    cd cmake_example/build
+    cd ${PROJECT_NAME}/build
     cmake ..
     make
 
@@ -151,7 +199,7 @@ C++合约项目分为两种类型：
 
 .. code:: bash
 
-    cd cmake_example/build
+    cd ${PROJECT_NAME}/build
     cmake ..
     make
 
@@ -159,8 +207,11 @@ C++合约项目分为两种类型：
 
 .. code:: bash
 
-    cd cmake_example/build
-    cmake .. -G "MinGW Makefiles" -Dvenachain_CDT_ROOT=<cdt_install_dir>    
+    cd ${PROJECT_NAME}/build
+    cmake .. -G "MinGW Makefiles" -DVENACHAIN_CDT_ROOT="C:/venachain.cdt"
+    mingw32-make
+
+.. _venachain-cdt-qa:
 
 Q&A
 =====
@@ -173,7 +224,7 @@ Q&A
     venachain-init: /lib64/libstdc++.so.6: version `CXXABI_1.3.9' not found (required by venachain-init)
     venachain-init: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by venachain-init)
 
-**原因与解决方法**：gcc和g++版本太低导致，请升级版本
+**原因与解决方法**：gcc和g++版本太低导致，请升级版本。
 
 2) 遇到以下问题：
 
@@ -187,13 +238,17 @@ Q&A
 
 .. code:: bash
 
+    ## Ubuntu
+    apt -y install lib32ncurses5
+
+    ## CentOS
     yum -y install libncurses.so.5
 
 - 若有，则执行 
 
 .. code:: bash
 
-    ln -s libncurses.so  libncurses.so.5.9``
+    ln -s libncurses.so  libncurses.so.5.9
 
 3) MacOS系统版本比较高时，需要升级boost。
 
@@ -212,6 +267,24 @@ Q&A
         BUILD_ALWAYS 1
     )
 
-4) 编译项目时，出现 ``boost_1_69_0.tar.ba2`` 下载慢或者下载失败的情况。
+4) 编译项目时，出现 ``boost_1_69_0.tar.bz2`` 下载慢或者下载失败的情况。
 
-**解决方法**：先停止当前 ``make`` 流程，然后手动在 `官网 <https://boostorg.jfrog.io/artifactory/main/release/1.69.0/source/>`__ 下载 ``boost_1_69_0.tar.ba2`` ，放到项目 ``build/thirdparty/Download/boost/`` 目录下,然后继续执行 ``make`` 。
+**解决方法**：先停止当前 ``make`` 流程，然后手动在 `官网 <https://boostorg.jfrog.io/artifactory/main/release/1.69.0/source/>`__ 下载 ``boost_1_69_0.tar.bz2`` ，放到项目 ``build/thirdparty/Download/boost/`` 目录下，然后继续执行 ``make`` 。
+
+5) 编译项目时，出现 ``file cannot create directory`` 或 ``cannot copy file`` 报错的情况，如：
+
+.. code:: console
+
+    Install the project...
+    -- Install configuration: ""
+    CMake Error at cmake_install.cmake:44 (file):
+        file cannot create directory:
+        /usr/local/venachain.cdt/lib/cmake/venachain.cdt.  Maybe need
+        administrative privileges.
+
+**原因与解决方法**：用户权限不足，请尝试使用更高权限，比如：
+
+.. code:: bash
+
+    su root
+    make install

@@ -278,7 +278,7 @@ Q&A
 .. code:: bash
 
    ## 设置密码为：0
-   ./ethkey generate --privatekey ../data/node-0/node.prikey
+   ./venakey generate --privatekey ../data/node-0/node.prikey
 
 上述命令会在当前目录下生成一个 ``keyfile.json`` 文件。将该文件移动到链项目的 ``release/linux/data/node-0/keystore`` 目录下：
 

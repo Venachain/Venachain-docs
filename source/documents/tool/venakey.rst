@@ -1,6 +1,6 @@
-=================
-密钥工具 (ethkey)
-=================
+====================
+密钥工具 (venakey)
+====================
 
 概述
 =======
@@ -18,7 +18,7 @@ Venachain中用到公私钥的地方主要有以下两处：
 -  节点间消息通信，使用节点私钥为消息签名
 -  发送交易时，使用用户私钥为交易签名
 
-Venachain提供了密钥工具ethkey，用于产生密钥对。
+Venachain提供了密钥工具venakey，用于产生密钥对。
 
 该工具位于 ``~/Venachain/release/linux/bin`` 目录下。
 
@@ -27,7 +27,7 @@ Venachain提供了密钥工具ethkey，用于产生密钥对。
 
 .. code:: shell
 
-   ./ethkey genkeypair
+   ./venakey genkeypair
    
 .. code:: console
 
@@ -42,7 +42,7 @@ Venachain提供了密钥工具ethkey，用于产生密钥对。
 
 .. code:: shell
 
-   ./ethkey generate
+   ./venakey generate
 
    Passphrase:
    Repeat passphrase:
@@ -79,10 +79,10 @@ keyfile.json文件的内容如下所示：
 .. code:: shell
 
    Usgae:
-       ethkey inspect <keyfile>
+       venakey inspect <keyfile>
 	   
    ## 示例
-   ./ethkey inspect keyfile.json  --private
+   ./venakey inspect keyfile.json  --private
 
 .. code:: console
 
@@ -98,10 +98,10 @@ keyfile.json文件的内容如下所示：
 .. code:: shell
 
    Usage:
-       ethkey signmessage <keyfile> <message/file>
+       venakey signmessage <keyfile> <message/file>
    
    # 示例
-   ./ethkey signmessage keyfile.json message
+   ./venakey signmessage keyfile.json message
 
 .. code:: console
 
@@ -114,10 +114,10 @@ keyfile.json文件的内容如下所示：
 .. code:: shell
 
    Usage:
-       ethkey verifymessage <address> <signature> <message/file>
+       venakey verifymessage <address> <signature> <message/file>
 
    # 示例
-   ./ethkey verifymessage \
+   ./venakey verifymessage \
     0x8B5d3Af7bF4d309D4C83Ed30936f78FBB1AcAA18 \
     cf394180f0ae2e507470e904eeba1cbcc8882c2b73ea9e712fcd897a5d195d292df076171dfb03e1913226de5060e5e7548ecc3091157f8d5b8b62def6c6d9d600 \
     message
