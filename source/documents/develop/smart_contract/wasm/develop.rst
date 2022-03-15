@@ -1,3 +1,5 @@
+.. _smart-contract-wasm-cpp-develop:
+
 ================
 合约开发(cpp)
 ================
