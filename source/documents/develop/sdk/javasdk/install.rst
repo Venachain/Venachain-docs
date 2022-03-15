@@ -5,16 +5,9 @@ JAVA-SDK 下载安装
 SDK下载
 =========
 
-请首先下载SDK最新版本的发布包，`下载地址 <https://git-c.i.wxblockchain.com/vena/src/client-sdk-java>`__ 。
+请首先下载SDK最新版本的发布包，`下载地址 <https://github.com/Venachain/client-sdk-java/releases/tag/v1.0.0>`__ 。
 
-将发布包解压到本地目录，如下所示：
-
-.. code:: bash
-
-    # 下载
-    wget https://git-c.i.wxblockchain.com/Venachain/src/node/client-sdk-java/-/archive/develop/client-sdk-java-develop.tar.gz
-    # 解压
-    tar -zxvf client_sdk_java_v1.0.0.tar.gz
+将发布包解压到本地目录
 
 SDK安装
 =========

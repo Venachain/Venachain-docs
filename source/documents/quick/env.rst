@@ -38,7 +38,7 @@ CPU  1核1.5GHZ 4核2.4GHZ
 .. code:: bash
 
    # 获取Venachain源码
-   git clone https://git-c.i.wxblockchain.com/vena/src/venachain.git
+   git clone https://github.com/Venachain/Venachain.git
 
 
    # 编译Venachain

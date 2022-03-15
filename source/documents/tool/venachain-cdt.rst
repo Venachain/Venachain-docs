@@ -16,7 +16,7 @@ Wasm合约开发工具 (Venahcain-CDT)
 
 有两种安装方式：
 
-- 方式一：使用已编译版本。将本工具对应操作系统的 `release包 <https://git-c.i.wxblockchain.com/vena/src/Venachain-CDT/-/releases>`__ 解压到 ``${指定安装目录}`` 下。 **Linux** 与 **MacOS** 操作系统用户的 ``${指定安装目录}`` 为 ``/usr/local/`` ， **Windows** 用户的 ``${指定安装目录}`` 为 ``C:/`` 。
+- 方式一：使用已编译版本。将本工具对应操作系统的 `release包 <https://github.com/Venachain/Venachain-CDT/releases/tag/v1.0.0>`__ 解压到 ``${指定安装目录}`` 下。 **Linux** 与 **MacOS** 操作系统用户的 ``${指定安装目录}`` 为 ``/usr/local/`` ， **Windows** 用户的 ``${指定安装目录}`` 为 ``C:/`` 。
 - 方式二：手动编译安装。按照下文 :ref:`编译步骤 <venachain-cdt-build>` 进行手动编译安装。
 
 .. note:: 由于方式二的编译时间可能较长，推荐使用方式一。
@@ -81,7 +81,7 @@ Linux
 
 .. code:: bash
 
-    git clone https://git-c.i.wxblockchain.com/vena/src/Venachain-CDT.git
+    git clone https://github.com/Venachain/Venachain-CDT.git
 
 执行编译
 >>>>>>>>>
@@ -101,7 +101,7 @@ MacOS
 
 .. code:: bash
 
-    git clone https://git-c.i.wxblockchain.com/vena/src/Venachain-CDT.git
+    git clone https://github.com/Venachain/Venachain-CDT.git
 
 执行编译
 >>>>>>>>>>
@@ -121,7 +121,7 @@ Windows
 
 .. code:: bash
 
-    git clone https://git-c.i.wxblockchain.com/vena/src/Venachain-CDT.git
+    git clone https://github.com/Venachain/Venachain-CDT.git
 
 执行编译
 >>>>>>>>>>

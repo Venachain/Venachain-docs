@@ -763,8 +763,8 @@ delContractAdminByName
         // 参考 addChainAdminByAddress()   
     }
 
- addContractDeployerByName
- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+addContractDeployerByName
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - 说明： ChainAdmin、ContractAdmin可以调用该接口
 
