@@ -8,7 +8,10 @@ venachainctl console 使用介绍
    :maxdepth: 1
    
    console/eth
-   console/personal
-   console/txpool
+   console/venachain
    console/net
-   console/istanbul
+   console/iris
+   console/txpool
+   console/personal
+
+

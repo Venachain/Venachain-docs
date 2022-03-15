@@ -1,8 +1,8 @@
 ===============
-istanbul
+iris
 ===============
 
-istanbul.getValidators
+iris.getValidators
 =========================
 
 **描述** 
@@ -13,7 +13,7 @@ istanbul.getValidators
 
 .. code:: bash
 
-   > istanbul.getValidators()
+   > iris.getValidators()
 
 **输出结果**
 
@@ -21,7 +21,7 @@ istanbul.getValidators
 
    ["0x18445ae70a14eb50d169475d3a31fa5d6b7b99f6", "0x37b9e0b482085ac9488117841218b23275a99636", "0x6e3bbe292e924971c7d938c5867728b326031b88", "0xa202006365c27422e665796577472a22f323ef8d"]
 
-istanbul.getCandidates
+iris.getCandidates
 ===========================
 
 **描述** 
@@ -32,7 +32,7 @@ istanbul.getCandidates
 
 .. code:: bash
 
-   > istanbul.getCandidates()
+   > iris.getCandidates()
 
 **输出结果**
 

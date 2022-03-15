@@ -73,7 +73,7 @@ net_peerCount
 net_version
 ==============
 
-返回当前 PlatONE 底层 P2P 网络协议的版本号
+返回当前 Venachain 底层 P2P 网络协议的版本号
 
 参数
 ^^^^^^^
@@ -83,7 +83,7 @@ net_version
 返回值
 ^^^^^^^^^^
 
-- ``int`` : PlatONE 底层 P2P 网络协议版本号
+- ``int`` : Venahcain 底层 P2P 网络协议版本号
 
 示例代码
 ^^^^^^^^^^
