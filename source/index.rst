@@ -67,6 +67,7 @@ Venachain是 **基于隐私计算** 的新一代联盟区块链平台，以支�
    documents/tool/vcl
    documents/tool/venakey
    documents/tool/venachain-cdt
+   documents/tool/graces
    
 .. toctree::
    :maxdepth: 1
