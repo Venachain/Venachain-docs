@@ -15,7 +15,7 @@ eth_gasPrice
 返回值
 ^^^^^^^^^^
 
-- ``string`` : 以wei为单位的当前gas价格，16进制整型
+- ``quantity`` : 以wei为单位的当前gas价格
 
 示例代码
 ^^^^^^^^^
@@ -49,7 +49,7 @@ eth_protocolVersion
 返回值
 ^^^^^^^^^^^
 
-- ``string`` : 当前 Venachain 协议的版本号，16进制整型
+- ``quantity`` : 当前 Venachain 协议的版本号
 
 示例代码
 ^^^^^^^^^^^
@@ -70,6 +70,45 @@ eth_protocolVersion
         "result":"0x1"
     }
 
+eth_syncing
+=================
+
+这个属性是只读的。对于已经同步的客户端，返回false。对于未同步客户端，返回一个描述同步状态的信息对象。
+
+参数
+^^^^^^
+
+无
+
+返回值
+^^^^^^^^^^
+
+- ``object | bool`` : 同步状态对象或false。同步对象的结构如下：
+    + startingBlock ``quantity`` : 起始块的块高
+    + currentBlock ``quantity`` : 节点当前正在同步的区块的块高，同 :ref:`eth_blockNumber <rpc-eth-blockNumber>`
+    + highestBlock ``quantity`` : 预估要同步到的最高块的块高
+    + pulledStates ``quantity`` : 到目前为止已处理的状态条目数
+    + knownStates ``quantity`` : 仍需要处理的已知状态条目数
+
+示例代码
+^^^^^^^^^^^^
+
+- 请求：
+
+.. code:: sh
+
+    curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' "http://127.0.0.1:6791"
+
+- 响应：
+
+.. code:: json
+
+    {
+        "jsonrpc":"2.0",
+        "id":1,
+        "result":false
+    }
+
 .. _rpc-eth-blockNumber:
 
 eth_blockNumber
@@ -85,7 +124,7 @@ eth_blockNumber
 返回值
 ^^^^^^^^
 
-- ``string`` : 返回最新区块的块高，16进制整型。
+- ``quantity`` : 返回最新区块的块高
 
 示例代码
 ^^^^^^^^^^^^
@@ -114,8 +153,8 @@ eth_getBalance
 参数
 ^^^^^^
 
-- ``string`` : 20字节，要检查余额的地址
-- ``string`` : 区块的块高（16进制整型），或者字符串"latest", "earliest" 或 "pending"
+- ``data`` : 20字节，要检查余额的地址
+- ``quantity | TAG`` : 区块的块高，或者字符串"latest", "earliest" 或 "pending"
 
 .. code:: js
 
@@ -127,7 +166,7 @@ eth_getBalance
 返回值
 ^^^^^^^
 
-- ``string`` : 当前余额，单位：wei，16进制整型
+- ``quantity`` : 当前余额，单位：wei
 
 示例代码
 ^^^^^^^^^^
@@ -156,16 +195,15 @@ eth_getAccountBaseInfo
 参数
 ^^^^^^
 
-- ``string`` : 20字节，账户地址
-
-- ``string`` : 区块的块高（16进制整型），或者字符串"latest", "earliest" 或 "pending"
+- ``data`` : 20字节，账户地址
+- ``quantity | TAG`` : 区块的块高，或者字符串"latest", "earliest" 或 "pending"
 
 返回值
 ^^^^^^^^
 
 - ``object`` : 账户信息
-    + Address ``string`` : 账户地址
-    + Creator ``string`` : 创建该账户的账户地址
+    + Address ``data`` : 账户地址
+    + Creator ``data`` : 创建该账户的账户地址
     + IsContract ``bool`` : 是否是合约账户
     + Nonce ``int`` : 随机数
     + Balance ``int`` : 账户余额
@@ -203,7 +241,7 @@ eth_getBlockByNumber
 参数
 ^^^^^^^
 
-- ``string`` : 区块的块高（16进制整型），或字符串"earliest"、"latest" 或"pending"
+- ``quantity | TAG`` : 区块的块高，或字符串"earliest"、"latest" 或"pending"
 - ``bool`` : 为true时返回完整的交易对象，否则仅返回交易哈希
 
 .. code:: js
@@ -297,7 +335,7 @@ eth_getBlockByHash
 参数
 ^^^^^^^
 
-- ``string`` : 32字节，区块哈希
+- ``data`` : 32字节，区块哈希
 - ``bool`` : 为true时返回完整的交易对象，否则仅返回交易哈希
 
 .. code:: js
@@ -311,22 +349,22 @@ eth_getBlockByHash
 ^^^^^^^^^^
 
 - ``object`` : 匹配的块对象，如果未找到块则返回null，结构如下：
-    + extraData ``object`` : 区块额外数据
-    + gasLimit ``string`` : 本区块允许的最大gas用量，16进制整型
-    + gasUsed ``string`` : 本区块中所有交易使用的总gas用量，16进制整型
-    + hash ``string`` : 区块哈希，挂起块为null
-    + logsBloom ``string`` : 区块日志的bloom过滤器哈希，挂起块为null
-    + miner ``string`` : 挖矿奖励的接收账户
-    + mixHash ``string`` : 混合哈希，与nonce一起用于工作量证明，挂起块为null
-    + nonce ``string`` : 随机数，与mixHash一起用于工作量证明，挂起块为null
-    + number ``string`` : 区块的块高，16进制整型，挂起块为null
-    + parentHash ``string`` : 父区块的哈希
-    + receiptsRoot ``string`` : 区块中交易收据树的根节点哈希
-    + size ``string`` : 本区块字节数，16进制整型
-    + stateRoot ``string`` : 区块中状态树的根节点哈希
-    + timestamp ``string`` : 区块时间戳，16进制整型
+    + extraData ``data`` : 区块额外数据
+    + gasLimit ``quantity`` : 本区块允许的最大gas用量
+    + gasUsed ``quantity`` : 本区块中所有交易使用的总gas用量
+    + hash ``data`` : 区块哈希，挂起块为null
+    + logsBloom ``data`` : 区块日志的bloom过滤器哈希，挂起块为null
+    + miner ``data`` : 挖矿奖励的接收账户
+    + mixHash ``data`` : 混合哈希，与nonce一起用于工作量证明，挂起块为null
+    + nonce ``quantity`` : 随机数，与mixHash一起用于工作量证明，挂起块为null
+    + number ``quantity`` : 区块的块高，挂起块为null
+    + parentHash ``data`` : 父区块的哈希
+    + receiptsRoot ``data`` : 区块中交易收据树的根节点哈希
+    + size ``quantity`` : 本区块字节数
+    + stateRoot ``data`` : 区块中状态树的根节点哈希
+    + timestamp ``quantity`` : 区块时间戳
     + transactions ``object array`` : 交易对象数组，或32字节长的交易哈希数组
-    + transactionsRoot ``string`` : 区块中的交易树根节点哈希
+    + transactionsRoot ``data`` : 区块中的交易树根节点哈希
 
 示例代码
 ^^^^^^^^^^
@@ -405,8 +443,8 @@ eth_getCode
 参数
 ^^^^^^^
 
-- ``string`` : 20字节，合约地址
-- ``string`` : 区块的块高（16进制整型），或字符串"latest"、"earliest" 或"pending"
+- ``data`` : 20字节，合约地址
+- ``quantity | TAG`` : 区块的块高，或字符串"latest"、"earliest" 或"pending"
 
 .. code:: js
 
@@ -418,7 +456,7 @@ eth_getCode
 返回值
 ^^^^^^^^^
 
-- ``string`` : 指定地址处的合约代码
+- ``data`` : 指定地址处的合约代码
 
 示例代码
 ^^^^^^^^^
@@ -447,14 +485,14 @@ eth_getStorageAt
 参数
 ^^^^^^
 
-- ``string`` : 20字节，存储地址
+- ``data`` : 20字节，存储地址
 - ``string`` : key
-- ``string`` : 区块的块高（16进制整型），或字符串"latest"、"earliest" 或"pending"
+- ``quantity | TAG`` : 区块的块高，或字符串"latest"、"earliest" 或"pending"
 
 返回值
 ^^^^^^^^^
 
-- ``string`` : 指定区块中指定地址所存储的指定key对应的值
+- ``data`` : 指定区块中指定地址所存储的指定key对应的值
 
 示例代码
 ^^^^^^^^^
@@ -537,18 +575,18 @@ eth_call
 ^^^^^^^
 
 - ``object`` : 交易调用对象
-    + from ``string`` : 20 Bytes，发送交易的原地址，可选
-    + to ``string`` : 20 Bytes，交易目标地址
-    + gas ``string`` : 交易可用gas量，可选，16进制整型。eth_call不消耗gas，但是某些执行环节需要这个参数
-    + gasPrice ``string`` : gas价格，可选，16进制整型
-    + value ``string`` : 交易发送的以太数量，可选，16进制整型
-    + data ``string`` : 方法签名和编码参数的哈希，可选
-- ``string`` : 区块的块高（16进制整型），或字符串"latest"、"earliest"或"pending"
+    + from ``data`` : 20 Bytes，发送交易的原地址，可选
+    + to ``data`` : 20 Bytes，交易目标地址
+    + gas ``quantity`` : 交易可用gas量，可选。eth_call不消耗gas，但是某些执行环节需要这个参数
+    + gasPrice ``quantity`` : gas价格，可选
+    + value ``quantity`` : 交易发送的以太数量，可选
+    + data ``data`` : 方法签名和编码参数的哈希，可选
+- ``quantity`` : 区块的块高，或字符串"latest"、"earliest"或"pending"
 
 返回值
 ^^^^^^^^^
 
-- ``string`` : 所执行合约的返回值
+- ``data`` : 所执行合约的返回值
 
 示例代码
 ^^^^^^^^^
@@ -580,12 +618,12 @@ eth_estimateGas
 ^^^^^
 
 - ``object`` : 交易调用对象
-    + from ``string`` : 20 Bytes，发送交易的原地址，可选
-    + to ``string`` : 20 Bytes，交易目标地址，可选
-    + gas ``string`` : 交易可用gas量，可选，16进制整型。eth_call不消耗gas，但是某些执行环节需要这个参数
-    + gasPrice ``string`` : gas价格，可选，16进制整型
-    + value ``string`` : 交易发送的以太数量，可选，16进制整型
-    + data ``string`` : 方法签名和编码参数的哈希，可选
+    + from ``data`` : 20 Bytes，发送交易的原地址，可选
+    + to ``data`` : 20 Bytes，交易目标地址，可选
+    + gas ``quantity`` : 交易可用gas量，可选。eth_call不消耗gas，但是某些执行环节需要这个参数
+    + gasPrice ``quantity`` : gas价格，可选
+    + value ``quantity`` : 交易发送的以太数量，可选
+    + data ``data`` : 方法签名和编码参数的哈希，可选
 
 所有的属性都是可选的。如果没有指定gas用量上限，venachain将使用挂起块的gas上限。
 在这种情况下，返回的gas估算量可能不足以执行实际的交易。
@@ -593,7 +631,7 @@ eth_estimateGas
 返回值
 ^^^^^^^
 
-- ``string`` : gas用量估算值，16进制整型
+- ``quantity`` : gas用量估算值
 
 示例代码
 ^^^^^^^^^^
@@ -622,7 +660,7 @@ eth_getBlockTransactionCountByNumber
 参数
 ^^^^^^
 
-- ``string`` : 区块的块高（16进制整型），或字符串"earliest"、"latest"或"pending"
+- ``quantity | TAG`` : 区块的块高，或字符串"earliest"、"latest"或"pending"
 
 .. code:: js
 
@@ -633,7 +671,7 @@ eth_getBlockTransactionCountByNumber
 返回值
 ^^^^^^^^
 
-- ``string`` : 指定块内的交易数量，16进制整型
+- ``quantity`` : 指定块内的交易数量
 
 示例代码
 ^^^^^^^^^^^
@@ -662,7 +700,7 @@ eth_getBlockTransactionCountByHash
 参数
 ^^^^^^
 
-- ``string`` : 32字节，区块哈希
+- ``data`` : 32字节，区块哈希
 
 .. code:: js
 
@@ -673,7 +711,7 @@ eth_getBlockTransactionCountByHash
 返回值
 ^^^^^^^
 
-- ``int`` : 指定块内的交易数量，整数
+- ``quantity`` : 指定块内的交易数量
 
 示例代码
 ^^^^^^^^^^^
@@ -702,8 +740,8 @@ eth_getTransactionByBlockNumberAndIndex
 参数
 ^^^^^^
 
-- ``string`` : 区块的块高（16进制整型），或字符串"earliest"、"latest"或"pending"
-- ``string`` : 交易索引序号，16进制整型
+- ``quantity | TAG`` : 区块的块高，或字符串"earliest"、"latest"或"pending"
+- ``quantity`` : 交易索引序号
 
 .. code:: js
 
@@ -759,8 +797,8 @@ eth_getTransactionByBlockHashAndIndex
 参数
 ^^^^^
 
-- ``string`` : 32字节，块哈希
-- ``string`` : 交易在块内的索引序号，16进制整型
+- ``data`` : 32字节，块哈希
+- ``quantity`` : 交易在块内的索引序号
 
 .. code:: js
 
@@ -816,8 +854,8 @@ eth_getRawTransactionByBlockNumberAndIndex
 参数
 ^^^^^^^^
 
-- ``string`` : 区块的块高（16进制整型），或字符串"earliest"、"latest"或"pending"
-- ``string`` : 交易索引序号，16进制整型
+- ``quantity | TAG`` : 区块的块高，或字符串"earliest"、"latest"或"pending"
+- ``quantity`` : 交易索引序号
 
 .. code:: js
 
@@ -829,7 +867,7 @@ eth_getRawTransactionByBlockNumberAndIndex
 返回值
 ^^^^^^^
 
-- ``string`` : 交易数据
+- ``data`` : 交易数据
 
 示例代码
 ^^^^^^^^^^
@@ -858,8 +896,8 @@ eth_getRawTransactionByBlockHashAndIndex
 参数
 ^^^^^^^
 
-- ``string`` : 32字节，区块哈希
-- ``string`` : 交易在块内的索引序号，16进制整型
+- ``data`` : 32字节，区块哈希
+- ``quantity`` : 交易在块内的索引序号
 
 .. code:: js
 
@@ -871,7 +909,7 @@ eth_getRawTransactionByBlockHashAndIndex
 返回值
 ^^^^^^^^^
 
-- ``string`` : 交易数据
+- ``data`` : 交易数据
 
 示例代码
 ^^^^^^^^^^
@@ -900,8 +938,8 @@ eth_getTransactionCount
 参数
 ^^^^^^
 
-- ``string`` : 20字节，账户地址
-- ``string`` : 区块的块高（16进制整型），或字符串"earliest"、"latest"或"pending"
+- ``data`` : 20字节，账户地址
+- ``quantity | TAG`` : 区块的块高，或字符串"earliest"、"latest"或"pending"
 
 .. code:: js
 
@@ -913,7 +951,7 @@ eth_getTransactionCount
 返回值
 ^^^^^^^^
 
-- ``string`` : 从指定地址发出的交易数量，整数，16进制整型
+- ``quantity`` : 从指定地址发出的交易数量
 
 示例代码
 ^^^^^^^^^^
@@ -944,7 +982,7 @@ eth_getTransactionByHash
 参数
 ^^^^^^^
 
-- ``string`` : 32 字节，交易哈希
+- ``data`` : 32 字节，交易哈希
 
 .. code:: js
 
@@ -956,18 +994,18 @@ eth_getTransactionByHash
 ^^^^^^^
 
 - ``object`` : 交易对象，如果没有找到匹配的交易则返回null。结构如下：
-    + blockHash ``string`` : 32字节，交易所在块的哈希，对于挂起块，该值为null
-    + blockNumber ``string`` : 交易所在块的编号，16进制整型，对于挂起块，该值为null
-    + from ``string`` : 20字节，交易发送方地址
-    + gas ``string`` : 发送方提供的gas可用量，16进制整型
-    + gasPrice ``string`` : 发送方提供的gas价格，单位:wei，16进制整型
-    + hash ``string`` : 32字节，交易哈希
-    + input ``string`` : 交易数据
-    + nonce ``string`` : 本次交易之前发送方已经生成的交易数量，16进制整型
-    + to ``string`` : 20字节，交易接收方地址，对于合约创建交易，该值为null
-    + transactionIndex ``string`` : 交易在块中的索引位置，16进制整型，挂起块该值为null
-    + value ``string`` : 发送的以太数量，单位:wei，16进制整型
-    + v、r、s ``string`` : 签名值
+    + blockHash ``data`` : 32字节，交易所在块的哈希，对于挂起块，该值为null
+    + blockNumber ``quantity`` : 交易所在块的编号，对于挂起块，该值为null
+    + from ``data`` : 20字节，交易发送方地址
+    + gas ``quantity`` : 发送方提供的gas可用量
+    + gasPrice ``quantity`` : 发送方提供的gas价格，单位:wei
+    + hash ``data`` : 32字节，交易哈希
+    + input ``data`` : 交易数据
+    + nonce ``quantity`` : 本次交易之前发送方已经生成的交易数量
+    + to ``data`` : 20字节，交易接收方地址，对于合约创建交易，该值为null
+    + transactionIndex ``quantity`` : 交易在块中的索引位置，挂起块该值为null
+    + value ``quantity`` : 发送的以太数量，单位:wei
+    + v、r、s ``quantity`` : 签名值
 
 示例代码
 ^^^^^^^^
@@ -1011,12 +1049,12 @@ eth_getRawTransactionByHash
 参数
 ^^^^^^
 
-- ``string`` : 32 字节，交易哈希
+- ``data`` : 32 字节，交易哈希
 
 返回值
 ^^^^^^^^
 
-- ``string`` : 交易信息
+- ``data`` : 交易信息
 
 示例代码
 ^^^^^^^^
@@ -1047,7 +1085,7 @@ eth_getTransactionReceipt
 参数
 ^^^^^
 
-- ``string`` : 32字节，交易哈希
+- ``data`` : 32字节，交易哈希
 
 .. code:: js
 
@@ -1058,23 +1096,25 @@ eth_getTransactionReceipt
 返回值
 ^^^^^^^^^
 
+``map[string]object``
+
 - ``object`` : 交易收据对象，如果收据不存在则为null。交易对象的结构如下：
-    + blockHash ``string`` : 32字节，交易所在块的哈希
-    + blockNumber ``string`` : 交易所在块的编号，16进制整型
-    + contractAddress ``string`` : 20字节，对于合约创建交易，该值为新创建的合约地址，否则为null
-    + cumulativeGasUsed ``string`` : 交易所在块消耗的gas总量，16进制整型
-    + from ``string`` : 20字节，交易发送方地址
-    + gasUsed ``string`` : 该次交易消耗的gas用量，16进制整型
-    + logs ``array`` : 本次交易生成的日志对象数组
-    + logsBloom ``string`` : 256字节，bloom过滤器，轻客户端用来快速提取相关日志
-    + to ``string`` : 20字节，交易接收方地址，对于合约创建交易该值为null
-    + transactionHash ``string`` : 32字节，交易哈希
-    + transactionIndex ``string`` : 交易在块内的索引序号，16进制整型
+    + blockHash ``data`` : 32字节，交易所在块的哈希
+    + blockNumber ``quantity`` : 交易所在块的编号
+    + contractAddress ``data`` : 20字节，对于合约创建交易，该值为新创建的合约地址，否则为null
+    + cumulativeGasUsed ``quantity`` : 交易所在块消耗的gas总量
+    + from ``data`` : 20字节，交易发送方地址
+    + gasUsed ``quantity`` : 该次交易消耗的gas用量
+    + logs ``object array`` : 本次交易生成的日志对象数组
+    + logsBloom ``data`` : 256字节，bloom过滤器，轻客户端用来快速提取相关日志
+    + to ``data`` : 20字节，交易接收方地址，对于合约创建交易该值为null
+    + transactionHash ``data`` : 32字节，交易哈希
+    + transactionIndex ``quantity`` : 交易在块内的索引序号
 
 返回的结果对象中还包括下面二者之一 :
 
-- root ``string`` : 32字节，后交易状态根(pre Byzantium)
-- status ``string`` : 0x1 (成功) 或 0x0 (失败)
+- root ``data`` : 32字节，后交易状态根(pre Byzantium)
+- status ``quantity`` : 0x1 (成功) 或 0x0 (失败)
 
 示例代码
 ^^^^^^^^^^
@@ -1133,13 +1173,13 @@ eth_sendTransaction
 ^^^^^
 
 - ``object`` : 交易对象，结果如下：
-    + from ``string`` : 20字节，发送交易的源地址
-    + to ``string`` : 20字节，交易的目标地址，当创建新合约时可选
-    + gas ``string`` : 交易执行可用gas量，可选，16进制整型，默认值1500000000，未用gas将返还。
-    + gasPrice ``string`` : gas价格，可选，16进制整型
-    + value ``string`` : 交易发送的金额，可选，16进制整型
-    + data ``string`` : 交易数据
-    + nonce ``int`` : 随机数，可选，16进制整型，可以使用同一个nonce来实现挂起的交易的重写
+    + from ``data`` : 20字节，发送交易的源地址
+    + to ``data`` : 20字节，交易的目标地址，当创建新合约时可选
+    + gas ``quantity`` : 交易执行可用gas量，可选，默认值1500000000，未用gas将返还。
+    + gasPrice ``quantity`` : gas价格，可选
+    + value ``quantity`` : 交易发送的金额，可选
+    + data ``data`` : 交易数据
+    + nonce ``quantity`` : 随机数，可选，可以使用同一个nonce来实现挂起的交易的重写
 
 .. code:: js
 
@@ -1155,7 +1195,7 @@ eth_sendTransaction
 返回值
 ^^^^^^^^^^
 
-- ``string`` : 32字节，交易哈希，如果交易还未生效则返回0值哈希。
+- ``data`` : 32字节，交易哈希，如果交易还未生效则返回0值哈希。
 
 当创建合约时，在交易生效后，请使用 :ref:`eth_getTransactionReceipt <rpc-eth-getTransactionReceipt>` 调用获取合约地址。
 
@@ -1186,7 +1226,7 @@ eth_sendRawTransaction
 参数
 ^^^^^^
 
-- ``string`` : 签名的交易数据
+- ``data`` : 签名的交易数据
 
 .. code:: js
 
@@ -1195,7 +1235,7 @@ eth_sendRawTransaction
 返回值
 ^^^^^^^^^
 
-- ``string`` : 32字节，交易哈希，如果交易未生效则返回全0哈希。
+- ``data`` : 32字节，交易哈希，如果交易未生效则返回全0哈希。
 
 当创建合约时，在交易生效后，请使用 :ref:`eth_getTransactionReceipt <rpc-eth-getTransactionReceipt>` 获取合约地址。
 
@@ -1232,13 +1272,13 @@ eth_sign
 
 账户、消息
 
-- ``string`` : 20字节，进行签名的地址
-- ``string`` : 要签名的消息
+- ``data`` : 20字节，进行签名的地址
+- ``data`` : 要签名的消息
 
 返回值
 ^^^^^^^^^
 
-- ``string`` : 签名后的数据
+- ``data`` : 签名后的数据
 
 示例代码
 ^^^^^^^^^
@@ -1287,14 +1327,14 @@ eth_signTransaction
 - ``object`` : 一个RLP编码的交易签名结果对象
     + raw ``string``
     + tx ``object`` : 交易信息对象
-        - nonce ``string`` : 账户随机数，16进制整型
-        - gasPrice ``string`` : gas价格，16进制整型
-        - gas ``string`` : gas限制，16进制整型
-        - to ``string`` : 交易目标地址
-        - value ``string`` : 交易金额，16进制整型
-        - input ``string`` : 交易信息
-        - hash ``string`` : 交易哈希
-        - v、r、s ``string`` : 签名值
+        - nonce ``quantity`` : 账户随机数
+        - gasPrice ``quantity`` : gas价格
+        - gas ``quantity`` : gas限制
+        - to ``data`` : 交易目标地址
+        - value ``quantity`` : 交易金额
+        - input ``data`` : 交易信息
+        - hash ``data`` : 交易哈希
+        - v、r、s ``quantity`` : 签名值
 
 示例代码
 ^^^^^^^^^^
@@ -1343,18 +1383,18 @@ eth_pendingTransactions
 ^^^^^^^^
 
 - ``object array`` : 可序列化为 RPC 交易的交易对象
-    + blockHash ``string`` : 区块哈希
-    + blockNumber ``string`` : 区块高度，16进制整型
-    + from ``string`` : 交易发起人地址
-    + gas ``string`` : gas限制，16进制整型
-    + gasPrice ``string`` : gas价格，16进制整型
-    + hash ``string`` : 交易哈希
-    + input ``string`` : 交易数据
-    + nonce ``string`` : 随机数，16进制整型
-    + to ``string`` : 交易目标地址
-    + transactionIndex ``int`` : 交易在区块中的下标
-    + value ``string`` : 交易金额，16进制整型
-    + v、r、s ``string`` : 签名值
+    + blockHash ``data`` : 区块哈希
+    + blockNumber ``quantity`` : 区块高度
+    + from ``data`` : 交易发起人地址
+    + gas ``quantity`` : gas限制
+    + gasPrice ``quantity`` : gas价格
+    + hash ``data`` : 交易哈希
+    + input ``data`` : 交易数据
+    + nonce ``quantity`` : 随机数
+    + to ``data`` : 交易目标地址
+    + transactionIndex ``quantity`` : 交易在区块中的下标
+    + value ``quantity`` : 交易金额
+    + v、r、s ``quantity`` : 签名值
 
 
 示例代码
@@ -1484,23 +1524,23 @@ eth_resend
 ^^^^^^
 
 - ``object`` : 交易池的交易对象
-    -  from ``string`` : 交易发起人地址
-    -  to ``string`` : 交易目标地址
-    -  gas ``string`` : gas限制，16进制整型
-    -  gasPrice ``string`` : gas价格，16进制整型
-    -  value ``string`` : 交易金额，16进制整型
-    -  nonce ``string`` : 随机数，16进制整型
-    -  data ``string`` : 交易数据
-    -  input ``string`` : 交易数据
-- ``string`` : gasPrice，gas价格，16进制整型
-- ``string`` : gasLimit，gas限制，16进制整型
+    -  from ``data`` : 交易发起人地址
+    -  to ``data`` : 交易目标地址
+    -  gas ``quantity`` : gas限制
+    -  gasPrice ``quantity`` : gas价格
+    -  value ``quantity`` : 交易金额
+    -  nonce ``quantity`` : 随机数
+    -  data ``data`` : 交易数据
+    -  input ``data`` : 交易数据
+- ``quantity`` : gasPrice，gas价格
+- ``quantity`` : gasLimit，gas限制
 
 .. note:: 出于向后兼容的原因，我们接受“data”和“input”两个参数，“input”是较新的名称，客户应首选该名称。
 
 返回值
 ^^^^^^
 
-- ``string`` : 32字节，交易哈希
+- ``data`` : 32字节，交易哈希
 
 示例代码
 ^^^^^^^^^^
@@ -1534,7 +1574,7 @@ eth_accounts
 返回值
 ^^^^^^^^^^^
 
-- ``string array`` : 一个账户地址的 string 数组
+- ``data array`` : 一个账户地址的数组
 
 示例代码
 ^^^^^^^^^^^^^
@@ -1558,45 +1598,6 @@ eth_accounts
         ]
     }
 
-eth_syncing
-=================
-
-这个属性是只读的。对于已经同步的客户端，返回false。对于未同步客户端，返回一个描述同步状态的信息对象。
-
-参数
-^^^^^^
-
-无
-
-返回值
-^^^^^^^^^^
-
-- ``object | bool`` : 同步状态对象或false。同步对象的结构如下：
-    + startingBlock ``int`` : 起始块的块高
-    + currentBlock ``int`` : 节点当前正在同步的区块的块高，同 :ref:`eth_blockNumber <rpc-eth-blockNumber>`
-    + highestBlock ``int`` : 预估要同步到的最高块的块高
-    + pulledStates ``int`` : 到目前为止已处理的状态条目数
-    + knownStates ``int`` : 仍需要处理的已知状态条目数
-
-示例代码
-^^^^^^^^^^^^
-
-- 请求：
-
-.. code:: sh
-
-    curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' "http://127.0.0.1:6791"
-
-- 响应：
-
-.. code:: json
-
-    {
-        "jsonrpc":"2.0",
-        "id":1,
-        "result":false
-    }
-
 .. _rpc-eth-newPendingTransactionFilter:
 
 eth_newPendingTransactionFilter [websocket]
@@ -1615,7 +1616,7 @@ eth_newPendingTransactionFilter [websocket]
 返回值
 ^^^^^^^^^^
 
-- ``string`` : 过滤器哈希
+- ``data`` : 过滤器哈希
 
 示例代码
 ^^^^^^^^^^^
@@ -1654,7 +1655,7 @@ eth_newBlockFilter [websocket]
 返回值
 ^^^^^^^^
 
-- ``string`` : 过滤器哈希
+- ``data`` : 过滤器哈希
 
 示例代码
 ^^^^^^^^^
@@ -1695,16 +1696,16 @@ eth_newFilter [websocket]
 ^^^^^^
 
 - ``object`` : 过滤器选项对象
-    + blockhash ``string`` : 可选，由 :ref:`eth_getLogs <rpc-eth-getLogs>` 使用，仅从具有此哈希的块返回日志。
-    + fromblock ``int|TAG`` : 可选，默认值:"latest"。区块的块高，或字符串"latesr"表示最后挖出的块，"pending"或"earliest"用于未挖出的交易。
-    + toblock ``int|TAG`` : 可选，默认值:"latest"。区块的块高，或字符串"latesr"表示最后挖出的块，"pending"或"earliest"用于未挖出的交易。
-    + address ``string array`` : 可选，合约地址或生成日志的一组地址。
-    + topic : 主题
+    + blockhash ``data`` : 可选，由 :ref:`eth_getLogs <rpc-eth-getLogs>` 使用，仅从具有此哈希的块返回日志。
+    + fromblock ``quantity | TAG`` : 可选，默认值:"latest"。区块的块高，或字符串"latesr"表示最后挖出的块，"pending"或"earliest"用于未挖出的交易。
+    + toblock ``quantity | TAG`` : 可选，默认值:"latest"。区块的块高，或字符串"latesr"表示最后挖出的块，"pending"或"earliest"用于未挖出的交易。
+    + address ``data array`` : 可选，合约地址或生成日志的一组地址。
+    + topic ``data array array`` : 主题
 
 返回值
 ^^^^^^^^
 
-- ``string`` : 过滤器哈希
+- ``data`` : 过滤器哈希
 
 示例代码
 ^^^^^^^^^
@@ -1769,7 +1770,7 @@ eth_uninstallFilter
 参数
 ^^^^^^^
 
-- ``string`` : 过滤器哈希
+- ``data`` : 过滤器哈希
 
 .. code:: js
 
@@ -1809,7 +1810,7 @@ eth_getFilterLogs
 参数
 ^^^^^^^
 
-- ``string`` : 过滤器哈希
+- ``data`` : 过滤器哈希
 
 .. code:: js
 
@@ -1845,7 +1846,7 @@ eth_getFilterChanges
 参数
 ^^^^^^
 
-- ``string`` : 过滤器哈希
+- ``data`` : 过滤器哈希
 
 .. code:: js
 
@@ -1862,14 +1863,14 @@ eth_getFilterChanges
 2) 使用 :ref:`eth_newPendingTransactionFilter <rpc-eth-newPendingTransactionFilter>` 创建的过滤器将返回交易哈希(32字节)，例如 ``["0x6345343454645..."]`` 。
 3) 使用 :ref:`eth_newFilter <rpc-eth-newFilter>` 创建的过滤器，日志对象具有如下参数：
     - removed ``bool`` : 如果日志已被删除则返回true，如果是有效日志则返回false
-    - logIndex ``int`` : 日志在块内的索引序号。对于挂起日志，该值为null
-    - blockNumber ``int`` : 该日志所在区块的块高。对于挂起日志，该值为null
-    - blockHash ``string`` : 该日志所在块的哈希。对于挂起日志，该值为null
-    - transactionHash ``string`` : 创建该日志的交易的哈希。对于挂起日志，该值为null
-    - transactionIndex ``int`` : 创建日志的交易索引序号，对于挂起日志，该值为null
-    - address ``string`` : 该日志的源地址
-    - data ``string``- 包含该日志的一个或多个32字节无索引参数
-    - topics ``string array`` : 0~4个32字节索引日志参数的数据。在solidity中，第一个主题是事件签名，例如 ``Deposit(address,bytes32,uint256)``\ ，除非你声明的是匿名事件
+    - logIndex ``quantity`` : 日志在块内的索引序号。对于挂起日志，该值为null
+    - blockNumber ``quantity`` : 该日志所在区块的块高。对于挂起日志，该值为null
+    - blockHash ``data`` : 该日志所在块的哈希。对于挂起日志，该值为null
+    - transactionHash ``data`` : 创建该日志的交易的哈希。对于挂起日志，该值为null
+    - transactionIndex ``quantity`` : 创建日志的交易索引序号，对于挂起日志，该值为null
+    - address ``data`` : 该日志的源地址
+    - data ``data``- 包含该日志的一个或多个32字节无索引参数
+    - topics ``data array`` : 0~4个32字节索引日志参数的数据。在solidity中，第一个主题是事件签名，例如 ``Deposit(address,bytes32,uint256)`` ，除非你声明的是匿名事件
 
 示例代码
 ^^^^^^^^^^
