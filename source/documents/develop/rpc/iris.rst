@@ -12,7 +12,7 @@ iris_getSnapshot
 参数
 ^^^^^
 
-- number ``string`` : 整数块编号（16进制整型），或字符串"earliest"、"latest"或"pending"
+- number ``quatity | TAG`` : 整数块编号，或字符串"earliest"、"latest"或"pending"
 
 .. code:: js
 
@@ -25,16 +25,17 @@ iris_getSnapshot
 
 - ``object`` : 状态快照，是在给定时间点进行授权投票的状态信息。
     + number ``int`` : 创建该快照的区块的块高
-    + hash ``string`` : 创建该快照的区块的哈希
+    + hash ``data`` : 创建该快照的区块的哈希
     + votes ``object array`` 按时间顺序排列的参与投票的共识节点名单
-        - validator ``string`` : 投票的共识节点
+        - validator ``data`` : 投票的共识节点
         - block ``int`` : 被投票的区块编号（区块高度）
-        - address ``string`` : 正在投票更改其授权的帐户
+        - address ``data`` : 正在投票更改其授权的帐户
         - authorize ``bool`` : 投票帐户是否授权或取消授权
     + tally ``map[string]object`` : 一种简单的计票方法，用于保持当前的票数。
         - authorize ``bool`` : 投票是否授权或取消授权
         - votes ``int`` : 到目前为止希望通过该提案的票数
     + validators ``string array`` : 此时的共识节点集合
+    + policy ``int`` : 提议者选举的规则
 
 示例代码
 ^^^^^^^^^^^
@@ -79,7 +80,7 @@ iris_getSnapshotAtHash
 参数
 ^^^^^^
 
-- ``string`` : 区块的哈希
+- ``data`` : 区块的哈希
 
 .. code:: js
 
@@ -92,7 +93,7 @@ iris_getSnapshotAtHash
 
 - ``object`` : 状态快照，是在给定时间点进行授权投票的状态信息。
 
-详情请参照 :ref:`iris_getSnapshot: <rpc-iris-getSnapshot>`
+详情请参照 :ref:`iris_getSnapshot <rpc-iris-getSnapshot>`
 
 示例代码
 ^^^^^^^^^
@@ -138,12 +139,12 @@ iris_getValidators
 参数
 ^^^^^^^
 
-- ``string`` : 指定区块的块高，16进制整型
+- ``quantity`` : 指定区块的块高
 
 返回值
 ^^^^^^^^^^^^^
 
-- ``string array`` : 参与该区块出块的投票过程的共识节点地址数组
+- ``data array`` : 参与该区块出块的投票过程的共识节点地址数组
 
 示例代码
 ^^^^^^^^^^
@@ -178,12 +179,12 @@ iris_getValidatorsAtHash
 参数
 ^^^^^^^^^
 
-- ``string`` : 指定区块的哈希
+- ``data`` : 指定区块的哈希
 
 返回值
 ^^^^^^^^^
 
-- ``string array`` : 参与该区块出块的投票过程的共识节点地址数组
+- ``data array`` : 参与该区块出块的投票过程的共识节点地址数组
 
 示例代码
 ^^^^^^^^^^
@@ -218,12 +219,12 @@ iris_candidates
 参数
 ^^^^^^^^
 
-- ``string`` : 指定区块的块高，16进制整型
+- ``quantity`` : 指定区块的块高
 
 返回值
 ^^^^^^^^^
 
-- ``string array`` : 参与生成指定区块的共识节点列表
+- ``data array`` : 参与生成指定区块的共识节点列表
 
 示例代码
 ^^^^^^^^^^

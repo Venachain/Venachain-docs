@@ -15,7 +15,7 @@ personal_listAccounts
 返回值
 ^^^^^^
 
-- ``string array`` : 账户地址数组
+- ``data array`` : 账户地址数组
 
 示例代码
 ^^^^^^^^^^
@@ -57,7 +57,7 @@ personal_listWallets
     + status ``string`` : 钱包锁定状态
     + failure ``string`` : 失败信息
     + accounts ``object array`` : 钱包管理的账户数组
-        - address ``string`` : 账户地址
+        - address ``data`` : 账户地址
         - url ``string`` : 账户资源路径url
 
 示例代码
@@ -116,7 +116,7 @@ personal_openWallet
 返回值
 ^^^^^^^
 
-- ``string`` : 开启钱包失败时返回的错误信息
+无
 
 示例代码
 ^^^^^^^^^^
@@ -150,7 +150,7 @@ personal_newAccount
 返回值
 ^^^^^^^^^
 
-- ``string`` : 账户地址
+- ``data`` : 账户地址
 
 示例代码
 ^^^^^^^^^
@@ -180,7 +180,7 @@ personal_unlockAccount
 参数
 ^^^^^^^^
 
-- ``string`` : 账户地址
+- ``data`` : 账户地址
 - ``string`` : 密码
 - ``int`` : 解锁持续时间，单位:秒
 
@@ -216,7 +216,7 @@ personal_lockAccount
 参数
 ^^^^^
 
-- ``string`` : 账户地址
+- ``data`` : 账户地址
 
 返回值
 ^^^^^^
@@ -253,13 +253,13 @@ personal_sendTransaction
 ^^^^^^
 
 - ``object`` : 交易参数对象
-    + from ``string`` : 20字节，发送交易的源地址
-    + to ``string`` : 20字节，交易的目标地址，当创建新合约时可选
-    + gas ``string`` : 交易执行可用gas量，可选，16进制整型，默认值1500000000，未用gas将返还。
-    + gasPrice ``string`` : gas价格，可选，16进制整型
-    + value ``string`` : 交易发送的金额，可选，16进制整型
-    + nonce ``string`` : 随机数，可选，16进制整型。可以使用同一个nonce来实现挂起的交易的重写
-    + input ``string`` : 交易数据
+    + from ``data`` : 20字节，发送交易的源地址
+    + to ``data`` : 20字节，交易的目标地址，当创建新合约时可选
+    + gas ``quantity`` : 交易执行可用gas量，可选，默认值1500000000，未用gas将返还
+    + gasPrice ``quantity`` : gas价格，可选
+    + value ``quantity`` : 交易发送的金额，可选
+    + nonce ``quantity`` : 随机数，可选，可以使用同一个nonce来实现挂起的交易的重写
+    + input ``data`` : 交易数据
 - ``string`` : 账户密码
 
 .. code:: js
@@ -280,7 +280,7 @@ personal_sendTransaction
 返回值
 ^^^^^^^^^^
 
-- ``string`` : 交易哈希
+- ``data`` : 交易哈希
 
 示例代码
 ^^^^^^^^^^
@@ -319,14 +319,14 @@ RLP 数据返回，不会广播到其他节点。
     - raw ``string`` : 签名信息
     - tx ``object`` : 交易信息
         - txData ``object`` : 交易详细信息 
-            + nonce ``string`` : 账户随机数，16进制整型
-            + gasPrice ``string`` : gas价格，16进制整型
-            + gas ``string`` : gas限制，16进制整型
-            + to ``string`` : 交易目标地址
-            + value ``string`` : 交易金额，16进制整型
-            + input ``string`` : 交易信息
-            + hash ``string`` : 交易哈希
-            + v、r、s ``string`` : 签名值
+            + nonce ``quantity`` : 账户随机数
+            + gasPrice ``quantity`` : gas价格
+            + gas ``quantity`` : gas限制
+            + to ``data`` : 交易目标地址
+            + value ``quantity`` : 交易金额
+            + input ``data`` : 交易信息
+            + hash ``data`` : 交易哈希
+            + v、r、s ``quantity`` : 签名值
 
 示例代码
 ^^^^^^^^
@@ -377,14 +377,14 @@ personal_sign
 参数
 ^^^^^^
 
-- ``string`` : 要签名的数据
-- ``string`` : 账户地址
+- ``data`` : 要签名的数据
+- ``data`` : 账户地址
 - ``string`` : 账户密码
 
 返回值
 ^^^^^^^
 
-- ``string`` : 签名后的数据
+- ``data`` : 签名后的数据
 
 示例代码
 ^^^^^^^^^^
@@ -422,13 +422,13 @@ personal_ecRecover
 参数
 ^^^^^^
 
-- ``string`` : 被签名的原数据
-- ``string`` : 原数据被签名后的签名数据
+- ``data`` : 被签名的原数据
+- ``data`` : 原数据被签名后的签名数据
 
 返回值
 ^^^^^^^^
 
-- ``string`` : 用于创建签名的帐户的地址
+- ``data`` : 用于创建签名的帐户的地址
 
 示例代码
 ^^^^^^^^^^
