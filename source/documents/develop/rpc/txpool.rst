@@ -15,25 +15,27 @@ txpool_content
 返回值
 ^^^^^^^^
 
-- ``map[string]object`` : 返回的数据分组，key:分组，value:pending\|queued
+``map[string]map[string]map[string]Object``
+
+- ``map[string]object`` : 返回的数据分组
     + key ``string`` : "pending"
     + value ``map[string]object`` : 处于挂起状态的交易信息，key:account，value:可序列化为 RPC交易的交易对象
-        - key ``string`` : account hex
+        - key ``data`` : account hex
         - value ``map[string]object``
-            + blockHash ``string`` : 区块哈希
-            + blockNumber ``string`` : 区块高度，16进制整型
-            + from ``string`` : 交易发起人地址
-            + to ``string`` : 交易目标地址
-            + gas ``string`` : gas限制，16进制整型
-            + gasPrice ``string`` : gas价格，16进制整型
-            + hash ``string`` : 交易哈希
-            + input ``string`` : 交易数据
-            + nonce ``string`` : 随机数，16进制整型
-            + transactionIndex ``string`` : 交易在区块中的下标，16进制整型
-            + value ``string`` : 交易金额，16进制整型
-            + v、r、s ``string`` : 签名值
+            + blockHash ``data`` : 区块哈希
+            + blockNumber ``quantity`` : 区块高度
+            + from ``data`` : 交易发起人地址
+            + to ``data`` : 交易目标地址
+            + gas ``quantity`` : gas限制
+            + gasPrice ``quantity`` : gas价格
+            + hash ``data`` : 交易哈希
+            + input ``data`` : 交易数据
+            + nonce ``quantity`` : 随机数=
+            + transactionIndex ``quantity`` : 交易在区块中的下标=
+            + value ``quantity`` : 交易金额
+            + v、r、s ``quantity`` : 签名值
     + key ``string`` : "queued"
-    + value ``map[string]object`` : 处于排队状态的交易信息，key:account，value:可序列化为 RPC 交易的交易对象
+    + value ``map[string]object`` : 处于排队状态的交易信息，key:account hex，value:可序列化为 RPC 交易的交易对象
 
 示例代码
 ^^^^^^^^^
@@ -109,9 +111,9 @@ txpool_status
 
 - ``map[string]int`` : 返回交易池中挂起和排队的交易数
     + key ``string`` : "pending"
-    + value ``string`` : 处于 pending 状态的交易数量，16进制整型
+    + value ``quantity`` : 处于 pending 状态的交易数量
     + key ``string`` : "queued"
-    + value ``string`` : 处于排队中的交易数量，16进制整型
+    + value ``quantity`` : 处于排队中的交易数量
 
 示例代码
 ^^^^^^^^^^^
@@ -148,10 +150,12 @@ txpool_inspect
 返回值
 ^^^^^^^^^
 
+``map[string]map[string]map[string]string``
+
 - ``map[string]object`` 交易的去向及其费用消耗信息
     + key ``string`` : "pending"
     + value ``map[string]object`` : 处于挂起状态的交易的去向及其费用消耗信息
-        - key ``string`` : 账户
+        - key ``data`` : 账户
         - value ``map[string]string`` 按 nonce排序的交易的去向及其费用消耗信息
             + key ``string`` : nonce 随机数
             + value ``string`` : 该随机数对应的交易的去向及其费用消耗信息

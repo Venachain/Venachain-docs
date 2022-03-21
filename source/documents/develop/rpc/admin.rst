@@ -29,7 +29,7 @@ admin_peers
     + protocols ``map[string]object`` : 节点协议特定的元数据字段
         - version ``int`` : 协议版本号
         - number ``int`` : 节点最新区块的块高
-        - head ``string`` : 节点最新区块的哈希
+        - head ``data`` : 节点最新区块的哈希。
 
 示例代码
 ^^^^^^^^^
@@ -141,15 +141,15 @@ admin_nodeInfo
     + listenAddr ``string`` 监听地址
     + protocols ``map[string]object`` : 节点协议特定的元数据字段
         - network ``int`` : 网络状态
-        - genesis ``string`` : genesis哈希
+        - genesis ``data`` : genesis哈希
         - config ``object`` : 协议配置信息
             + chainId ``int`` : 链id
             + istanbul ``object`` : 共识配置信息
                 - timeout ``int`` : 超时时间，单位:毫秒
                 - period ``int`` : 共识周期，单位:秒
-                - firstValidatorNode : ``string`` : 第一个共识节点信息
+                - firstValidatorNode ``string`` : 第一个共识节点信息
             + interpreter ``string`` : VM编译器支持配置，all 表示支持 wasm 虚拟机和 solidity 虚拟机
-        - head ``string`` : 节点最新区块的哈希
+        - head ``data`` : 节点最新区块的哈希
 
 示例代码
 ^^^^^^^^^
