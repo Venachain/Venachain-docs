@@ -1,3 +1,5 @@
+.. _develop-rpc-methods-web3:
+
 ======
 web3
 ======
