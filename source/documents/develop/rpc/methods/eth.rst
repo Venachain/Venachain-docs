@@ -1,3 +1,5 @@
+.. _develop-rpc-methods-eth:
+
 ===========
 eth
 ===========
@@ -107,6 +109,40 @@ eth_syncing
         "jsonrpc":"2.0",
         "id":1,
         "result":false
+    }
+
+eth_chainId
+=================
+
+获取chainId。
+
+参数
+^^^^^^
+
+无
+
+返回值
+^^^^^^^^^^
+
+- ``quantity`` : 返回chainId
+
+示例代码
+^^^^^^^^^^^^
+
+- 请求：
+
+.. code:: sh
+
+    curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}' "http://127.0.0.1:6791"
+
+- 响应：
+
+.. code:: json
+
+    {
+        "jsonrpc":"2.0",
+        "id":1,
+        "result":"0x12c"
     }
 
 .. _rpc-eth-blockNumber:
