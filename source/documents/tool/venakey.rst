@@ -20,7 +20,7 @@ Venachain中用到公私钥的地方主要有以下两处：
 
 Venachain提供了密钥工具venakey，用于产生密钥对。
 
-该工具位于 ``~/Venachain/release/linux/bin`` 目录下。
+.. note:: 如果是手动编译Venachain项目的，该工具位于 ``Venachain/release/linux/bin`` 目录下。如果是下载release包的，那么该工具位于 ``linux/bin`` 目录下。
 
 创建密钥对 
 =============

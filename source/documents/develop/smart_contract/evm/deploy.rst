@@ -2,6 +2,8 @@
 合约部署与调用
 ===============
 
+.. note:: 如果是在Venachain项目目录下编译后进行操作的，那么 ``${WORKSPACE}`` 为 ``Venachain/release/linux`` 。如果是下载release包进行部署的，那么 ``${WORKSPACE}`` 为 ``linux`` 。
+
 使用Remix方式
 =============
 
@@ -255,7 +257,7 @@ Q&A
 
 **解决方法**：检查合约项目根目录下 ``truffle_config.js`` 文件中的 ``from`` 字段填写的地址是否为链上账户地址。
 
-**链上地址查询方式**：在链项目的 ``release/linux/scripts`` 目录下执行如下命令进入console界面：
+**链上地址查询方式**：在链项目的 ``${WORKSPACE}/scripts`` 目录下执行如下命令进入console界面：
 
 .. code:: bash
 
@@ -273,20 +275,20 @@ Q&A
 
 例如，可填写venachain的 ``node.address`` ，该地址默认有gas费，但使用前需解锁账号，解锁方法如下：
 
-在链项目的 ``release/linux/bin`` 目录下执行:
+在链项目的 ``${WORKSPACE}/bin`` 目录下执行:
 
 .. code:: bash
 
    ## 设置密码为：0
    ./venakey generate --privatekey ../data/node-0/node.prikey
 
-上述命令会在当前目录下生成一个 ``keyfile.json`` 文件。将该文件移动到链项目的 ``release/linux/data/node-0/keystore`` 目录下：
+上述命令会在当前目录下生成一个 ``keyfile.json`` 文件。将该文件移动到链项目的 ``${WORKSPACE}/data/node-0/keystore`` 目录下：
 
 .. code:: bash
 
    mv keyfile.json ../data/node-0/keystore
 
-在链项目的 ``release/linux/scripts`` 目录下执行:
+在链项目的 ``${WORKSPACE}/scripts`` 目录下执行:
 
 .. code:: bash
 

@@ -8,7 +8,7 @@
 1.1. 创建genesis.json文件
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1) 生成 **节点** 密钥对，需要进入目录 ``~/release/linux/bin``
+1) 生成 **节点** 密钥对，需要进入目录 ``${WORKSPACE}/bin``
 
 .. code:: bash
 
@@ -37,7 +37,7 @@
 
 3) 配置初始化文件
 
-在 ``~/release/linux/conf/`` 目录下存在 ``genesis.json`` 的模版 ``genesis.json.istanbul.template`` . 通过修改其中的参数生成 ``genesis.json`` 文件。
+在 ``${WORKSPACE}/conf/`` 目录下存在 ``genesis.json`` 的模版 ``genesis.json.istanbul.template`` . 通过修改其中的参数生成 ``genesis.json`` 文件。
 
 .. code:: bash
 
@@ -107,7 +107,7 @@
 1.2. 初始化节点和创世区块
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-在 ``~/release/linux/bin`` 目录下执行下面指令初始化创世区块：
+在 ``${WORKSPACE}/bin`` 目录下执行下面指令初始化创世区块：
 
 .. code:: bash
 
@@ -170,7 +170,7 @@
 2. 启动节点
 ===============
 
-1) 在 ``~/release/linux/bin`` 目录下执行下面指令：
+1) 在 ``${WORKSPACE}/bin`` 目录下执行下面指令：
 
 .. code:: bash
 
@@ -254,7 +254,7 @@
 
 - ``phrase`` 是要设置的密码
 
-会在 ``~/release/linux/data/node-0/keystore`` 下生成 ``UTC*`` 文件
+会在 ``${WORKSPACE}/data/node-0/keystore`` 下生成 ``UTC*`` 文件
 
 3.2. 解锁账户
 

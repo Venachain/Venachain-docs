@@ -29,13 +29,13 @@
 2. 在 A 主机搭建单节点区块链
 =================================
 
-参照 :ref:`单机部署 <deploy-node>` ，在节点 A 上搭建单节点区块链，然后将 ``genesis.json`` 文件广播出来给其他节点，放置于 ``Venachain/release/linux/conf`` 目录下。
+参照 :ref:`单机部署 <deploy-node>` ，在节点 A 上搭建单节点区块链，然后将 ``genesis.json`` 文件广播出来给其他节点，放置于 ``${WORKSPACE}/conf`` 目录下。
 
 .. code:: bash
 
-   scp -r genesis.json user@172.25.1.14:~/Venachain/release/linux/conf
-   scp -r genesis.json user@172.25.1.15:~/Venachain/release/linux/conf
-   scp -r genesis.json user@172.25.1.16:~/Venachain/release/linux/conf
+   scp -r genesis.json user@172.25.1.14:${WORKSPACE}/conf
+   scp -r genesis.json user@172.25.1.15:${WORKSPACE}/conf
+   scp -r genesis.json user@172.25.1.16:${WORKSPACE}/conf
 
 3. 在 B、C、D 生成创世区块及节点信息
 ====================================
@@ -44,7 +44,7 @@
 
 .. code:: bash
 
-   cd  ~/Venachain/release/linux/scripts
+   cd  ${WORKSPACE}/scripts
    ./venachainctl.sh init -n 1 --ip 172.25.1.14 --rpc_port 6791 --p2p_port 16791 --ws_port 26791 --auto true
 
 此步骤会根据 ``genesis.json`` 文件生成创世区块，以及节点的连接信息（ IP 端口、节点密钥）
@@ -56,11 +56,11 @@
 .. code:: bash
 
    # node.ip, node.p2p_port, node.rpc_port, node.pubkey
-   # --> user@172.25.1.14:~/Venachain/release/linux/data/node-1
-   scp node.ip user@172.25.1.14:~/Venachain/release/linux/data/node-1
-   scp node.p2p_port user@172.25.1.14:~/Venachain/release/linux/data/node-1
-   scp node.rpc_port user@172.25.1.14:~/Venachain/release/linux/data/node-1
-   scp node.pubkey user@172.25.1.14:~/Venachain/release/linux/data/node-1
+   # --> user@172.25.1.14:${WORKSPACE}/data/node-1
+   scp node.ip user@172.25.1.14:${WORKSPACE}/data/node-1
+   scp node.p2p_port user@172.25.1.14:${WORKSPACE}/data/node-1
+   scp node.rpc_port user@172.25.1.14:${WORKSPACE}/data/node-1
+   scp node.pubkey user@172.25.1.14:${WORKSPACE}/data/node-1
 
 4. B、C、D 主机启动节点
 ==============================
