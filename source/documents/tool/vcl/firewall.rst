@@ -307,6 +307,9 @@
         "TxHash": ""
        }
 
+防火墙规则清理 fw clear
+============================
+
 **描述**
 
 清空指定合约的防火墙的approve操作或reject操作的全部规则
@@ -350,40 +353,3 @@
         "To": "0x1000000000000000000000000000000000000005",
         "TxHash": ""
         }
-
-防火墙规则清理 fw clear
-============================
-
-**描述**
-
-清空指定合约的防火墙的approve操作或reject操作的全部规则
-
-**参数**
-
-- 必选参数:
-
-.. code:: bash
-
-      <addres>:             （进行防火墙设置的）合约账户地址
-
-- 可选参数:
-
-.. code:: bash
-
-      --action string       清除对应操作的防火墙规则。防火墙操作:允许approve(allow?)或拒绝reject(block?)
-      --all                 清除所有操作的防火墙规则
-
-**操作**
-
-.. code:: bash
-
-      # 清除对应防火墙操作规则
-      ./vcl fw clear "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --action "Reject" --keyfile ../conf/keyfile.json
-      # 清除所有防火墙规则
-      ./vcl fw clear "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --all --keyfile ../conf/keyfile.json
-
-**输出结果**
-
-.. code:: console
-
-      result: Operation Succeeded

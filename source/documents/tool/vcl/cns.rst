@@ -11,7 +11,7 @@ cns解析 cns resolve
 
 **描述**
 
-通过合约名称以及版本号（默认为”latest”）解析出对应的账户地址。一个合约名可以对应多个（在注册的）合约地址，通过版本号解析出对应的合约地址，但在cns平台中已注销的合约名对应的版本号无法解析出相应的账户地址。
+通过合约名称以及版本号（默认为”latest”）解析出对应的账户地址。一个合约名可以对应多个（在注册的）合约地址，通过版本号解析出对应的合约地址。
 
 **参数**
 
@@ -25,7 +25,7 @@ cns解析 cns resolve
 
 .. code:: bash
 
-   --ver string:     合约在cns中注册的版本号，默认为"latest"
+   --version string:     合约在cns中注册的版本号，默认为"latest"
 
 **操作**
 
@@ -42,9 +42,6 @@ cns解析 cns resolve
 .. code:: console
 
    result: <address>
-
-   # 对应合约名称的版本已注销
-   result: <null>
 
 cns注册 cns register
 ========================
@@ -91,7 +88,7 @@ cns重定向 cns redirect
 
 **描述**
 
-制定cns名称对应的合约版本。
+指定cns名称对应的当前合约版本。
 
 **参数**
 
@@ -101,29 +98,28 @@ cns重定向 cns redirect
 
    <name>:          在cns中注册的合约名称
    <version>:       在cns中注册的版本号。格式:"X.X.X.X"
-   <address>:       进行注册的合约的账户地址
 
 **操作**
 
 .. code:: bash
 
-   ./vcl cns register "test" "1.1.0.0" "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206"  --keyfile ../conf/keyfile.json
+    ./vcl cns redirect "test" "1.0.0.1"  --keyfile ../conf/keyfile.json
 
 **输出结果**
 
 .. code:: json
 
-      {
+    {
         "status": "Operation Succeeded",
         "logs": [
-            "Event [CNS] Notify: 0 [CNS] cns redirect succeed "
+                "Event [CNS] Notify: 0 [CNS] cns redirect succeed "
         ],
-        "blockNumber": 191,
-        "GasUsed": 102864,
-        "From": "0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18",
+        "blockNumber": 91,
+        "GasUsed": 102932,
+        "From": "0xd7ca86207614e5c7f10f910bd4e8b4bf7c07b12d",
         "To": "0x0000000000000000000000000000000000000011",
-        "TxHash": ""
-      }
+        "TxHash": "0xd3253b7a6e3814f71fcd26ea47fc0678f0d7e39aff2212469cab49626f76ef4d"
+    }
 
 cns信息查询 cns query
 =========================
@@ -138,25 +134,26 @@ cns信息查询 cns query
 
 .. code:: bash
 
-      --contract <address>:     查询键，通过合约账户地址或者合约名称进行查询
-      --user <address>:         查询键，通过用户账户地址进行查询，查询该用户注册在cns的合约
-      --all:                    查询键，显示所有cns中所有注册的对象（不显示已注销的信息）
-      --pageNum:                展示页面页码
-      --pageSize:               展示页面大小
+    --all:                             查询键，显示所有cns中所有注册的对象
+    --contract <name or address>:      查询键，通过合约账户地址或者合约名称进行查询
+    --addr <address>:                  查询键，通过用户账户地址进行查询，查询该用户注册在cns的合约
+    --pageNum:                         展示页面页码
+    --pageSize:                        展示页面大小（当pageSize为0时，则默认查询所有数据）
 
 **操作**
 
 .. code:: bash
 
-      # 1 查询已注册的合约
-      ./vcl cns query --all --keyfile ../conf/keyfile.json 
-      # 2 通过合约名称进行查询 - 查询该名称注册历史
-      ./vcl cns query --contract "test" --keyfile ../conf/keyfile.json 
-      # 3 通过注册者进行查询
-      ./vcl cns query "0x01a369998e4a141c5e2b40dbcbaf4a601d57cfa5" --pageNum "10" --pageSize "0" --keyfile ../conf/keyfile.json 
-      # 4 通过合约地址进行查询
-      ## 目前接口为通过地址查询未被注销的合约
-      ./vcl cns query --contract "0x01a369998e4a141c5e2b40dbcbaf4a601d57cfa5" --keyfile ../conf/keyfile.json 
+    # 1 查询所有已注册的合约
+    ./vcl cns query --all 
+    # 2 查询指定范围内已注册的合约
+    ./vcl cns query --pageNum "0" --pageSize "10"
+    # 3 通过合约名称进行查询
+    ./vcl cns query --contract "test" 
+    # 4 通过合约地址进行查询
+    ./vcl cns query --contract "0x12a0de8326d814e1569d6a0e111be02b19741694"
+    # 5 通过注册者进行查询
+    ./vcl cns query --addr "0x8d4d2ed9ca6c6279bab46be1624cf7adbab89e18"
 
 **输出结果**
 
@@ -214,7 +211,7 @@ cns状态查询 cns state
 
 **描述**
 
-通过查询键查询一个合约在cns平台中的注册状态，注册状态分为:注册中（返回true）或者已经注销（返回false）。
+通过查询键查询一个合约在cns平台中的注册状态，注册状态分为已注册（true）和未注册（false）。
 
 **参数**
 

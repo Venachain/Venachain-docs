@@ -14,6 +14,7 @@ Venachain详细部署步骤可简要分为如下3步：
 
 .. note:: 下文中有些步骤提供了两种执行方法，第一种是使用脚本完成，第二种则需要手动创建文件配合使用命令行来完成。虽然第二种方法操作更为复杂，但也更为灵活，便于开发者按需构建理想的联盟链网络。
 
+.. note:: 如果是在Venachain项目目录下编译后进行操作的，那么 ``${WORKSPACE}`` 为 ``Venachain/release/linux`` 。如果是下载release包进行部署的，那么 ``${WORKSPACE}`` 为 ``linux`` 。
 
 .. toctree::
    :hidden:

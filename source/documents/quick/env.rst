@@ -4,6 +4,8 @@
 环境依赖
 ========
 
+.. note:: 如果是在Venachain项目目录下编译后进行操作的，那么 ``${WORKSPACE}`` 为 ``Venachain/release/linux`` 。如果是下载release包进行部署的，那么 ``${WORKSPACE}`` 为 ``linux`` 。
+
 系统要求
 ===========
 
