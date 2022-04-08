@@ -6,4 +6,5 @@
    :maxdepth: 1
    
    graces/install
+   graces/usage
    graces/api
