@@ -7,5 +7,6 @@
    
    smart_contract/wasm
    smart_contract/evm
+   smart_contract/interact
    smart_contract/private_token
  
