@@ -74,3 +74,5 @@ Graces 使用
 .. figure:: ../../../images/tool/graces/usechain_systemmanage.png
 
 在这里您可以设置交易Gas限制以及区块Gas限制，提交更改后方可生效。您可以看到链上的节点列表以及CNS列表。
+
+.. warning:: 不要轻易修改链上的配置参数
