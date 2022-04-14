@@ -28,17 +28,21 @@ Graces 使用
 
 .. note:: 第一次添加链还需要点击 ``全量同步``
 
+5) 可从侧边栏里选择相应的功能进行浏览
+
+.. figure:: ../../../images/tool/graces/addchain_4.png
+
 3. 使用链
 =============
 
-选择并点击要进入的链
+- 选择并点击要进入的链
 
 .. figure:: ../../../images/tool/graces/usechain.png
 
 区块浏览
 ^^^^^^^^^^
 
-点击菜单栏的第二项 ``区块浏览``
+- 点击菜单栏的第二项 ``区块浏览``
 
 .. figure:: ../../../images/tool/graces/usechain_block.png
 
@@ -47,24 +51,36 @@ Graces 使用
 交易浏览
 ^^^^^^^^^^^
 
-点击菜单栏的第三项 ``交易浏览``
+- 点击菜单栏的第三项 ``交易浏览``
 
-.. figure:: ../../../images/tool/graces/usechain_transaction.png
+.. figure:: ../../../images/tool/graces/usechain_transaction_1.png
 
 可以看到交易哈希，高度，交易的账户地址等信息。您也可以搜索您想要的交易哈希。
+
+- 点击交易哈希可以查看这笔交易的交易详情
+
+.. figure:: ../../../images/tool/graces/usechain_transaction_2.png
+
+.. figure:: ../../../images/tool/graces/usechain_transaction_3.png
+
+交易详情包括：交易哈希、交易执行状态、区块高度、时间戳、执行目的等
 
 合约浏览
 ^^^^^^^^^^^
 
-点击菜单栏的第四项 ``合约浏览``
+- 点击菜单栏的第四项 ``合约浏览``
 
 .. figure:: ../../../images/tool/graces/usechain_contract_1.png
 
-点击 ``部署合约``
+- 点击 ``部署合约``
 
 .. figure:: ../../../images/tool/graces/usechain_contract_2.png
 
 .. note:: 您可以上传您的合约文件（只能上传两个文件）和设置CNS。
+
+- 部署成功
+
+.. figure:: ../../../images/tool/graces/usechain_contract_3.png
 
 系统管理
 ^^^^^^^^^^^
