@@ -43,4 +43,4 @@ Venachain
    :caption: 深入使用指南
    :hidden:
    
-   documents/6_usage/README.md
+   documents/6_usage/文档写作示例.rst
