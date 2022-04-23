@@ -19,3 +19,6 @@ database/
 /build/
 make.bat
 
+# others
+.~*
+*Zone.Identifier
