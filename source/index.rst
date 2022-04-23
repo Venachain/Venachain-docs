@@ -14,7 +14,9 @@ Venachain
    :caption: 区块链部署
    :hidden:
    
-   documents/2_deploy/README.md
+   documents/2_deploy/Venachain部署介绍.md
+   documents/2_deploy/Venachain部署指南.md
+
 
 .. toctree::
    :maxdepth: 1
@@ -36,7 +38,7 @@ Venachain
    :caption: 实用工具
    :hidden:   
    
-   documents/5_tool/README.md
+   documents/5_tool/部署工具venachainctl操作指南.md
 
 .. toctree::
    :maxdepth: 1
