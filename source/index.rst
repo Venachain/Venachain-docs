@@ -39,6 +39,7 @@ Venachain
    :hidden:   
    
    documents/5_tool/部署工具venachainctl操作指南.md
+   documents/5_tool/存证平台VenaProof.rst
 
 .. toctree::
    :maxdepth: 1
