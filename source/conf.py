@@ -45,6 +45,8 @@ extensions = [
     'sphinx_rtd_theme',
 ]
 
+myst_enable_extensions = ["dollarmath", "amsmath"]
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -73,7 +75,7 @@ html_theme = 'sphinx_rtd_theme'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static'] 
 
-html_logo = ''
+html_logo = 'venachain_logo.png'
 
 html_theme_options = {
     'logo_only': True,
