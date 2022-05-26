@@ -11,7 +11,8 @@
 ## 2.存证统计信息
 
 - 区块高度、区块数量、节点数量
-  ![avatar](./images/ven2.png) 
+
+![avatar](./images/ven2.png) 
 
 ## 3.存证查询
 

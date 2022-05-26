@@ -4,8 +4,6 @@
 
 ### **安装**
 
-
-
 在packege.json依赖中加入：
 
 ```
@@ -34,11 +32,7 @@ import('vena.bundle')
 .then(({ Web3ForVena }) => web3 = new Web3ForVena('ws://localhost:26791'));
 ```
 
-
-
 ## API
-
-
 
 ### **sha3**( value:string ) : string
 
@@ -48,8 +42,6 @@ import('vena.bundle')
 web3.sha3('234');//"0xc1912fee45d61c87cc5ea59dae311904cd86b84fee17cc96966216f811ce6a79"
 ```
 
-
-
 ### getPublicKeyfromPrivate(privateKey: string): string 
 
 根据私钥计算公钥。
@@ -57,8 +49,6 @@ web3.sha3('234');//"0xc1912fee45d61c87cc5ea59dae311904cd86b84fee17cc96966216f811
 ```
 web3.getPublicKeyfromPrivate('0x.....');
 ```
-
-
 
 ### getAddressfromPublicKey(publicKey: string): string 
 
@@ -68,8 +58,6 @@ web3.getPublicKeyfromPrivate('0x.....');
 web3.getAddressfromPublicKey('0x.....');
 ```
 
-
-
 ### getAddressfromPrivateKey(privateKey: string): string 
 
 根据私钥计算地址。
@@ -77,8 +65,6 @@ web3.getAddressfromPublicKey('0x.....');
 ```
 web3.getAddressfromPrivateKey('0x.....');
 ```
-
-
 
 ### getAccountFromPrivateKey(privateKey: string): Account 
 
@@ -96,8 +82,6 @@ web3.getAccountFromPrivateKey('0x.....');
 }
 ```
 
-
-
 ### unlockNodeAccount(address: string, pwd: string, unlockDuration: number): Promise< any > 
 
 解锁节点保存的账户。
@@ -108,8 +92,6 @@ web3.unlockNodeAccount("0x.....", "test password!", 600)
 > true
 ```
 
-
-
 ### createNodeAccount(pwd: string): Promise< string > 
 
 创建由节点控制的账户并返回账户地址
@@ -119,8 +101,6 @@ web3.createNodeAccount('pwd').then(console.log);
 > '0x......'
 ```
 
-
-
 ### getNodeAccounts(): Promise< string[] > 
 
 通过RPC接口`personal_listAccounts`得到由节点控制的账户列表. 
@@ -129,8 +109,6 @@ web3.createNodeAccount('pwd').then(console.log);
 web3.getNodeAccounts().then(console.log);
 > ["0x.....", "0x....."]
 ```
-
-
 
 ### createLocalAccount(entropy?: string): Account 
 
@@ -147,8 +125,6 @@ web3.createLocalAccount();
     encrypt: function(password){...}
 }
 ```
-
-
 
 ### encryptAccount(privateKey: string, pwd: string): EncryptedKeystoreV3Json 
 
@@ -177,8 +153,6 @@ web3.encryptAccount('0x4c0883a69102937d6231471b5dbb6204fe5129617082792ae468d01a3
     }
 }
 ```
-
-
 
 ### decryptAccount(keystoreJsonV3: EncryptedKeystoreV3Json, pwd: string): Account 
 
@@ -215,8 +189,6 @@ web3.decryptAccount(keystore,'pwd');
 }
 ```
 
-
-
 ### sendTransactionByNodeAccount(transactionObject: TransactionObject): Promise< any > 
 
 使用节点账户发起交易，不需要本地签名。
@@ -243,8 +215,6 @@ web3.sendTransactionByNodeAccount(txObject).then(console.log);
      }, ...]
 }
 ```
-
-
 
 ### signAndSendTransactionByLocalAccount(transactionObject: TransactionObject, privateKey: string): Promise< any > 
 
@@ -274,8 +244,6 @@ web3.signAndSendTransactionByLocalAccount(txObject,'0x......')
 }
 ```
 
-
-
 ### signTransaction(transactionObject: TransactionObject, privateKey: string): Promise< any > 
 
 对交易进行签名。签名结果中的raw可以通过 sendSignedTransaction() 发起交易。
@@ -298,8 +266,6 @@ web3.signTransaction(txObject,'0x......')
     transactionHash: '0xd0b0610c97f642a9e333953937066c295f36e947c02abdbb85de5be2937712c4'
 }
 ```
-
-
 
 ### getTransactionReceipt(transactionHash: string): Promise< any > 
 
@@ -324,8 +290,6 @@ web3.getTransactionReceipt('0x.....')
 }
 ```
 
-
-
 ### getTransaction(transactionHash: string): Promise< any > 
 
 根据交易哈希获取交易信息。
@@ -348,8 +312,6 @@ web3.getTransaction('0x.....')
     "input": "0x57cb2fc4"
 }
 ```
-
-
 
 ### sendSignedTransaction(rawTransaction: string): Promise< any > 
 
@@ -384,8 +346,6 @@ contract.myfunction(privateKey,[param1,param2...])
 
 ```
 
-
-
 ### callContract(contractAddress: string, from: string, ABI: string, funcName: string, params: Array< any >, isWasm: boolean): Promise< any > 
 
 调用合约的const方法。wasm合约返回的结果可以通过 decodeCallContractData() 方法解析。
@@ -402,8 +362,6 @@ web3.callContract(contractAddress,from,ABI,funcName,params,true)
 >"0x..............."
 ```
 
-
-
 ### decodeCallContractData(ABI: string, data: string, funcName): any 
 
 解析 callContract() 调用wasm合约方法返回值。
@@ -418,8 +376,6 @@ web3.decodeCallContractData(ABI,data,funcName);// data由callContract()返回
   data:string
 }
 ```
-
-
 
 ### invokeContract(from: string, ABI: string, funcName: string, params: Array< any >, contractAddress: string, isWasm: boolean, accountType: "local" | "node", privateKey?: string): Promise< any > 
 
@@ -451,8 +407,6 @@ web3.invokeContract(contractAddress,from,ABI,funcName,params,true,accountType,pr
 } 
 ```
 
-
-
 ### decodeInvokeContractLog(ABI: string, log: any, isWasm: boolean): any 
 
 解析 invokeContract() 发送交易调用合约产生的日志。
@@ -461,8 +415,6 @@ web3.invokeContract(contractAddress,from,ABI,funcName,params,true,accountType,pr
 web3.decodeInvokeContractLog(ABI，receipt.logs[0]);
 >['aaa',0,'ccc']
 ```
-
-
 
 ### encodeFunctionAndParams(ABI: string, funcName: string, paramsArr: Array< any >, isWasm: boolean): string 
 
@@ -476,10 +428,6 @@ web3.encodeCallParams(ABI,funcName,params,true);
 >'0x.......'
 ```
 
-
-
-
-
 ### getContractAddressByCNSName(CNSName: string, from: string): Promise< string >  
 
 通过CNS name 得到注册在CNS中的合约地址。
@@ -490,10 +438,6 @@ let from = '0x.......'; // 部署合约的账户地址（？）
 web3.getContractAddressByCNSName(CNSName,from);
 >'0x.......'
 ```
-
-
-
-
 
 ### callContractByCNSName(CNSName: string, from: string, ABI: string, funcName: string, params: Array< any>, isWasm: boolean): Promise< any>  
 
@@ -510,8 +454,6 @@ web3.callContractByCNSName(CNSName,from,ABI,funcName,params,true)
 .then(console.log);
 >"..............."
 ```
-
-
 
 ### invokeContractByCNSName(CNSName: string, from: string, ABI: string, funcName: string, params: Array< any>, isWasm: boolean, accountType: "local" | "node", privateKey?: string): Promise< any>  
 
@@ -543,8 +485,6 @@ web3.invokeContractByCNSName(CNSName,from,ABI,funcName,params,true,accountType,p
      }, ...]
 } 
 ```
-
-
 
 ### encodeDeployWasmContractData(bin: any, abi: string): string
 
@@ -579,8 +519,6 @@ if (window.FileReader) {
 } 
 ```
 
-
-
 ### deployWasmContract(bin: any, abi: string, privateKey: string): Promise< any >
 
 部署wasm合约。
@@ -611,10 +549,6 @@ if (window.FileReader) {
      }, ...]
 } 
 ```
-
-
-
-
 
 ### subscribe(type: string,option?:LogsOptions, callback?:Function): EventEmitter
 
@@ -649,8 +583,6 @@ subscription.unsubscribe(function(error, success){
 });
 ```
 
-
-
 ### clearSubscriptions(callback: (error: Error, result: boolean) => void): void 
 
 清除订阅。
@@ -663,49 +595,49 @@ web3.clearSubscriptions();
 
 由于内部使用了web3.js，在使用npm方式安装的sdk时，如果使用的Ionic / Angular的版本> 5，则可能会遇到build错误。需要对Angular进行配置（ 参考 https://github.com/ChainSafe/web3.js#web3-and-angular ）。
 
-1.修改\node_modules\@angular-devkit\build-angular\src\webpack\configs\browser.js 最后的
+1. 修改\node_modules\@angular-devkit\build-angular\src\webpack\configs\browser.js 最后的
 
-```
-node:false
-```
+    ```
+    node:false
+    ```
 
-改为
+    改为
 
-```
-node:{crypto: true,stream: true}
-```
+    ```
+    node:{crypto: true,stream: true}
+    ```
 
-2.修改packege.json，在末尾添加：
+2. 修改packege.json，在末尾添加：
 
-```
-  "browser": {
+    ```
+    "browser": {
 
-    "http": true,
+        "http": true,
 
-    "https": true,
+        "https": true,
 
-    "net": true,
+        "net": true,
 
-    "path": true,
+        "path": true,
 
-    "stream": true,
+        "stream": true,
 
-    "tls": true,
+        "tls": true,
 
-    "os": true,
+        "os": true,
 
-    "crypto": true
+        "crypto": true
 
-  }
-```
+    }
+    ```
 
-3.修改根目录下的polyfills.ts 添加以下代码：
+3. 修改根目录下的polyfills.ts 添加以下代码：
 
-```
-global.Buffer = global.Buffer || require('buffer').Buffer;
-```
+    ```
+    global.Buffer = global.Buffer || require('buffer').Buffer;
+    ```
 
-即可在Angular中正常使用js-sdk。
+    即可在Angular中正常使用js-sdk。
 
 
 
