@@ -101,7 +101,7 @@
 
 2. 部署
 
-    请参考 [Venachain部署文档](../../2_区块链部署/Venachain部署指南1.md) 进行链的部署
+    请参考 [Venachain部署文档](../../2_区块链部署/Venachain部署指南.md) 进行链的部署
 
 ### 4. 安装VenaProof
 

@@ -653,18 +653,19 @@ createacc OPTIONS
 ```console
 unlock OPTIONS
    --nodeid, -n                 unlock account on specified node
+   --account                    unlock certain account
    --help, -h                   show help
 ```
 
 **操作示例**
 
 ```bash
+## 一个节点可能有多个账户，本操作会将最早生成的账户解锁
 ./venachainctl.sh unlock --nodeid 0
+
+## 指定账户解锁
+./venachainctl.sh unlock --nodeid 0 --account 0x50ddfc6e619a3e94d087d667460fe38fdded2950
 ```
-
-**注意事项**
-
-- 一个节点可能有多个账户，本操作会将最早生成的账户解锁。
 
 ### console
 

@@ -5,6 +5,6 @@ Wasm虚拟机合约开发指南
 .. toctree::
    :maxdepth: 1
    
-   wasm/CPP合约开发.md
+   wasm/CPP合约开发.rst
    wasm/合约部署与调用.md
  

@@ -102,7 +102,7 @@ var DefaultContractClient *ContractClient
 func initContractClient() {
 	var err error
 	contract := "0x0000000000000000000000000000000000000099" //存证合约
-	keyfile := "/Users/cxh/go/src/github.com/PlatONE_Network/PlatONE-Go/release/linux/conf/keyfile.json"
+	keyfile := "/Users/cxh/go/src/github.com/Venachain/Venachain/release/linux/conf/keyfile.json"
 	PassPhrase := "0"
 	vm := "wasm"
 	url := client.URL{

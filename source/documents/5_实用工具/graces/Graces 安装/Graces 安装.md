@@ -32,7 +32,7 @@
 
 Venachain仓库地址：[https://git-c.i.wxblockchain.com/vena/src/venachain](https://git-c.i.wxblockchain.com/vena/src/venachain)
 
-安装方法请参考：[安装文档](../../../区块链部署/Venachain环境准备与编译.md)
+安装方法请参考：[安装文档](../../../6_深入使用指南/Venachain编译.md)
 
 ### 4. 下载 Graces V1.0.0 
 
