@@ -102,7 +102,7 @@ var DefaultContractClient *ContractClient
 func initContractClient() {
 	var err error
 	contract := "0x0000000000000000000000000000000000000099" //存证合约
-	keyfile := "/Users/cxh/go/src/github.com/PlatONE_Network/PlatONE-Go/release/linux/conf/keyfile.json"
+	keyfile := "/Users/cxh/go/src/github.com/Venachain/Venachain/release/linux/conf/keyfile.json"
 	PassPhrase := "0"
 	vm := "wasm"
 	url := client.URL{
@@ -121,7 +121,7 @@ func initContractClient() {
 
 调用合约能够实现所有预编译合约合约调用的功能。
 
-预编译合约abi 文件的路径为：`/client-sdk-go/precompiled/syscontracts`。可以根据abi文件中函数的名字和参数调用相应的预编译合约。相关的说明可参考：//TODO platonecli 查看各个预编译合约的功能。
+预编译合约abi 文件的路径为：`/client-sdk-go/precompiled/syscontracts`。可以根据abi文件中函数的名字和参数调用相应的预编译合约。相关的说明可参考 [《链交互工具vcl》](../../../5_实用工具/链交互工具vcl.rst) 查看各个预编译合约的功能。
 
 
 使用`DefaultContractClient.Execute()` 调用合约。

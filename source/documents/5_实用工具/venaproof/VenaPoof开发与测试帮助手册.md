@@ -20,7 +20,7 @@
 
 2. 编译Venachain
 
-	请参考 [Venachain编译](../../../区块链部署/Venachain环境准备与编译.md)
+	请参考 [Venachain编译](../../6_深入使用指南/Venachain编译.md)
 
 ### 2. 编译VenaProof
 

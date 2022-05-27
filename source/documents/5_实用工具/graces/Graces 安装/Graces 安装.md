@@ -27,12 +27,12 @@
 ### 1. 下载、安装和配置 Golang
 
 ### 2. 下载、安装和启动 MongoDB
-   
+
 ### 3. 下载和编译 Venachain
 
 Venachain仓库地址：[https://git-c.i.wxblockchain.com/vena/src/venachain](https://git-c.i.wxblockchain.com/vena/src/venachain)
 
-安装方法请参考：[安装文档](../../../区块链部署/Venachain环境准备与编译.md)
+安装方法请参考：[安装文档](../../../6_深入使用指南/Venachain编译.md)
 
 ### 4. 下载 Graces V1.0.0 
 
@@ -63,7 +63,6 @@ Venachain仓库地址：[https://git-c.i.wxblockchain.com/vena/src/venachain](ht
    unzip graces-web.zip
    ```
 
-   
 
 ### 5. 配置 MongoDB
 
@@ -87,7 +86,7 @@ MongoDB 启动成功后，需要为 graces 创建数据库和用户。
       roles: [ "readWrite", "dbAdmin" ]
       }
    );
-   ```   
+   ```
 
    完成上述步骤，我们就可以在 graces-server 中使用 test 用户去操作 MongoDB 的 graces 数据库了。
 
@@ -194,7 +193,7 @@ VUE_APP_BASE_WS = 'ws://localhost:9999/api'
    ```
 
    `.env.development` 文件里面的`localhost:9999` 也要改为 `graces-server` 所在机器的 IP 端口号。
-      
+   
    ```
    # base api
    VUE_APP_BASE_API = 'http://graces-server的ip:端口/api'
@@ -214,17 +213,15 @@ VUE_APP_BASE_WS = 'ws://localhost:9999/api'
    ```
    
 ### 2. graces-server 编译报错
-    
+
 如果在编译 graces-server 时出错，可能是由于缺少依赖包导致的，执行一下以下命令再尝试：
-    
 ```shell
 go mod tidy
 ```
-   
+
 ### 3. mongodb 链接失败
-    
+
 如果在启动 graces-server 过程中出现以下错误，则需要确认一下 graces-server 连接 mongodb 的账号密码配置是否正确。
-    
 ```shell
 FATA[0000] failed to connection DB： connection() error occured during connection handshake: auth error: sasl conversation error: unable to authenticate using mechanism "SCRAM-SHA-1": (AuthenticationFailed) Authentication failed.
 ```

@@ -9,7 +9,7 @@ Venachain是 **基于隐私计算** 的新一代联盟区块链平台，以支�
 
 目前Venachain提供了多种创新性技术和功能，包括：安全多方计算、同态加密等密码学技术植入、优化的高效共识、高TPS、完备、易用的企业级工具链和组件、优化的用户/权限模型、多开发语言支持等特性，旨在解决当前联盟链发展中存在的困境。
 
-更详细的介绍请参考 `平台介绍 <documents/1_Venachain介绍/基本介绍/基本介绍.html>`__ 、 `应用案例 <documents/1_Venachain介绍/应用案例集/应用案例集.html>`__
+更详细的介绍请参考 `平台介绍 <documents/1_Venachain介绍/基本介绍.html>`__ 、 `应用案例 <documents/1_Venachain介绍/应用案例集/应用案例集.html>`__
 
 
 资源导航
@@ -40,8 +40,12 @@ Venachain是 **基于隐私计算** 的新一代联盟区块链平台，以支�
    :caption: 区块链部署
    :hidden:
    
+   documents/2_区块链部署/获取Venachain部署包.md
    documents/2_区块链部署/Venachain部署介绍.md
    documents/2_区块链部署/Venachain部署指南.md
+   documents/2_区块链部署/单机分步部署.md
+   documents/2_区块链部署/多机分步部署.md
+   documents/2_区块链部署/轻节点服务与客户端部署.md
 
 
 .. toctree::
@@ -50,6 +54,8 @@ Venachain是 **基于隐私计算** 的新一代联盟区块链平台，以支�
    :hidden:
 
    documents/3_智能合约/Wasm虚拟机合约开发指南.rst
+   documents/3_智能合约/Evm虚拟机合约开发指南.rst
+   documents/3_智能合约/Wasm和Evm虚拟机智能合约互调用.md
    documents/3_智能合约/隐私代币合约使用.md
    
 
@@ -79,4 +85,6 @@ Venachain是 **基于隐私计算** 的新一代联盟区块链平台，以支�
    :caption: 深入使用指南
    :hidden:
    
+   documents/6_深入使用指南/Venachain编译.md
+   documents/6_深入使用指南/Venachain备份与还原.md
    documents/6_深入使用指南/文档写作示例.rst

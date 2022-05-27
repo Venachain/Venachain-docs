@@ -1,4 +1,4 @@
-# CPP合约开发
+# CPP合约开发指南
 
 本文档通过一系列代码示例讲解合约的各个功能，用户可以通过学习这些例子来深入理解如何编写一个应用合约。
 
@@ -393,42 +393,40 @@ bcwasm::h160 addr = bcwasm::ecrecover(hash.data(), bcwasm::fromHex(sig).data());
 
 ## 其他注意事项
 
-1） 当前合约对外接口仅支持以下数据类型：
+1. 当前合约对外接口仅支持以下数据类型：
 
-``` cpp
-char/char* /const char*/char[]  
-unsigned __int128/__int128/uint128_t  
-unsigned long long/uint64_t  
-unsigned long/uint32_t  
-unsigned short/uint16_t  
-unsigned char/uint8_t  
-long long/int64_t  
-long/int32_t/int  
-short/int16_t  
-char/int8_t  
-void  
-```
+    ``` cpp
+    char/char* /const char*/char[]  
+    unsigned __int128/__int128/uint128_t  
+    unsigned long long/uint64_t  
+    unsigned long/uint32_t  
+    unsigned short/uint16_t  
+    unsigned char/uint8_t  
+    long long/int64_t  
+    long/int32_t/int  
+    short/int16_t  
+    char/int8_t  
+    void  
+    ```
 
-2）
-Venachain合约库对u32和定长数组bytesN未定义，目前可以分别用uint32_t和char[]数组代替。
+2. Venachain合约库对u32和定长数组bytesN未定义，目前可以分别用uint32_t和char[]数组代替。
 
-3）
-在实现合约对外接口的查询方法是时，若函数返回的是字符串（比如通过调用string的c_str()方法），需要在该函数内部新申请（malloc）一段内存，并将该字符串copy到这段新的内存，由于该内存是由BCWasm虚拟机统一管理，故不存在内存泄露问题。返回字符串类型时可以使用 `RETURN_CHARARRAY` 宏实现，该宏定义如下
+3. 在实现合约对外接口的查询方法是时，若函数返回的是字符串（比如通过调用string的c_str()方法），需要在该函数内部新申请（malloc）一段内存，并将该字符串copy到这段新的内存，由于该内存是由BCWasm虚拟机统一管理，故不存在内存泄露问题。返回字符串类型时可以使用 `RETURN_CHARARRAY` 宏实现，该宏定义如下
 
-``` cpp
-#define RETURN_CHARARRAY(src，size) \
-do \
-{ \
-    char *buf = (char *)malloc(size); \
-    memset(buf，0，size); \
-    strcpy(buf，src); \
-    return buf; \
-} \
-while(0)
-```
+    ``` cpp
+    #define RETURN_CHARARRAY(src，size) \
+    do \
+    { \
+        char *buf = (char *)malloc(size); \
+        memset(buf，0，size); \
+        strcpy(buf，src); \
+        return buf; \
+    } \
+    while(0)
+    ```
 
-4） wasm合约内置库中的u256类型转换字符串类型需要进行如下调用:
+4. wasm合约内置库中的u256类型转换字符串类型需要进行如下调用:
 
-``` cpp
-u256value.convert_to<std::string>()
-```
+    ``` cpp
+    u256value.convert_to<std::string>()
+    ```
