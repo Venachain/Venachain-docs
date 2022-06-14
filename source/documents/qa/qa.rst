@@ -100,3 +100,33 @@ Venachain中的节点主要有以下几类：
 **如何申请成为Venachain的GitHub项目组成员？**
 
 Venachain欢迎社区所有人通过GitHub提交Issues和Pull Request来贡献方案和代码，Venachain核心开发团队会根据贡献情况进行评估，并定向邀请社区精英加入项目组。
+
+**Venachain是否可以链接狐狸钱包？**
+
+可以的。狐狸钱包，其中chainID默认是300。设置信息参考下图：
+
+.. figure:: ../../images/qa/metamask.PNG
+
+**部署合约方式**
+
+1. 参考文档的 :ref:`智能合约 <smart-contract>` 部分
+2. solidity合约也可以通过remix编译和部署。remix部署环境若是选择 Web3 Provider，需要提前unlock当前账户。执行命令，字段含义参考文档RPC接口部分。
+
+.. code:: bash
+
+    curl --location --request POST '127.0.0.1:6791' \
+    --header 'Content-type: application/json' \
+    --data-raw '{
+        "jsonrpc": "2.0",
+        "method": "personal_unlockAccount",
+        "params": ["0x5c2b277c92800303ee5d8b5c013be5e84df0e136","0",0],
+        "id": 0
+    }'
+
+**通过域名链接Venachain**
+
+若是提示 ``invalid host specified`` 报错。需要启动节点脚本添加：
+
+.. code:: bash
+
+    --rpcvhosts "*"
