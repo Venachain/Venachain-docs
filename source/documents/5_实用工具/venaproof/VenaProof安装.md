@@ -1,8 +1,9 @@
 # VenaProof 安装
 
-| **时间**   | **修改人** | **修改事项** | **存证平台版本** | **文档版本** |
-| ---------- | ---------- | ------------ | ---------------- | ------------ |
-| 2022.05.20 | 吴经文     | 初稿         | 0.0.1            | 1.0          |
+| **时间**   | **修改人** | **修改事项**                           | **存证平台版本** | **文档版本** |
+| ---------- | ---------- | -------------------------------------- | ---------------- | ------------ |
+| 2022.05.20 | 吴经文     | 初稿                                   | 0.0.1            | 1.0          |
+| 2022.07.01 | 吴经文     | 修改环境要求 <br>修改mongodb安装与配置 | 0.0.2            | 2.0          |
 
 ```{warning}
 仅支持linux
@@ -12,8 +13,8 @@
 
 ### 硬件环境准备
 
-- 主 机：Intel Xeon E5-2650或以上。
-- 内 存：16G或以上。
+- 主 机：Intel(R) Xeon(R) Gold 5220 CPU @ 2.20GHz或以上。
+- 内 存：4GB或以上。
 - 硬 盘：32GB或以上。
 - 图形卡：VGA/DVI。
 
@@ -21,9 +22,9 @@
 
 - OS Linux 64bit
 - Golang 1.14.4 或以上
-- Venachain v1.0.0 或以上
-- MongoDB 4.2.8 或以上
-- VenaProof v0.0.1
+- Venachain v1.1.0 或以上
+- MongoDB 4.2.x 
+- VenaProof v0.0.2
 
 ## 安装步骤
 
@@ -57,10 +58,28 @@
     mkdir -p /usr/local/mongodb/log
     ```
 
-5. 启动
+5. 新建log文件
 
     ```bash
-    mongod -dbpath /usr/local/mongodb/db -logpath /usr/local/mongodb/log --logappend --port 27017 --fork
+    touch /usr/local/mongodb/log/mongodb.log
+    ```
+
+6. 新建Mongodb.conf文件
+
+    文件内容如下：
+
+    ```console
+    port=27017
+    logpath=/usr/local/mongodb/log/mongodb.log
+    dbpath=/usr/local/mongodb/db
+    fork=true
+    logappend=true
+    ```
+
+7. 启动
+
+    ```bash
+    mongod -config /usr/local/mongodb/mongodb.conf
     ```
 
     ```{note}
@@ -88,9 +107,15 @@
         {
             user: "${user_name}",
             pwd: "${password}",
-            roles: [ "readWrite", "${db_name}" ]
+            roles: [ {role: "readWrite", db: "${db_name}"} ]
         }
     );
+    ```
+    
+4. 新建索引
+
+    ```console
+    db.evidence_detail.ensureIndex({"evidenceID":-1})
     ```
 
 ### 3. 部署Venachain
@@ -157,6 +182,10 @@
     ./vpctl.sh start
     ```
 
+    ```{warning}
+    如果venachain中keystore发生变更，不再包含 `${venaproof_path}/release/data/keyfile.account` 的账户，那么需要将 `${venaproof_path}/release/data/keyfile.account` 删除，并重启venaproof。
+    ```
+
 2. 关闭
 
     ```bash
@@ -173,4 +202,8 @@
 
     ```{note}
     清理命令会关闭服务并删除 `data` 目录下的数据，而 `conf` 目录下的 `config.toml` 不会删除，若需要删除请手动操作。
+    ```
+
+    ```{warning}
+    如果venachain数据清除，那么需要清理mongodb数据，并且使用本命令清除venaproof数据。然后才可以重新执行第 `2` 、 `3` 、  `6` 进行部署。
     ```
