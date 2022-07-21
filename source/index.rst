@@ -79,6 +79,7 @@ Venachain是 **基于隐私计算** 的新一代联盟区块链平台，以支�
    documents/5_实用工具/Wasm合约开发工具Venahcain-CDT.md
    documents/5_实用工具/面向开发者的可视化链交互平台Graces.rst
    documents/5_实用工具/存证平台VenaProof.rst
+   documents/5_实用工具/交易服务器VenaAgent.rst
 
 .. toctree::
    :maxdepth: 1
