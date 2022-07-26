@@ -338,7 +338,7 @@ response：
 | caller | 否 | string | 合约发起方，交易上链时会使用发起方私钥（使用前需要先上传私钥并解锁）对交易进行签名，未填，则使用代理服务器的私钥对交易进行签名 |
 | address | 是 | string | 合约地址 |
 | func | 是 | string | 调用的合约方法 |
-| funcParams | 否 | string | 调用合约方法参数 |
+| funcParams | 否 | string[] | 调用合约方法参数 |
 
 **返回参数说明：**
 
@@ -414,7 +414,7 @@ response：
 | chainName | 否 | string | 链标识，未填，则使用链代理服务器默认配置链 |
 | address | 是 | string | 合约地址 |
 | func | 是 | string | 调用的合约方法 |
-| funcParams | 否 | string | 调用合约方法参数 |
+| funcParams | 否 | string[] | 调用合约方法参数 |
 
 **返回参数说明：**
 
@@ -1014,9 +1014,7 @@ response：
 | 参数名 | 必选 | 类型 | 说明 |
 | --- | --- | --- | --- |
 | name | 是 | string | 链标识 |
-| nodeEndpoint | 是 | object[] | 交易发起方，可不填，默认使用代理服务器私钥地址 |
-| ip | 是 | string | 链节点网络地址 |
-| rpcPort | 是 | uint64 | 链节点网络端口 |
+| nodeEndpoints | 是 | string | 链节点网络地址串，配置多个节点网络信息，可更好的确保连接到链，形如为 "ip1:port1,ip2:port2..." |
 | nodeWSPortMap | 否 | map[string]uint64 | key 为节点名，value 为节点 websocket 端口（用于兼容低版本无法获取节点websocket 端口的情况，使用 及后续版本的链，可不填） |
 | desc | 否 | string | 链信息描述 |
 
@@ -1034,7 +1032,7 @@ response：
 request：
 
 ```shell
-curl -X 'POST' 'https://127.0.0.1:9999/api/chain/' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{"name": "vena","desc": "default","nodeEndpoint": [{"ip": "127.0.0.1","rpcPort": 6791}],"nodeWSPortMap": {"0": 26792,"1": 26793,"2": 26793,"3": 26793}}'
+curl -X 'POST' 'https://127.0.0.1:9999/api/chain/' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{"name": "vena","desc": "default","nodeEndpoints": "127.0.0.1:6791, 127.0.0.1:6792","nodeWSPortMap": {"0": 26792,"1": 26793,"2": 26793,"3": 26793}}'
 ```
 
 response：

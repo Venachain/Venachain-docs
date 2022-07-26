@@ -194,13 +194,13 @@
       keys_file_dir = "./data/keys"
       ```
 
-    5.5. 配置 venaagent 【代理链】信息
+    5.5. 配置 venaagent 链信息
 
     - 配置 keyfile.json
     
       a. 可以根据私钥产生 keyfile.json 文件或者在链上创建新用户，并获取 keyfile 内容信息，将其存放至 keyfile.json 文件；
 
-      b. 将拿到的 keyfile.json 文件存放至 conf 目录 (可配置，见 5.4 【代理服务器私钥文件】) 下，作为链代理服务器本身私钥，用于发起通用交易及调用合约时，在未指定发起方时对交易进行加密
+      b. 将拿到的 keyfile.json 文件存放至 conf 目录 (可配置，见 5.2.1 【通用配置】) 下，作为链代理服务器本身私钥，用于发起通用交易及调用合约时，在未指定发起方时对交易进行加密
        
     - 在 `config.toml` 文件中，配置代理链信息
 
@@ -208,16 +208,14 @@
       [chain]
       # 链标识名 (唯一)
       name = "vena"
-      # 链地址
-      ip = "127.0.0.1"
-      # rpc 端口号
-      rpc_port = 6791
+      # 链节点网络地址，多节点使用逗号分隔
+      endpoints = "127.0.0.1:6791,127.0.0.1:6792"
       # 订阅消息缓冲区大小
       subscriber_buff_size = 1024
       # websocket 检查服务状态间隔（网络问题等，需要重订阅），单位毫秒
       check_server_status_interval = 500
       # 链节点 websocket 端口号配置，key 为 节点标识value 为端口号
-      [chain.nodeWSPort.vena]
+      [chain.nodeWSPort]
       0 = 26791
       1 = 26792
       2 = 26793
