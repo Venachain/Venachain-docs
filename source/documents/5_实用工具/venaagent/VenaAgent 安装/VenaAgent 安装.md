@@ -41,6 +41,7 @@
 
       ```sh
       mv venaagent-X.X.X.zip ./venaagent.zip
+      
       ```
 
 5. 配置 VenaAgent 后端
