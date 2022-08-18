@@ -13,11 +13,9 @@ Venachain暴露了一系列RPC接口供外部调用，上层业务程序可以SD
 - 组员管理
 - 权限设置
 
-目前Venachain提供了JAVA-SDK、GO-SDK和JS-SDK：
+目前Venachain提供了JAVA-SDK：
 
 .. toctree::
    :maxdepth: 1
 
    sdk/javasdk.rst
-   sdk/gosdk.rst
-   sdk/jssdk.md

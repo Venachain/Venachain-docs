@@ -6,4 +6,4 @@ RPC接口文档
    :maxdepth: 1
 
    rpc/methods.rst
-   rpc/Venachain1.0与Ethereum1.10.16RPC接口区别整理.md
+   rpc/Venachain1.1与Ethereum1.10.16RPC接口区别整理.md

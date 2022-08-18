@@ -28,7 +28,7 @@
 
 ``` bash
 # 获取Venachain源码
-git clone https://git-c.i.wxblockchain.com/vena/src/venachain.git
+git clone https://github.com/Venachain/Venachain.git
 
 # 编译Venachain
 cd Venachain

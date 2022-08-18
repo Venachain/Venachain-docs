@@ -2,13 +2,13 @@
 
 ## SDK 下载
 
-请首先下载SDK最新版本的发布包，[下载地址](https://git-c.i.wxblockchain.com/vena/src/client-sdk-java)。
+请首先下载SDK最新版本的发布包，[下载地址](https://github.com/Venachain/client-sdk-java)。
 
 将发布包解压到本地目录，如下所示：
 
 ```shell
 # 下载
-wget https://git-c.i.wxblockchain.com/vena/src/client-sdk-java/uploads/4ee652f09b77ed20e86fb1a2c2997c4a/venachain-sdk-java-v1.0.0.0.0.tar.gz
+https://github.com/Venachain/client-sdk-java/releases/tag/v1.0.1
 # 解压
 tar -zxvf venachain-sdk-java-v1.0.0.0.0.tar.gz
 ```

@@ -1,8 +1,4 @@
-# Venachain1.0与Ethereum1.10.16RPC接口区别整理
-
-| 时间       | 修改人 | 修改事项        | Venachain版本 | 文档版本 |
-| ---------- | ------ | --------------- | ------------- | -------- |
-| 2022.03.21 | 吴经文 | rpc接口区别整理 | 1.0           | 1.0      |
+# Venachain1.1与Ethereum1.10.16RPC接口区别整理
 
 | Namespace | Venachain | Ethereum | 备注                                            |
 | --------- | --------- | -------- | ----------------------------------------------- |
@@ -20,7 +16,7 @@
 
 Venachain RPC接口文档: [RPC接口方法文档](./methods.rst)
 
-Venachain项目：<https://git-c.i.wxblockchain.com/vena/src/venachain/-/tags/integration.1.0.0.0.0>
+Venachain项目：<https://github.com/Venachain/Venachain/releases/tag/v1.1.2>
 
 Ethereum项目：<https://github.com/ethereum/go-ethereum/releases/tag/v1.10.16>
 

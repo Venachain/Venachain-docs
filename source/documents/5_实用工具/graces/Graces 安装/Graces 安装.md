@@ -30,7 +30,7 @@
 
 ### 3. 下载和编译 Venachain
 
-Venachain仓库地址：[https://git-c.i.wxblockchain.com/vena/src/venachain](https://git-c.i.wxblockchain.com/vena/src/venachain)
+Venachain仓库地址：[https://github.com/Venachain/Venachain](https://github.com/Venachain/Venachain)
 
 安装方法请参考：[安装文档](../../../6_深入使用指南/Venachain编译.md)
 
@@ -38,7 +38,7 @@ Venachain仓库地址：[https://git-c.i.wxblockchain.com/vena/src/venachain](ht
 
 - 下载 Graces 后端源码：
 
-   下载地址：[https://git-c.i.wxblockchain.com/vena/src/graces/graces-server/-/tags/v1.0.0](https://git-c.i.wxblockchain.com/vena/src/graces/graces-server/-/tags/v1.0.0)
+   下载地址：[https://github.com/Venachain/graces-server/releases/tag/v1.0.1](https://github.com/Venachain/graces-server/releases/tag/v1.0.1)
 
       重命名：
 
@@ -48,7 +48,7 @@ Venachain仓库地址：[https://git-c.i.wxblockchain.com/vena/src/venachain](ht
 
 - 下载 Graces 前端源码：
 
-   下载地址：[https://git-c.i.wxblockchain.com/vena/src/graces/graces-web/-/tags/v1.0.0](https://git-c.i.wxblockchain.com/vena/src/graces/graces-web/-/tags/v1.0.0)
+   下载地址：[https://github.com/Venachain/graces-web/releases/tag/v1.0.0](https://github.com/Venachain/graces-web/releases/tag/v1.0.0)
 
    重命名：
 
