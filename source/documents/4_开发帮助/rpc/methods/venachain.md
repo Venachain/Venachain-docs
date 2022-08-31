@@ -552,7 +552,8 @@ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"
 }
 ```
 
-## venachain_call {#rpc-venachain-call}
+(rpc_methods_venachain_call)=
+## venachain_call
 
 立刻执行一个新的消息调用，无需在区块链上创建交易。
 
