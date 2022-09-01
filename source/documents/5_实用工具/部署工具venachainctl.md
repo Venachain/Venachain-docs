@@ -6,8 +6,9 @@
 
 ### 文档使用方法
 
-<!-- - 关于Venachain的下载与编译请见 [**文档《Venachain下载与编译》**](../2_deploy/Venachain下载与编译.md) 。 -->
-- 关于Venachain部署中涉及的一些名词解释与部署环境的目录结构，请见 [文档《Venachain部署介绍》](../2_区块链部署/Venachain部署介绍.md) 。
+- 关于Venachain的下载与编译请见 [**文档《Venachain编译》**](../6_深入使用指南/Venachain编译.md) 。
+
+- 关于Venachain部署中涉及的一些名词解释与部署环境的目录结构，请见 [**文档《Venachain部署介绍》**](../2_区块链部署/Venachain部署介绍.md) 。
 - 关于脚本提供功能的使用方法，直接看 **操作示例** 部分即可；
 - 如果在操作过程中遇到问题与疑惑，那么可以通过 **注意事项** 进行排查。
 
@@ -744,8 +745,8 @@ remote OPTIONS
 
 **接口说明**
 
-- **命令需在部署机使用。**
-- **必须提前在部署机与各目标机之间做好免密登录**。
+- **命令需在操作机使用。**
+- **如果部署的节点不在操作机上，那么必须提前做好操作机对各目标机的免密登录**。
 - **部署相关的名词解释和部署环境的目录结构请看** [**文档《Venachain部署介绍》**](../2_区块链部署/Venachain部署介绍.md) 。
 
 ### remote deploy
@@ -804,7 +805,7 @@ remote deploy OPTIONS:
 
 - 在 ``conf`` 模式中，有两种部署方式。如果同时使用了 ``--address`` 和 ``--node`` 或 ``--all`` 参数时，默认选择使用 ``--address`` 方式。
 
-   - 使用 ``--address`` 方式时，如果部署机已存在 ``${PROJECT_CONF_PATH}`` ，那么会询问是否覆盖。如果选择 ``y`` ，那么会停止已有项目的节点并进行备份和清除数据，然后依次新建配置文件并部署节点。否则，会询问是否要在已有项目目录下新建配置文件进行部署。如果选择 ``y`` ，那么节点会以新节点加入已有链的形式进行部署，否则停止执行。
+   - 使用 ``--address`` 方式时，如果操作机已存在 ``${PROJECT_CONF_PATH}`` ，那么会询问是否覆盖。如果选择 ``y`` ，那么会停止已有项目的节点并进行备份和清除数据，然后依次新建配置文件并部署节点。否则，会询问是否要在已有项目目录下新建配置文件进行部署。如果选择 ``y`` ，那么节点会以新节点加入已有链的形式进行部署，否则停止执行。
 
      ```console
      [remote/prepare] ${DEPLOYMENT_CONF_PATH}/projects/test already exists, do you want to cover it? Yes or No(y/n): 
@@ -821,7 +822,7 @@ remote deploy OPTIONS:
 
 ### remote prepare
 
-生成部署机上的目录结构并生成项目的配置文件。
+生成操作机上的目录结构并生成项目的配置文件。
 
 ```console
 remote prepare OPTIONS:
@@ -844,9 +845,9 @@ remote prepare OPTIONS:
 
 **注意事项**
 
-- 会新建2个目录。其中， ``../../../deployment_conf`` ( ``${DEPLOYMENT_CONF_PATH}`` ) 作为部署机主要的工作目录； ``../../../deployment_conf/${PROJECT_NAME}`` ( ``${PROJECT_CONF_PATH}`` ) 作为项目目录。
+- 会新建2个目录。其中， ``../../../deployment_conf`` ( ``${DEPLOYMENT_CONF_PATH}`` ) 作为操作机主要的工作目录； ``../../../deployment_conf/${PROJECT_NAME}`` ( ``${PROJECT_CONF_PATH}`` ) 作为项目目录。
 
-- 如果部署机与目标机无法连通，或者无法免密登录目标机，那么会终止执行。本机不会做该检测。
+- 如果操作机与目标机无法连通，或者无法免密登录目标机，那么会终止执行。本机不会做该检测。
 
 - 参数 ``--addr`` 的值以 ``${USER_NAME}@${IP_ADDR}`` 的形式表示。
 
@@ -854,11 +855,11 @@ remote prepare OPTIONS:
 
 - 生成的配置文件会放在 ``${PROJECT_CONF_PATH}`` 目录下。如果要自定义配置文件，手动生成的配置文件同样也需要放入该目录下。
 
-- 自动生成的配置文件相关信息会立即被写入 ``${DEPLOYMENT_CONF_PATH}/logs/prepare_log.txt`` ；手动添加的配置文件，在下次执行 ``prepare`` 命令时也会被写入 ``${DEPLOYMENT_CONF_PATH}/logs/prepare_log.txt`` 。该日志文件记录了部署机目录下所有项目下配置文件的概要信息。
+- 自动生成的配置文件相关信息会立即被写入 ``${DEPLOYMENT_CONF_PATH}/logs/prepare_log.txt`` ；手动添加的配置文件，在下次执行 ``prepare`` 命令时也会被写入 ``${DEPLOYMENT_CONF_PATH}/logs/prepare_log.txt`` 。该日志文件记录了操作机目录下所有项目下配置文件的概要信息。
 
 - 使用参数 ``--cover`` ，会在已存在相同项目名的目录的情况下，直接进行备份覆盖操作。
 
-- 不使用参数 ``--cover`` ，在已存在相同项目名的目录的情况下，会首先问是否要覆盖已有项目。如果选择 ``y`` ，那么会备份已有项目并生成新的项目，覆盖会根据当前项目的配置文件完成节点的停止、备份以及清理；否则询问是否要在已有项目下新增配置文件。关于目标机上的备份与清除的文件处理可参考 ``remote clear --mode clean --all`` 。清理完成后，部署机上 ``${PROJECT_CONF_PATH}`` 会被打上时间戳并移至 ``${DEPLOYMENT_CONF_PATH}/bak`` 下。
+- 不使用参数 ``--cover`` ，在已存在相同项目名的目录的情况下，会首先问是否要覆盖已有项目。如果选择 ``y`` ，那么会备份已有项目并生成新的项目，覆盖会根据当前项目的配置文件完成节点的停止、备份以及清理；否则询问是否要在已有项目下新增配置文件。关于目标机上的备份与清除的文件处理可参考 ``remote clear --mode clean --all`` 。清理完成后，操作机上 ``${PROJECT_CONF_PATH}`` 会被打上时间戳并移至 ``${DEPLOYMENT_CONF_PATH}/bak`` 下。
 
    ```console
    [remote/prepare] /home/wujingwen/workspace/go/src/venachain/release/deployment_conf/projects/test already exists, do you want to cover it? Yes or No(y/n): 
@@ -899,7 +900,7 @@ remote transfer OPTIONS:
 
 - 在执行前，必须确保 ``${PROJECT_CONF_PATH}/deploy_node-${NODE_ID}.conf`` 中 ``deploy_path`` 、 ``user_name`` 、 ``ip_addr`` 、 ``p2p_port`` 不能为空。
 
-- 如果部署机与目标机无法连通，或者无法免密登录目标机，那么会终止执行。本机不会做该检测。
+- 如果操作机与目标机无法连通，或者无法免密登录目标机，那么会终止执行。本机不会做该检测。
 
 - 同时使用了 ``--node`` 和 ``--all`` 参数，会默认使用 ``--all`` 。
 
@@ -945,13 +946,13 @@ remote init OPTIONS:
 **注意事项**
 
 - 在执行前，必须确保 ``${PROJECT_CONF_PATH}/deploy_node-${NODE_ID}.conf`` 中 ``deploy_path`` 、 ``user_name`` 、 ``ip_addr`` 、 ``rpc_port`` 、 ``p2p_port`` 不能为空。
-- 如果部署机与目标机无法连通，或者无法免密登录目标机，那么会终止执行。本机不会做该检测。
+- 如果操作机与目标机无法连通，或者无法免密登录目标机，那么会终止执行。本机不会做该检测。
 - 同时使用了 ``--node`` 和 ``--all`` 参数，会默认使用 ``--all`` 。
 - 如果是新项目，还没有生成 ``genesis.json`` ，那么必须设置 ``--interpreter`` 。
-- 目标机上生成的 ``node.pubkey`` 会被传输至部署机的 ``${PROJECT_CONF_PATH}/global/data/node-${NODE_ID}/`` 目录下。
-- 只要部署机不存在 ``${PROJECT_CONF_PATH}/global/genesis.json`` ，就会默认当前节点为 ``firstnode`` 。
-- 如果是 ``firstnode`` ，目标机上生成的 ``genesis.json`` 会被传输至部署机的 ``${PROJECT_CONF_PATH}/global`` 目录下。
-- 如果不是 ``firstnode`` ，那么会先将部署机上的 ``${PROJECT_CONF_PATH}/global/genesis.json`` 传输至目标机的 ``${DEPLOY_PATH}/conf`` 下。
+- 目标机上生成的 ``node.pubkey`` 会被传输至操作机的 ``${PROJECT_CONF_PATH}/global/data/node-${NODE_ID}/`` 目录下。
+- 只要操作机不存在 ``${PROJECT_CONF_PATH}/global/genesis.json`` ，就会默认当前节点为 ``firstnode`` 。
+- 如果是 ``firstnode`` ，目标机上生成的 ``genesis.json`` 会被传输至操作机的 ``${PROJECT_CONF_PATH}/global`` 目录下。
+- 如果不是 ``firstnode`` ，那么会先将操作机上的 ``${PROJECT_CONF_PATH}/global/genesis.json`` 传输至目标机的 ``${DEPLOY_PATH}/conf`` 下。
 - 初始化阶段各项执行完成的日志会被记录到 ``${PROJECT_CONF_PATH}/logs/deploy_log.txt`` 中。如果执行命令的过程中因出现错误而中断，再次执行相同指令可以跳过已完成执行的命令。所有命令执行成功后，根据日志只会执行一次，如果手动对密钥或genesis文件进行了删除，那么也应当删除对应的日志内容。
 - 第一次部署该节点，即没有相关执行完成的日志（比如密钥生成、genesis生成）时，但目标节点的三个密钥文件都存在（可能某些需求场景需要用指定密钥手动放入），那么会直接读取；否则会备份已有的密钥文件并生成新的密钥文件。而如果已存在 ``genesis.json`` ，那么会被直接备份原文件并生成新文件。
 
@@ -984,10 +985,10 @@ remote start OPTIONS:
 **注意事项**
 
 - 在执行前，必须确保 ``${PROJECT_CONF_PATH}/deploy_node-${NODE_ID}.conf`` 中 ``deploy_path`` 、 ``user_name`` 、 ``ip_addr`` 、 ``rpc_port`` 不能为空。
-- 如果部署机与目标机无法连通，或者无法免密登录目标机，那么会终止执行。本机不会做该检测。
+- 如果操作机与目标机无法连通，或者无法免密登录目标机，那么会终止执行。本机不会做该检测。
 - 同时使用了 ``--node`` 和 ``--all`` 参数，会默认使用 ``--all`` 。
-- 只要部署机不存在 ``${PROJECT_CONF_PATH}/global/genesis.json`` ，就会默认当前节点为 ``firstnode`` 。
-- 部署 ``firstnode`` 时，生成的 ``keyfile`` 文件与 ``firstnode.info`` 会从目标机传输到部署机的 ``${PROJECT_CONF_PATH}/global`` 下。
+- 只要操作机不存在 ``${PROJECT_CONF_PATH}/global/genesis.json`` ，就会默认当前节点为 ``firstnode`` 。
+- 部署 ``firstnode`` 时，生成的 ``keyfile`` 文件与 ``firstnode.info`` 会从目标机传输到操作机的 ``${PROJECT_CONF_PATH}/global`` 下。
 - 部署非 ``firstnode`` 时， ``firstnode.info`` 会被传输至宿主机的 ``${DEPLOY_PATH}/conf`` 下；当前部署节点的 ``node.pubkey`` 与配置文件会被传输至 ``firstnode`` 所在目标机的 ``${DEPLOY_PATH}/data/node-${NODE_ID}`` 下。其中， ``${NODE_ID}`` 是当前被部署的节点名，而不是 ``firstnode`` 的节点名。
 - 本阶段各项执行完成的日志会被记录到 ``${PROJECT_CONF_PATH}/logs/deploy_log.txt`` 中。如果在执行命令的过程中因出现错误而中断，再次执行相同的指令可以跳过已完成执行的命令（节点启动除外）。
 - 如果节点已经启动，那么再次执行执行本命令，节点会被重启。
@@ -1045,7 +1046,7 @@ remote clear OPTIONS:
 **注意事项**
 
 - 在执行前，必须确保 ``${PROJECT_CONF_PATH}/deploy_node-${NODE_ID}.conf`` 中 ``deploy_path`` 、 ``user_name`` 、 ``ip_addr`` 、 ``p2p_port`` 不能为空。
-- 如果部署机与目标机无法连通，或者无法免密登录目标机，那么会终止执行。本机不会做该检测。
+- 如果操作机与目标机无法连通，或者无法免密登录目标机，那么会终止执行。本机不会做该检测。
 - 同时使用了 ``--node`` 和 ``--all`` 参数，会默认使用 ``--all`` 。
 - ``delete`` 操作：
    - 不允许对 ``firstnode`` 进行该操作。如果有需求需要从链上删除 ``firstnode`` ，可到目标机使用 ``vcl`` 或 ``venachainctl.sh delete`` 进行删除。使用 ``--all`` 会跳过对 ``firstnode`` 的删除。
@@ -1060,6 +1061,6 @@ remote clear OPTIONS:
    - 如果某个节点的部署过程还没有执行到密钥生成步骤，仅完成了配置文件的传输，就停止了部署。而同目录下其他节点都完成了 ``clean`` 或 ``deep`` 操作，那么该节点也会被一起清理掉。并且，它被清理的配置文件不会被备份。
    - 在项目中的所有节点被清除后：
      -  ``"${DEPLOY_PATH}/../bak/${PROJECT_NAME}"`` 会被打上时间戳。
-     - 部署机上的 ``${PROJECT_CONF_PATH}`` 下的 ``global`` 和 ``logs`` 会被删除，如果需要备份可以提前手动进行操作。
+     - 操作机上的 ``${PROJECT_CONF_PATH}`` 下的 ``global`` 和 ``logs`` 会被删除，如果需要备份可以提前手动进行操作。
      - ``${PROJECT_CONF_PATH}`` 目录以及目录下的配置文件不会删除是为了方便下次以使用 ``remote deploy --node`` 命令进行同样配置的部署；如果想要覆盖重新部署，那么可以使用 ``remote deploy --addr`` ；如果想要彻底删除，可以直接手动进行操作。
 - ``deep`` 操作会依次执行 ``delete`` 和 ``clean`` 。
