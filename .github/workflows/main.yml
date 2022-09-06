@@ -1,7 +1,7 @@
 on:
   workflow_dispatch: # 手动执行
   schedule:
-    - cron: '0 */1 * * *' # 定时执行，值得注意的是，github使用UTC时间
+    - cron: '0 0 1 * *' # 定时执行，值得注意的是，github使用UTC时间
 name: Mirror GitHub Selected Repos to Gitee
 jobs:
   run:
@@ -17,5 +17,5 @@ jobs:
         dst: gitee/Venachain # 配置gitee的账户名
         dst_key: ${{ secrets.GITEE_PRIVATE_KEY }} # gitee的私钥
         dst_token:  ${{ secrets.GITEE_TOKEN }} # gitee的私人令牌（用于创建新仓库）
-        static_list: 'client-sdk-java,Venachain-docs' # 需要同步的仓库列表
+        static_list: 'client-sdk-java,Venachain-docs,Venachain,contract-api,Venachain-CDT' # 需要同步的仓库列表
         force_update: true # 使用 git push -f 强制推送
