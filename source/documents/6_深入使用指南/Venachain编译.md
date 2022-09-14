@@ -26,6 +26,16 @@
 
 首先用户需要下载Venachain源码并编译
 
+```{warning}
+1.1.2版本为了支持半同态加密，在编译venachain之前需要先在环境中添加gmp包的依赖。
+    
+    # Ubantu用户：
+    apt install -y libgmp-dev
+
+    # MacOS用户：
+    brew install libgmp-dev
+```
+
 ``` bash
 # 获取Venachain源码
 git clone https://github.com/Venachain/Venachain.git
