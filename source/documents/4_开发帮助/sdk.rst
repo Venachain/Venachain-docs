@@ -19,3 +19,4 @@ Venachain暴露了一系列RPC接口供外部调用，上层业务程序可以SD
    :maxdepth: 1
 
    sdk/javasdk.rst
+   sdk/gosdk.rst
