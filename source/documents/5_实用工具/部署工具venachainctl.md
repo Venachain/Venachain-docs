@@ -303,6 +303,7 @@ deploysys OPTIONS
     --nodeid, -n                 the specified node id (default: 0)
     --auto                       will use the default node password: 0
                                  to create the account and also to unlock the account
+    --help, -h                   show help
 ```
 
 **操作示例**
@@ -756,6 +757,9 @@ remote OPTIONS
 ```console
 remote deploy OPTIONS:
     --project, -p               the project name, must be specified
+    --interpreter, -i           Select virtual machine interpreter
+                                "wasm", "evm" and "all" are supported (default: all)
+    --validatorNodes, -v        set the genesis validatorNodes (default: the first node enode code)
     --mode, -m                  the specified deploy mode
                                 "conf", "one", "four" are supported (default: conf)
                                 "conf": deploy node by exist node deploy conf file
@@ -793,6 +797,8 @@ remote deploy OPTIONS:
 ```
 
 **注意事项**
+
+- 支持 ``--interpreter`` 和 ``--validatorNodes`` 参数，它们只有在 ``conf`` 模式下，且部署的节点是 ``firstnode`` 时才会生效。
 
 - 参数 ``--addr`` 的值以 ``${USER_NAME}@${IP_ADDR}`` 的形式表示
 
@@ -922,8 +928,7 @@ remote init OPTIONS:
     --project, -p               the specified project name, must be specified
     --interpreter, -i           Select virtual machine interpreter, must be specified for new project
                                 "wasm", "evm" and "all" are supported
-    --validatorNodes, -v        set the genesis validatorNodes, must be specified for new project
-                                (default: the first node enode code)
+    --validatorNodes, -v        set the genesis validatorNodes (default: the first node enode code)
     --node, -n                  the specified node name
                                 use "," to seperate the name of node
     --all, -a                   init all nodes
