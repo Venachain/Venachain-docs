@@ -43,9 +43,10 @@ Venachain是 **基于隐私计算** 的新一代联盟区块链平台，以支�
    documents/2_区块链部署/获取Venachain部署包.md
    documents/2_区块链部署/Venachain部署介绍.md
    documents/2_区块链部署/Venachain部署指南.md
-   documents/2_区块链部署/单机分步部署.md
-   documents/2_区块链部署/多机分步部署.md
-   documents/2_区块链部署/轻节点服务与轻节点客户端部署.md
+   documents/2_区块链部署/进阶：自定义配置文件部署.md
+   documents/2_区块链部署/进阶：单机分步部署.md
+   documents/2_区块链部署/进阶：多机分步部署.md
+   documents/2_区块链部署/进阶：轻节点服务与轻节点客户端部署.md
 
 
 .. toctree::
