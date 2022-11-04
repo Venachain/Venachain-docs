@@ -341,11 +341,11 @@ testList_t testList
 
 #### 操作符重载
 
-同 array 的 [操作符重载](cpp_lib_array_operator)
+同 array 的 [**操作符重载**](cpp_lib_array_operator)
 
 #### 迭代器
 
-同 array 的 [迭代器](cpp_lib_array_iterator)
+同 array 的 [**迭代器**](cpp_lib_array_iterator)
 
 ### map.hpp
 

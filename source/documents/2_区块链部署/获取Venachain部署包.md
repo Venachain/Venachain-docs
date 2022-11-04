@@ -4,7 +4,7 @@ Venachain提供了 2 种方式可以获取部署包。
 
 ## 直接下载
 
-可以直接下载 [部署包](https://github.com/Venachain/Venachain/tags) 并解压获取
+可以直接下载 [**部署包**](https://github.com/Venachain/Venachain/tags) 并解压获取
 
 ## 手动编译
 

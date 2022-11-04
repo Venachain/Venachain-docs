@@ -6,7 +6,7 @@
 -   将C++合约编译为wasm格式文件，并生成对应合约的ABI文件。
 
 ```{note}
-安装或使用过程中遇到问题可以阅读 [Q&A](cdt_qa) 部分进行排查。
+安装或使用过程中遇到问题可以阅读 [**Q&A**](cdt_qa) 部分进行排查。
 ```
 
 ```{note}
@@ -17,8 +17,8 @@ Windows用户在安装与使用的过程中，建议使用 Git Bash 进行操作
 
 有两种安装方式：
 
--   方式一：使用已编译版本。将本工具对应操作系统的 [release包](https://github.com/Venachain/Venachain-CDT/releases/tag/v1.0.0) 解压到 `${指定安装目录}` 下。 **Linux** 与 **MacOS** 操作系统用户的 `${指定安装目录}` 为 `/usr/local/` ， **Windows** 用户的 `${指定安装目录}` 为 `C:/` 。
--   方式二：手动编译安装。按照下文 [编译步骤](build) 进行手动编译安装。
+-   方式一：使用已编译版本。将本工具对应操作系统的 [**release包**]**(https://github.com/Venachain/Venachain-CDT/releases/tag/v1.0.0) 解压到 `${指定安装目录}` 下。 **Linux** 与 **MacOS** 操作系统用户的 `${指定安装目录}` 为 `/usr/local/` ， **Windows** 用户的 `${指定安装目录}` 为 `C:/` 。
+-   方式二：手动编译安装。按照下文 [**编译步骤**](build) 进行手动编译安装。
 
 ```{note}
 由于方式二的编译时间可能较长，推荐使用方式一。
@@ -51,7 +51,7 @@ Windows用户在安装与使用的过程中，建议使用 Git Bash 进行操作
 -   Git
 -   Python
 -   CMake 3.5+
--   [MinGW-W64 GCC-8.1.0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/sjlj/x86_64-8.1.0-release-posix-sjlj-rt_v6-rev0.7z) （注：安装路径不能含有空格，即不能安装在 `Program Files` 或
+-   [**MinGW-W64 GCC-8.1.0**](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/sjlj/x86_64-8.1.0-release-posix-sjlj-rt_v6-rev0.7z) （注：安装路径不能含有空格，即不能安装在 `Program Files` 或
     `Program Files(x86)目录` ，否则可能导致编译失败。）
 
 ### 编译流程
@@ -248,7 +248,7 @@ mingw32-make
 
 4. 编译项目时，出现 `boost_1_69_0.tar.bz2` 下载慢或者下载失败的情况。
 
-    **解决方法**：先停止当前 `make` 流程，然后手动在 [官网](https://boostorg.jfrog.io/artifactory/main/release/1.69.0/source/) 下载 `boost_1_69_0.tar.bz2` ，放到项目 `build/thirdparty/Download/boost/` 目录下，然后继续执行 `make` 。
+    **解决方法**：先停止当前 `make` 流程，然后手动在 [**官网**](https://boostorg.jfrog.io/artifactory/main/release/1.69.0/source/) 下载 `boost_1_69_0.tar.bz2` ，放到项目 `build/thirdparty/Download/boost/` 目录下，然后继续执行 `make` 。
 
 5. 编译项目时，出现 `file cannot create directory` 或 `cannot copy file` 报错的情况，如：
 

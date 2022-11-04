@@ -72,7 +72,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"
 
 -   `object | bool` : 同步状态对象或false。同步对象的结构如下：
     - startingBlock `quantity` : 起始块的块高
-    - currentBlock `quantity` : 节点当前正在同步的区块的块高，同 [venachain_blockNumber](rpc_methods_venachain_blockNumber)
+    - currentBlock `quantity` : 节点当前正在同步的区块的块高，同 [**venachain_blockNumber**](rpc_methods_venachain_blockNumber)
     - highestBlock `quantity` : 预估要同步到的最高块的块高
     - pulledStates `quantity` : 到目前为止已处理的状态条目数
     - knownStates `quantity` : 仍需要处理的已知状态条目数
@@ -255,7 +255,7 @@ params: [
 
 ### 返回值
 
-请参考 [venachain_getBlockByHash](rpc_methods_venachain_getBlockByHash) 的返回值。
+请参考 [**venachain_getBlockByHash**](rpc_methods_venachain_getBlockByHash) 的返回值。
 
 ### 示例代码
 
@@ -723,7 +723,7 @@ params: [
 
 ### 返回值
 
-请参考 [venachain_getTransactionByHash](rpc_methods_venachain_getTransactionByHash) 的返回值。
+请参考 [**venachain_getTransactionByHash**](rpc_methods_venachain_getTransactionByHash) 的返回值。
 
 ### 示例代码
 
@@ -776,7 +776,7 @@ params: [
 
 ### 返回值
 
-查阅 [venachain_getTransactionByHash](rpc_methods_venachain_getTransactionByHash) 的返回值
+查阅 [**venachain_getTransactionByHash**](rpc_methods_venachain_getTransactionByHash) 的返回值
 
 ### 示例代码
 
@@ -1132,7 +1132,7 @@ params: [{
 
 -   `data` : 32字节，交易哈希，如果交易还未生效则返回0值哈希。
 
-当创建合约时，在交易生效后，请使用 [venachain_getTransactionReceipt](rpc_methods_venachain_getTransactionReceipt) 调用获取合约地址。
+当创建合约时，在交易生效后，请使用 [**venachain_getTransactionReceipt**](rpc_methods_venachain_getTransactionReceipt) 调用获取合约地址。
 
 ### 示例代码
 
@@ -1168,7 +1168,7 @@ params: ["0xf86c8516306402898609184e72a0008276c094f92ce14220d5c938342651a43c14a3
 
 -   `data` : 32字节，交易哈希，如果交易未生效则返回全0哈希。
 
-当创建合约时，在交易生效后，请使用 [venachain_getTransactionReceipt](rpc_methods_venachain_getTransactionReceipt) 获取合约地址。
+当创建合约时，在交易生效后，请使用 [**venachain_getTransactionReceipt**](rpc_methods_venachain_getTransactionReceipt) 获取合约地址。
 
 ### 示例代码
 
@@ -1234,7 +1234,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"
 
 ### 参数
 
--   `object` : 交易对象，详情请查看 [venachain_sendTransaction](rpc_methods_venachain_sendTransaction) 
+-   `object` : 交易对象，详情请查看 [**venachain_sendTransaction**](rpc_methods_venachain_sendTransaction) 
 
 ``` js
 params: [{
@@ -1511,7 +1511,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"
 (rpc_methods_venachain_newPendingTransactionFilter)=
 ## venachain_newPendingTransactionFilter \[websocket\] 
 
-在节点中创建一个监听 **pending交易** 产生的过滤器，当产生新的 pending 交易时进行通知。 要检查状态是否发生变化，请调用 [venachain_getFilterChanges](rpc_methods_venachain_getFilterChanges)
+在节点中创建一个监听 **pending交易** 产生的过滤器，当产生新的 pending 交易时进行通知。 要检查状态是否发生变化，请调用 [**venachain_getFilterChanges**](rpc_methods_venachain_getFilterChanges)
 
 ```{note}
 此接口所描述的通知是通过 websocket 来通知的，即需要使用 websocket 连接先发送请求对指定事件进行订阅，在事件触发后才能收到该事件的通知。
@@ -1546,7 +1546,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"
 (rpc_methods_venachain_newBlockFilter)=
 ## venachain_newBlockFilter \[websocket\] 
 
-在节点中创建一个监听 **新区块** 产生的过滤器，当新区块生成时进行通知。要检查状态是否变化，请调用 [venachain_getFilterChanges](rpc_methods_venachain_getFilterChanges) 
+在节点中创建一个监听 **新区块** 产生的过滤器，当新区块生成时进行通知。要检查状态是否变化，请调用 [**venachain_getFilterChanges**](rpc_methods_venachain_getFilterChanges) 
 
 ```{note}
 此接口所描述的通知是通过 websocket 来通知的，即需要使用 websocket 连接先发送请求对指定事件进行订阅，在事件触发后才能收到该事件的通知。
@@ -1581,7 +1581,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"
 (rpc_methods_venachain_newFilter)=
 ## venachain_newFilter \[websocket\]
 
-基于给定的选项创建一个过滤器对象，当状态发生变化时进行通知。要检查状态是否变化，请调用 [venachain_getFilterChanges](rpc_methods_venachain_getFilterChanges) 关于特定主题【topic】过滤器的说明:主题【topic】是顺序相关的。如果一个交易的日志有主题 `[A, B]` ，那么将被以下的主题过滤器匹配：
+基于给定的选项创建一个过滤器对象，当状态发生变化时进行通知。要检查状态是否变化，请调用 [**venachain_getFilterChanges**](rpc_methods_venachain_getFilterChanges) 关于特定主题【topic】过滤器的说明:主题【topic】是顺序相关的。如果一个交易的日志有主题 `[A, B]` ，那么将被以下的主题过滤器匹配：
 
 -   \[\] : 任何主题
 -   \[A\] : 先匹配A主题
@@ -1596,7 +1596,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"
 ### 参数
 
 -   `object` : 过滤器选项对象
-    - blockhash `data` : 可选，由 [venachain_getLogs](rpc_methods_venachain_getLogs) 使用，仅从具有此哈希的块返回日志。
+    - blockhash `data` : 可选，由 [**venachain_getLogs**](rpc_methods_venachain_getLogs) 使用，仅从具有此哈希的块返回日志。
     - fromblock `quantity | TAG` : 可选，默认值 "latest\" 。区块的块高，或字符串 \"latest\" 表示最后挖出的块， \"pending\" 或 \"earliest\" 用于未挖出的交易。
     - toblock `quantity | TAG` : 可选，默认值 "latest\"。区块的块高，或字符串 \"latest\" 表示最后挖出的块， \"pending\" 或 \"earliest\" 用于未挖出的交易。
     - address `data array` : 可选，合约地址或生成日志的一组地址。
@@ -1631,7 +1631,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"
 
 ### 参数
 
--   `object` : 过滤器对象，请参考 [venachain_newFilter](rpc_methods_venachain_newFilter) 调用的参数
+-   `object` : 过滤器对象，请参考 [**venachain_newFilter**](rpc_methods_venachain_newFilter) 调用的参数
 
 ``` js
 params: [{
@@ -1641,7 +1641,7 @@ params: [{
 
 ### 返回值
 
-请参考 [venachain_getFilterChanges](rpc_methods_venachain_getFilterChanges) 
+请参考 [**venachain_getFilterChanges**](rpc_methods_venachain_getFilterChanges) 
 
 ### 示例代码
 
@@ -1653,11 +1653,11 @@ curl -H "Content-Type: application/json" -X POST --data '{"jsonrpc":"2.0","metho
 
 -   响应
 
-请参考 [venachain_getFilterChanges](rpc_methods_venachain_getFilterChanges) 
+请参考 [**venachain_getFilterChanges**](rpc_methods_venachain_getFilterChanges) 
 
 ## venachain_uninstallFilter
 
-卸载指定哈希的过滤器。当不再需要监听时，总是需要执行该调用。另外，过滤器如果在一定时间内未接收到 [venachain_getFilterChanges](rpc_methods_venachain_getFilterChanges) 调用会自动超时。
+卸载指定哈希的过滤器。当不再需要监听时，总是需要执行该调用。另外，过滤器如果在一定时间内未接收到 [**venachain_getFilterChanges**](rpc_methods_venachain_getFilterChanges) 调用会自动超时。
 
 ### 参数
 
@@ -1707,7 +1707,7 @@ params: [
 
 ### 返回值
 
-请参考 [venachain_getFilterChanges](rpc_methods_venachain_getFilterChanges) 
+请参考 [**venachain_getFilterChanges**](rpc_methods_venachain_getFilterChanges) 
 
 ### 示例代码
 
@@ -1719,7 +1719,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"
 
 -   响应
 
-请参考 [venachain_getFilterChanges](rpc_methods_venachain_getFilterChanges) 
+请参考 [**venachain_getFilterChanges**](rpc_methods_venachain_getFilterChanges) 
 
 (rpc_methods_venachain_getFilterChanges)=
 ## venachain_getFilterChanges
@@ -1740,11 +1740,11 @@ params: [
 
 `array` : 日志对象数组，如果没有新生成的日志，则返回空数组。
 
-1. 使用 [venachain_newBlockFilter](rpc_methods_venachain_newBlockFilter) 创建的过滤器将返回块哈希（32字节），例如 `["0x3454645634534..."]` 。
+1. 使用 [**venachain_newBlockFilter**](rpc_methods_venachain_newBlockFilter) 创建的过滤器将返回块哈希（32字节），例如 `["0x3454645634534..."]` 。
 
-2. 使用 [venachain_newPendingTransactionFilter](rpc_methods_venachain_newPendingTransactionFilter) 创建的过滤器将返回交易哈希(32字节)，例如 `["0x6345343454645..."]` 。
+2. 使用 [**venachain_newPendingTransactionFilter**](rpc_methods_venachain_newPendingTransactionFilter) 创建的过滤器将返回交易哈希(32字节)，例如 `["0x6345343454645..."]` 。
 
-3. 使用 [venachain_newFilter](rpc_methods_venachain_newFilter) 创建的过滤器，日志对象具有如下参数：
+3. 使用 [**venachain_newFilter**](rpc_methods_venachain_newFilter) 创建的过滤器，日志对象具有如下参数：
    - removed `bool` : 如果日志已被删除则返回true，如果是有效日志则返回false
    - logIndex `quantity` : 日志在块内的索引序号。对于挂起日志，该值为null
    - blockNumber `quantity` : 该日志所在区块的块高。对于挂起日志，该值为null

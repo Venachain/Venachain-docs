@@ -83,7 +83,7 @@ params: [
 
 -   `object` : 状态快照，是在给定时间点进行授权投票的状态信息。
 
-详情请参照 [iris_getSnapshot](rpc_methods_iris_getSnapshot)
+详情请参照 [**iris_getSnapshot**](rpc_methods_iris_getSnapshot)
 
 ### 示例代码
 

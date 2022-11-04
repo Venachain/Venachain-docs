@@ -278,7 +278,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"
 
 ### 参数
 
-请参考 [personal_sendTransaction](rpc_methods_personal_sendTransaction)
+请参考 [**personal_sendTransaction**](rpc_methods_personal_sendTransaction)
 
 ### 返回值
 
@@ -373,7 +373,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"
 返回用于创建签名的帐户的地址。
 
 ```{note}
-此功能与 [venachain_sign](rpc_methods_venachain_sign) 和 [personal_sign](rpc_methods_personal_sign) 兼容。因此，它恢复了以下地址：
+此功能与 [**venachain_sign**](rpc_methods_venachain_sign) 和 [**personal_sign**](rpc_methods_personal_sign) 兼容。因此，它恢复了以下地址：
 
 	hash = keccak256("\x19Venachain Signed Message:\n"${message length}${message})
 	addr = ecrecover(hash, signature)
@@ -415,17 +415,17 @@ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"
 
 签名并发起交易 
 
-此方法其实是 [personal_sendTransaction](rpc_methods_personal_sendTransaction) 的别名
+此方法其实是 [**personal_sendTransaction**](rpc_methods_personal_sendTransaction) 的别名
 
 ### 参数
 
-请参考 [personal_sendTransaction](rpc_methods_personal_sendTransaction) 
+请参考 [**personal_sendTransaction**](rpc_methods_personal_sendTransaction) 
 
 ### 返回值
 
-请参考 [personal_sendTransaction](rpc_methods_personal_sendTransaction) 
+请参考 [**personal_sendTransaction**](rpc_methods_personal_sendTransaction) 
 
 ### 示例代码
 
-请参考 [personal_sendTransaction](rpc_methods_personal_sendTransaction) 
+请参考 [**personal_sendTransaction**](rpc_methods_personal_sendTransaction) 
 
