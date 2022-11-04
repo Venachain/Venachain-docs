@@ -344,7 +344,7 @@ addnode OPTIONS
                                  then you do not need to specify this option (default: 16791)
     --pubkey                     the specified node pubkey
                                  If the node specified by nodeid is local,
-                                 then you do not need to specify this option (default: ${NODE_DIR}/node.pubkey)
+                                 then you do not need to specify this option (default: content of file ${NODE_DIR}/node.pubkey)
     --type                       select specified node type in "2" & "3"
                                  "2" is observer, "3" is lightnode (default: 2)
     --help, -h                   show help
