@@ -335,16 +335,16 @@ addnode OPTIONS
     --desc                       the specified node desc
     --ip                         the specified node ip
                                  If the node specified by nodeid is local,
-                                 then you do not need to specify this option
+                                 then you do not need to specify this option (default: 127.0.0.1)
     --rpc_port, -rpc             the specified node rpc_port
                                  If the node specified by nodeid is local,
-                                 then you do not need to specify this option
+                                 then you do not need to specify this option (default: 6791)
     --p2p_port, -p2p             the specified node p2p_port
                                  If the node specified by nodeid is local,
-                                 then you do not need to specify this option
+                                 then you do not need to specify this option (default: 16791)
     --pubkey                     the specified node pubkey
                                  If the node specified by nodeid is local,
-                                 then you do not need to specify this option
+                                 then you do not need to specify this option (default: ${NODE_DIR}/node.pubkey)
     --type                       select specified node type in "2" & "3"
                                  "2" is observer, "3" is lightnode (default: 2)
     --help, -h                   show help
@@ -798,7 +798,7 @@ remote deploy OPTIONS:
 
 **注意事项**
 
-- 支持 ``--interpreter`` 和 ``--validatorNodes`` 参数，它们只有在 ``conf`` 模式下，且部署的节点是 ``firstnode`` 时才会生效。
+- 支持 ``--interpreter`` 和 ``--validatorNodes`` 参数，它们只有在部署的节点是 ``firstnode`` 时才会生效。
 
 - 参数 ``--addr`` 的值以 ``${USER_NAME}@${IP_ADDR}`` 的形式表示
 
