@@ -16,7 +16,7 @@ Solidity合约开发和部署有3种方式，可以选择其中一种：
 
 Remix是一个基于 Web 浏览器的 IDE，它可以让你编写 Solidity 智能合约，然后部署并运行该智能合约。在Remix网站上在线编写solidity代码并在线编译和部署到Venachain节点上。
 
-[Remix网址](https://remix.ethereum.org/) \| [Remix离线版本](https://github.com/ethereum/browser-solidity/tree/gh-pages)
+[**Remix网址**](https://remix.ethereum.org/) \| [**Remix离线版本**](https://github.com/ethereum/browser-solidity/tree/gh-pages)
 
 ### vcl方式
 
@@ -30,14 +30,14 @@ sudo apt-get update
 sudo apt-get install solc
 ```
 
-[其他环境下solc安装方式](https://solidity-cn.readthedocs.io/zh/develop/installing-solidity.html)
+[**其他环境下solc安装方式**](https://solidity-cn.readthedocs.io/zh/develop/installing-solidity.html)
 
 ### truffle方式
 
 环境要求：
 
--   node & npm：node版本可安装 [12.22.0](https://nodejs.org/download/release/v12.22.0/)
--   truffle版本：建议 [5.3.0](https://github.com/trufflesuite/truffle/tree/v5.3.0)
+-   node & npm：node版本可安装 [**12.22.0**](https://nodejs.org/download/release/v12.22.0/)
+-   truffle版本：建议 [**5.3.0**](https://github.com/trufflesuite/truffle/tree/v5.3.0)
 
 (evm_contract_develop_install_1)=
 **安装方式一：直接安装**
@@ -49,7 +49,7 @@ npm install -g truffle@5.3.0
 (evm_contract_develop_install_2)=
 **安装方式二：源码编译**
 
-1. 下载truffle项目源码：[源码链接](https://github.com/trufflesuite/truffle/tree/v5.3.0)
+1. 下载truffle项目源码：[**源码链接**](https://github.com/trufflesuite/truffle/tree/v5.3.0)
 2. 编译项目：
 
     ``` bash
@@ -68,14 +68,14 @@ npm install -g truffle@5.3.0
 如果是使用truffle方式，那么需要先初始化空白模板。非truffle方式编写solidity合约可跳过本部分。
 ```
 
-如果使用 [安装方式一：直接安装](evm_contract_develop_install_1) 安装truffle的，那么
+如果使用 [**安装方式一：直接安装**](evm_contract_develop_install_1) 安装truffle的，那么
 
 ``` bash
 # filepath 为可选项，即合约生成文件存放的路径
 truffle init [filepath] 
 ```
 
-如果使用 [安装方式二：源码编译](evm_contract_develop_install_2) 安装truffle的，那么
+如果使用 [**安装方式二：源码编译**](evm_contract_develop_install_2) 安装truffle的，那么
 
 ``` bash
 # 在truffle项目根目录下执行。其中，filepath 为可选项，即合约生成文件存放的路径
@@ -93,7 +93,7 @@ yarn run truffle init [filepath]
 |-truffle-config.js:该文件用于配制truffle项目，例如区块链客户端
 ```
 
-可在生成的空白模版上修改合约，contracts目录下新增合约时，需要在migrations目录中对应增加相关合约的编译和部署脚本([migrations写法参考链接](https://trufflesuite.com/docs/truffle/getting-started/running-migrations.html))。
+可在生成的空白模版上修改合约，contracts目录下新增合约时，需要在migrations目录中对应增加相关合约的编译和部署脚本([**migrations写法参考链接**](https://trufflesuite.com/docs/truffle/getting-started/running-migrations.html))。
 
 ### 编写solidity合约
 
@@ -139,4 +139,4 @@ solidity值类型包括：
 -   数组（Array）
 -   结构体（Struts）
 
-更多solidity语法参见：[solidity语法](https://www.tryblockchain.org/)
+更多solidity语法参见：[**solidity语法**](https://www.tryblockchain.org/)

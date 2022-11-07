@@ -117,7 +117,7 @@ func initContractClient() {
 
 调用合约能够实现所有预编译合约合约调用的功能。
 
-预编译合约abi 文件的路径为：`/client-sdk-go/precompiled/syscontracts`。可以根据abi文件中函数的名字和参数调用相应的预编译合约。相关的说明可参考 [《链交互工具vcl》](../../../5_实用工具/链交互工具vcl.rst) 查看各个预编译合约的功能。
+预编译合约abi 文件的路径为：`/client-sdk-go/precompiled/syscontracts`。可以根据abi文件中函数的名字和参数调用相应的预编译合约。相关的说明可参考 [**《链交互工具vcl》**](../../../5_实用工具/链交互工具vcl.rst) 查看各个预编译合约的功能。
 
 
 使用`DefaultContractClient.Execute()` 调用合约。
@@ -389,7 +389,7 @@ func NewClient(ctx context.Context, url URL, keyfilePath string, passphrase stri
 func CallContext(ctx context.Context, method string, args ...interface{}) (json.RawMessage, error){...}
 ```
 
-调用以太坊通用方法可参考[以太坊RPC API手册](http://cw.hubwiz.com/card/c/parity-rpc-api/)中的方法。例如以下使用方法：
+调用以太坊通用方法可参考[**以太坊RPC API手册**](http://cw.hubwiz.com/card/c/parity-rpc-api/)中的方法。例如以下使用方法：
 
 **示例1:**
 

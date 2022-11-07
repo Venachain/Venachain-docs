@@ -2,7 +2,7 @@
 
 ## SDK 下载
 
-请首先下载SDK最新版本的发布包，[下载地址](https://github.com/Venachain/client-sdk-java)。
+请首先下载SDK最新版本的发布包，[**下载地址**](https://github.com/Venachain/client-sdk-java)。
 
 将发布包解压到本地目录，如下所示：
 
